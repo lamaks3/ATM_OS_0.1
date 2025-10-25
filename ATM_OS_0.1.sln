@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATM_OS_0.1", "ATM_OS_0.1\ATM_OS_0.1.csproj", "{2BE51A4C-7AA5-4AAB-86BF-978AB628148B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BE51A4C-7AA5-4AAB-86BF-978AB628148B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BE51A4C-7AA5-4AAB-86BF-978AB628148B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BE51A4C-7AA5-4AAB-86BF-978AB628148B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BE51A4C-7AA5-4AAB-86BF-978AB628148B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
