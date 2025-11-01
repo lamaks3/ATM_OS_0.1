@@ -13,9 +13,7 @@ namespace ATM_OS
         private int _attempts = 0;
         private const int MaxAttempts = 3;
         private CardHolderRepository _repository;
-        
-        private TextBox _pinTextBox;
-        private TextBlock _errorText;
+        private string _pinCode = "";
 
         public PinWindow(string cardUID)
         {
@@ -24,17 +22,8 @@ namespace ATM_OS
             
             InitializeComponent();
             
-            // Находим элементы после инициализации
-            _pinTextBox = this.FindControl<TextBox>("PinTextBox");
-            _errorText = this.FindControl<TextBlock>("ErrorText");
-            
-            if (_pinTextBox == null)
-            {
-                throw new Exception("PinTextBox not found in XAML");
-            }
-            
-            // Устанавливаем фокус на поле PIN
-            _pinTextBox.Focus();
+            // Отложенная установка фокуса
+            this.Opened += OnWindowOpened;
         }
 
         private void InitializeComponent()
@@ -42,31 +31,55 @@ namespace ATM_OS
             AvaloniaXamlLoader.Load(this);
         }
 
+        private void OnWindowOpened(object sender, EventArgs e)
+        {
+            // Устанавливаем фокус после полной загрузки окна
+            var pinTextBox = this.FindControl<TextBox>("PinTextBox");
+            pinTextBox?.Focus();
+        }
+
+        private void UpdatePinDisplay()
+        {
+            var pinTextBox = this.FindControl<TextBox>("PinTextBox");
+            if (pinTextBox != null)
+            {
+                pinTextBox.Text = new string('*', _pinCode.Length);
+            }
+        }
+
         private void NumberButton_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
-            if (_pinTextBox.Text.Length < 4)
+            
+            if (_pinCode.Length < 4)
             {
-                _pinTextBox.Text += button.Content.ToString();
+                _pinCode += button.Content.ToString();
+                UpdatePinDisplay();
             }
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            _pinTextBox.Text = "";
-            _errorText.IsVisible = false;
+            _pinCode = "";
+            UpdatePinDisplay();
+            
+            var errorText = this.FindControl<TextBlock>("ErrorText");
+            if (errorText != null)
+                errorText.IsVisible = false;
         }
 
         private async void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_pinTextBox.Text.Length != 4)
+            var errorText = this.FindControl<TextBlock>("ErrorText");
+
+            if (_pinCode.Length != 4)
             {
                 ShowError("PIN must be 4 digits");
                 return;
             }
 
             // Проверяем PIN
-            bool isValid = _repository.checkPIN(_cardUID, _pinTextBox.Text);
+            bool isValid = _repository.checkPIN(_cardUID, _pinCode);
             
             if (isValid)
             {
@@ -90,7 +103,8 @@ namespace ATM_OS
                 else
                 {
                     ShowError($"Invalid PIN. Attempts left: {MaxAttempts - _attempts}");
-                    _pinTextBox.Text = "";
+                    _pinCode = "";
+                    UpdatePinDisplay();
                 }
             }
         }
@@ -105,8 +119,12 @@ namespace ATM_OS
 
         private void ShowError(string message)
         {
-            _errorText.Text = message;
-            _errorText.IsVisible = true;
+            var errorText = this.FindControl<TextBlock>("ErrorText");
+            if (errorText != null)
+            {
+                errorText.Text = message;
+                errorText.IsVisible = true;
+            }
         }
     }
 }
