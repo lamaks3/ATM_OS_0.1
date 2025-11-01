@@ -1,0 +1,74 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ATM_OS.StartView">
+    <Grid Background="#D90028">
+        
+        <!-- Верхняя панель -->
+        <Border Background="#A3001F" 
+                Height="200" 
+                VerticalAlignment="Top"
+                Padding="0,15">
+            <Grid>
+                <Image Source="/Assets/my_logo.png" 
+                       Width="500" 
+                       Height="200"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="20,0"/>
+                <TextBlock Text="LaMaks GmbH BANK" 
+                           FontSize="100" 
+                           FontWeight="Medium"  
+                           Foreground="White" 
+                           VerticalAlignment="Center"
+                           Margin="200,0"/>
+                           
+            </Grid>
+        </Border>
+        
+        <!-- Центральный контент -->
+        <StackPanel VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Spacing="2">
+            
+            <!-- Рекламное изображение -->
+                <Image Source="/Assets/advertisment.jpg" 
+                       Width="1200" 
+                       Height="800"  
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"/>
+            
+            
+            <!-- Инструкция -->
+            <StackPanel HorizontalAlignment="Center" 
+                        Spacing="2">
+                <TextBlock Text="Hold your card near" 
+                          FontSize="28"  
+                          FontWeight="Medium"
+                          Foreground="White" 
+                          HorizontalAlignment="Center"
+                          TextAlignment="Center"/>
+                
+                <TextBlock Text="the terminal to continue" 
+                          FontSize="28"  
+                          FontWeight="Medium"
+                          Foreground="White" 
+                          HorizontalAlignment="Center"
+                          TextAlignment="Center"/>
+            </StackPanel>
+            
+        </StackPanel>
+        
+        <!-- Нижняя панель -->
+        <Border Background="#A3001F" 
+                Height="60" 
+                VerticalAlignment="Bottom"
+                Padding="0,15">
+            <TextBlock Text="24/7 Very Secure and so Stable Banking :)" 
+                      FontSize="16"  
+                      Foreground="#CCFFFFFF" 
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"/>
+        </Border>
+        
+    </Grid>
+</UserControl>

@@ -21,17 +21,23 @@ build_property.EnableGeneratedComInterfaceComImportInterop =
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/App.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/MainMenuView.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/BalanceView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/MainWindow.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/MainMenuView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/OperationsWindow.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/PinView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/PinWindow.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/StartView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/TransactionView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Window.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

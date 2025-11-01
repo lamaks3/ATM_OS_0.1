@@ -5,6 +5,13 @@
       <map>
         <entry key="ATM_OS_0.1/App.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/MainWindow.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Screens/MainMenuView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Screens/OperationsWindow.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Screens/PinWindow.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Views/AmountInputView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Views/BalanceView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Views/PinView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Views/StartView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
       </map>
     </option>
   </component>

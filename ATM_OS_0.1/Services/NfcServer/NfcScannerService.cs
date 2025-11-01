@@ -64,7 +64,7 @@ public class NfcScannerService
                 body = await reader.ReadToEndAsync();
             }
 
-            //Console.WriteLine($"Request received: {body}");
+            Console.WriteLine($"Request received: {body}");
             string uid = "";
             
             var json = JsonDocument.Parse(body);

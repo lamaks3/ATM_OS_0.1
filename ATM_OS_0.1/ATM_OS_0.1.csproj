@@ -39,5 +39,14 @@
      <Compile Update="Screens\Operations.Window.axaml.cs">
        <DependentUpon>OperationsWindow.axaml</DependentUpon>
      </Compile>
+     <Compile Update="Views\Window.axaml.cs">
+       <DependentUpon>MainWindow.axaml</DependentUpon>
+     </Compile>
+     <Compile Update="Views\MainMenuView.axaml.cs">
+       <DependentUpon>OperationsView.axaml</DependentUpon>
+     </Compile>
+     <Compile Update="Views\TransactionView.axaml.cs">
+       <DependentUpon>TransactionView.axaml</DependentUpon>
+     </Compile>
    </ItemGroup>
 </Project>

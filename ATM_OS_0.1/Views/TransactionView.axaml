@@ -1,0 +1,92 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ATM_OS.TransactionView"
+             Width="800" Height="600">
+    <Grid Background="#D90028">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="40">
+            
+            <!-- Заголовок -->
+            <TextBlock x:Name="TitleText" 
+                      Text="Enter Amount"
+                      FontSize="36"
+                      FontWeight="Bold"
+                      Foreground="White"
+                      HorizontalAlignment="Center"/>
+            
+            <!-- Поле для суммы -->
+            <Border Background="White" CornerRadius="10" Padding="20">
+                <TextBlock x:Name="AmountText" 
+                          Text="0"
+                          FontSize="48"
+                          FontWeight="Bold"
+                          Foreground="Black"
+                          HorizontalAlignment="Center"/>
+            </Border>
+            
+            <!-- Виртуальная клавиатура -->
+            <Grid Width="500" Height="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Первый ряд -->
+                <Button Grid.Row="0" Grid.Column="0" Content="1" Click="NumberButton_Click" 
+                        Background="White" Foreground="Black" Margin="4" FontSize="24"/>
+                <Button Grid.Row="0" Grid.Column="1" Content="2" Click="NumberButton_Click" 
+                        Background="White" Foreground="Black" Margin="4" FontSize="24"/>
+                <Button Grid.Row="0" Grid.Column="2" Content="3" Click="NumberButton_Click" 
+                        Background="White" Foreground="Black" Margin="4" FontSize="24"/>
+                
+                <!-- Второй ряд -->
+                <Button Grid.Row="1" Grid.Column="0" Content="4" Click="NumberButton_Click" 
+                        Background="White" Foreground="Black" Margin="4" FontSize="24"/>
+                <Button Grid.Row="1" Grid.Column="1" Content="5" Click="NumberButton_Click" 
+                        Background="White" Foreground="Black" Margin="4" FontSize="24"/>
+                <Button Grid.Row="1" Grid.Column="2" Content="6" Click="NumberButton_Click" 
+                        Background="White" Foreground="Black" Margin="4" FontSize="24"/>
+                
+                <!-- Третий ряд -->
+                <Button Grid.Row="2" Grid.Column="0" Content="7" Click="NumberButton_Click" 
+                        Background="White" Foreground="Black" Margin="4" FontSize="24"/>
+                <Button Grid.Row="2" Grid.Column="1" Content="8" Click="NumberButton_Click" 
+                        Background="White" Foreground="Black" Margin="4" FontSize="24"/>
+                <Button Grid.Row="2" Grid.Column="2" Content="9" Click="NumberButton_Click" 
+                        Background="White" Foreground="Black" Margin="4" FontSize="24"/>
+                
+                <!-- Четвертый ряд -->
+                <Button Grid.Row="3" Grid.Column="0" Content="Clear" Click="ClearButton_Click" 
+                        Background="#FF6B6B" Foreground="White" Margin="4" FontSize="20"/>
+                <Button Grid.Row="3" Grid.Column="1" Content="0" Click="NumberButton_Click" 
+                        Background="White" Foreground="Black" Margin="4" FontSize="24"/>
+                <Button Grid.Row="3" Grid.Column="2" Content="OK" Click="OkButton_Click" 
+                        Background="#4CAF50" Foreground="White" Margin="4" FontSize="20"/>
+            </Grid>
+            
+            <!-- Кнопка возврата -->
+            <Button Content="Back to Operations" 
+                    Click="BackButton_Click"
+                    Background="Transparent"
+                    Foreground="White"
+                    BorderBrush="White"
+                    FontSize="20"
+                    Height="50"/>
+            
+            <!-- Сообщение об ошибке -->
+            <TextBlock x:Name="ErrorText" 
+                      Text=""
+                      FontSize="18"
+                      Foreground="Yellow"
+                      HorizontalAlignment="Center"
+                      IsVisible="False"/>
+                      
+        </StackPanel>
+    </Grid>
+</UserControl>
