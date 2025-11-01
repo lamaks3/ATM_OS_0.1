@@ -24,6 +24,9 @@ build_property.EnableCodeStyleSeverity =
 [/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/MainMenuView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

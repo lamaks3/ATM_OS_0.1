@@ -2,65 +2,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="ATM_OS.MainWindow"
         Title="ATM_OS_0.1"
-        Width="800"
-        Height="600"
-        Background="White">
+        Background="#D90028"
+        WindowState="FullScreen"
+        CanResize="False"
+        CanMaximize="False"
+        CanMinimize="False"
+        ExtendClientAreaToDecorationsHint="True">
     
-    <Grid Background="#D90028">
-        
-        <!-- Центральный контент -->
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
-            
-            <!-- Логотип с изображением -->
-            <StackPanel HorizontalAlignment="Center" Spacing="5">
-                <Image Source="/Assets/my_logo.png" 
-                       Width="250" Height="250"
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"/>
-                <TextBlock Text="LaMaks GmbH BANK" FontSize="24" FontWeight="Medium" 
-                          Foreground="White" 
-                          HorizontalAlignment="Center"/>
-            </StackPanel>
-            
-            <!-- Инструкция -->
-            <StackPanel HorizontalAlignment="Center" Spacing="10">
-                <!-- Иконка карты -->
-                <Border>
-                    <Image x:Name="NfcImage" Source="/Assets/ic_nfc.png" 
-                           Width="150" Height="150"
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"/>
-                </Border>
-                
-                <!-- Текст инструкции -->
-                <TextBlock Text="Hold your card near" 
-                          FontSize="20"
-                          FontWeight="Medium"
-                          Foreground="White" 
-                          HorizontalAlignment="Center"
-                          TextAlignment="Center"/>
-                
-                <TextBlock Text="the terminal to continue" 
-                          FontSize="20"
-                          FontWeight="Medium"
-                          Foreground="White" 
-                          HorizontalAlignment="Center"
-                          TextAlignment="Center"/>
-            </StackPanel>
-            
-        </StackPanel>
-        
-        <!-- Нижняя панель -->
-        <Border Background="#A3001F" 
-                Height="40" 
-                VerticalAlignment="Bottom"
-                Padding="0,10">
-            <TextBlock Text="24/7 Very Secure and so Stable Banking :)" 
-                      FontSize="12"
-                      Foreground="#CCFFFFFF" 
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center"/>
-        </Border>
-        
-    </Grid>
+    <ContentControl x:Name="MainContent"/>
 </Window>

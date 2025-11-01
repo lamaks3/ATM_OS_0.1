@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ATM_OS
 {
-    public partial class PinWindow : Window
+    public partial class PinView : UserControl
     {
         private string _cardUID;
         private int _attempts = 0;
@@ -15,27 +15,31 @@ namespace ATM_OS
         private CardHolderRepository _repository;
         private string _pinCode = "";
 
-        public PinWindow(string cardUID)
+        // Событие для навигации
+        public event Action<string> OnPinVerified;
+        public event Action OnBackToMain;
+
+        public PinView()
+        {
+            InitializeComponent();
+        }
+
+        public void Initialize(string cardUID)
         {
             _cardUID = cardUID;
             _repository = new CardHolderRepository();
+            _pinCode = "";
+            _attempts = 0;
+            UpdatePinDisplay();
             
-            InitializeComponent();
-            
-            // Отложенная установка фокуса
-            this.Opened += OnWindowOpened;
+            var errorText = this.FindControl<TextBlock>("ErrorText");
+            if (errorText != null)
+                errorText.IsVisible = false;
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-        }
-
-        private void OnWindowOpened(object sender, EventArgs e)
-        {
-            // Устанавливаем фокус после полной загрузки окна
-            var pinTextBox = this.FindControl<TextBox>("PinTextBox");
-            pinTextBox?.Focus();
         }
 
         private void UpdatePinDisplay()
@@ -78,15 +82,11 @@ namespace ATM_OS
                 return;
             }
 
-            // Проверяем PIN
             bool isValid = _repository.checkPIN(_cardUID, _pinCode);
             
             if (isValid)
             {
-                // PIN верный - переходим к основному меню операций
-                var operationsWindow = new OperationsWindow(_cardUID);
-                operationsWindow.Show();
-                this.Close();
+                OnPinVerified?.Invoke(_cardUID);
             }
             else
             {
@@ -95,10 +95,7 @@ namespace ATM_OS
                 {
                     ShowError("Too many failed attempts. Card blocked.");
                     await Task.Delay(3000);
-                    // Возвращаемся к главному меню
-                    var mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    this.Close();
+                    OnBackToMain?.Invoke();
                 }
                 else
                 {
@@ -111,10 +108,7 @@ namespace ATM_OS
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            // Возвращаемся к главному меню
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            OnBackToMain?.Invoke();
         }
 
         private void ShowError(string message)

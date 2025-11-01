@@ -1,9 +1,7 @@
 using Avalonia;
-using Avalonia.Animation;
 using Avalonia.Controls;
-using Avalonia.Media;
+using Avalonia.Markup.Xaml;
 using System;
-using Avalonia.Styling;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 
@@ -11,65 +9,32 @@ namespace ATM_OS
 {
     public partial class MainWindow : Window
     {
+        private MainMenuView _mainMenuView;
+        private PinView _pinView;
+        private OperationsView _operationsView;
+
         public MainWindow()
         {
             InitializeComponent();
-            StartPulseAnimation();
-            InitializeNfcListener();
+            
+            // Ждем полной инициализации окна
+            this.Opened += OnWindowOpened;
         }
 
-        private void StartPulseAnimation()
+        private void InitializeComponent()
         {
-            var animation = new Animation
-            {
-                Duration = TimeSpan.FromSeconds(2),
-                IterationCount = IterationCount.Infinite,
-                Children =
-                {
-                    new KeyFrame
-                    {
-                        Cue = new Cue(0.0),
-                        Setters =
-                        {
-                            new Setter { Property = ScaleTransform.ScaleXProperty, Value = 1.0 },
-                            new Setter { Property = ScaleTransform.ScaleYProperty, Value = 1.0 },
-                            new Setter { Property = OpacityProperty, Value = 0.7 }
-                        }
-                    },
-                    new KeyFrame
-                    {
-                        Cue = new Cue(0.5),
-                        Setters =
-                        {
-                            new Setter { Property = ScaleTransform.ScaleXProperty, Value = 1.3 },
-                            new Setter { Property = ScaleTransform.ScaleYProperty, Value = 1.3 },
-                            new Setter { Property = OpacityProperty, Value = 0.3 }
-                        }
-                    },
-                    new KeyFrame
-                    {
-                        Cue = new Cue(1.0),
-                        Setters =
-                        {
-                            new Setter { Property = ScaleTransform.ScaleXProperty, Value = 1.0 },
-                            new Setter { Property = ScaleTransform.ScaleYProperty, Value = 1.0 },
-                            new Setter { Property = OpacityProperty, Value = 0.7 }
-                        }
-                    }
-                }
-            };
+            AvaloniaXamlLoader.Load(this);
+        }
 
-            // Применяем анимацию к изображению NFC
-            var nfcImage = this.FindControl<Image>("NfcImage");
-            if (nfcImage != null)
-            {
-                animation.RunAsync(nfcImage);
-            }
+        private void OnWindowOpened(object sender, EventArgs e)
+        {
+            // Теперь окно полностью инициализировано
+            InitializeNfcListener();
+            ShowMainMenu();
         }
 
         private void InitializeNfcListener()
         {
-            // Запускаем проверку карт в фоновом режиме
             Task.Run(async () => await CheckForCards());
         }
 
@@ -81,30 +46,53 @@ namespace ATM_OS
                 
                 if (!string.IsNullOrEmpty(cardUID))
                 {
-                    // Проверяем существование карты в базе
                     var repository = new CardHolderRepository();
                     if (repository.CardExists(cardUID))
                     {
-                        // Карта распознана и существует - переключаем на окно PIN
                         await Dispatcher.UIThread.InvokeAsync(() =>
                         {
-                            ShowPinWindow(cardUID);
+                            ShowPinView(cardUID);
                         });
                     }
                     
-                    // Сбрасываем UID для следующего сканирования
                     NfcScannerService.SetCardUID(string.Empty);
                 }
                 
-                await Task.Delay(500); // Проверяем каждые 500ms
+                await Task.Delay(500);
             }
         }
 
-        private void ShowPinWindow(string cardUID)
+        private void ShowMainMenu()
         {
-            var pinWindow = new PinWindow(cardUID);
-            pinWindow.Show();
-            this.Close();
+            // Проверяем что MainContent инициализирован
+            if (MainContent == null)
+            {
+                MainContent = this.FindControl<ContentControl>("MainContent");
+            }
+
+            _mainMenuView = new MainMenuView();
+            MainContent.Content = _mainMenuView;
+        }
+
+        private void ShowPinView(string cardUID)
+        {
+            _pinView = new PinView();
+            _pinView.Initialize(cardUID);
+            
+            _pinView.OnPinVerified += (uid) => ShowOperationsView(uid);
+            _pinView.OnBackToMain += ShowMainMenu;
+            
+            MainContent.Content = _pinView;
+        }
+
+        private void ShowOperationsView(string cardUID)
+        {
+            _operationsView = new OperationsView();
+            _operationsView.Initialize(cardUID);
+            
+            _operationsView.OnExit += ShowMainMenu;
+            
+            MainContent.Content = _operationsView;
         }
     }
 }

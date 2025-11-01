@@ -1,15 +1,9 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        x:Class="ATM_OS.OperationsWindow"
-        Title="Bank Operations"
-        Width="600"
-        Height="500"
-        Background="#D90028">
-    
-    <Grid Margin="20">
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ATM_OS.OperationsView"
+             Width="800" Height="600">
+    <Grid Background="#D90028" Margin="20">
         <StackPanel Spacing="15">
-            
-            <!-- Информация о пользователе -->
             <Border Background="#A3001F" CornerRadius="10" Padding="15">
                 <StackPanel>
                     <TextBlock x:Name="UserNameText" 
@@ -25,7 +19,6 @@
                 </StackPanel>
             </Border>
             
-            <!-- Кнопки операций -->
             <TextBlock Text="Select operation:" 
                       FontSize="16"
                       Foreground="White"
@@ -59,7 +52,6 @@
                     Foreground="White"
                     FontSize="16"
                     Margin="0,20,0,0"/>
-            
         </StackPanel>
     </Grid>
-</Window>
+</UserControl>
