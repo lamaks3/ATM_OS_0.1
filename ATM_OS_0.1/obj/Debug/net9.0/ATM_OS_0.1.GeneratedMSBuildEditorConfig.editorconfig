@@ -21,8 +21,14 @@ build_property.EnableGeneratedComInterfaceComImportInterop =
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/App.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/MainWindow.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/OperationsWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Screens/PinWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

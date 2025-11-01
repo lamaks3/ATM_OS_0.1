@@ -9,7 +9,7 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        User user = new User();
+        // Запускаем NFC сервер в фоновом режиме
         Task.Run(() => NfcScannerService.StartServer());
         
         BuildAvaloniaApp()

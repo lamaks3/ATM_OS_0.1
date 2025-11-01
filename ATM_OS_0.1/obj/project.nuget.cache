@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jCfWdPUU72Y=",
+  "dgSpecHash": "eS457BH4Gcg=",
   "success": true,
   "projectFilePath": "/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/ATM_OS_0.1.csproj",
   "expectedPackageFiles": [
@@ -25,12 +25,22 @@
     "/Users/lamaks/.nuget/packages/harfbuzzsharp.nativeassets.webassembly/8.3.1.1/harfbuzzsharp.nativeassets.webassembly.8.3.1.1.nupkg.sha512",
     "/Users/lamaks/.nuget/packages/harfbuzzsharp.nativeassets.win32/8.3.1.1/harfbuzzsharp.nativeassets.win32.8.3.1.1.nupkg.sha512",
     "/Users/lamaks/.nuget/packages/microcom.runtime/0.11.0/microcom.runtime.0.11.0.nupkg.sha512",
+    "/Users/lamaks/.nuget/packages/microsoft.data.sqlite/10.0.0-rc.2.25502.107/microsoft.data.sqlite.10.0.0-rc.2.25502.107.nupkg.sha512",
+    "/Users/lamaks/.nuget/packages/microsoft.data.sqlite.core/10.0.0-rc.2.25502.107/microsoft.data.sqlite.core.10.0.0-rc.2.25502.107.nupkg.sha512",
     "/Users/lamaks/.nuget/packages/skiasharp/2.88.9/skiasharp.2.88.9.nupkg.sha512",
     "/Users/lamaks/.nuget/packages/skiasharp.nativeassets.linux/2.88.9/skiasharp.nativeassets.linux.2.88.9.nupkg.sha512",
     "/Users/lamaks/.nuget/packages/skiasharp.nativeassets.macos/2.88.9/skiasharp.nativeassets.macos.2.88.9.nupkg.sha512",
     "/Users/lamaks/.nuget/packages/skiasharp.nativeassets.webassembly/2.88.9/skiasharp.nativeassets.webassembly.2.88.9.nupkg.sha512",
     "/Users/lamaks/.nuget/packages/skiasharp.nativeassets.win32/2.88.9/skiasharp.nativeassets.win32.2.88.9.nupkg.sha512",
+    "/Users/lamaks/.nuget/packages/sqlite-net-pcl/1.9.172/sqlite-net-pcl.1.9.172.nupkg.sha512",
+    "/Users/lamaks/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.11/sqlitepclraw.bundle_e_sqlite3.2.1.11.nupkg.sha512",
+    "/Users/lamaks/.nuget/packages/sqlitepclraw.bundle_green/2.1.2/sqlitepclraw.bundle_green.2.1.2.nupkg.sha512",
+    "/Users/lamaks/.nuget/packages/sqlitepclraw.core/2.1.11/sqlitepclraw.core.2.1.11.nupkg.sha512",
+    "/Users/lamaks/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.11/sqlitepclraw.lib.e_sqlite3.2.1.11.nupkg.sha512",
+    "/Users/lamaks/.nuget/packages/sqlitepclraw.provider.e_sqlite3/2.1.11/sqlitepclraw.provider.e_sqlite3.2.1.11.nupkg.sha512",
+    "/Users/lamaks/.nuget/packages/system.data.sqlite/2.0.2/system.data.sqlite.2.0.2.nupkg.sha512",
     "/Users/lamaks/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512",
+    "/Users/lamaks/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
     "/Users/lamaks/.nuget/packages/tmds.dbus.protocol/0.21.2/tmds.dbus.protocol.0.21.2.nupkg.sha512"
   ],
   "logs": []

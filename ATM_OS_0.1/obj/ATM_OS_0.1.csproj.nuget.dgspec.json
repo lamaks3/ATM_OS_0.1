@@ -63,6 +63,18 @@
             "Avalonia.Themes.Fluent": {
               "target": "Package",
               "version": "[11.3.6, )"
+            },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[10.0.0-rc.2.25502.107, )"
+            },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[2.0.2, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.9.172, )"
             }
           },
           "imports": [

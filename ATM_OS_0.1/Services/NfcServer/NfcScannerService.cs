@@ -26,8 +26,7 @@ public class NfcScannerService
     {
         CardUID = num;
     }
-
-
+    
     static void RunAdbReverse()
     {
         try
@@ -65,35 +64,16 @@ public class NfcScannerService
                 body = await reader.ReadToEndAsync();
             }
 
-            Console.WriteLine($"Request received: {body}");
+            //Console.WriteLine($"Request received: {body}");
             string uid = "";
-            try
+            
+            var json = JsonDocument.Parse(body);
+            if (json.RootElement.TryGetProperty("uid", out var uidElement))
             {
-                var json = JsonDocument.Parse(body);
-                if (json.RootElement.TryGetProperty("uid", out var uidElement))
-                {
-                    uid = uidElement.GetString() ?? "";
-                    SetCardUID(uid);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Ошибка парсинга JSON: " + ex.Message);
+                uid = uidElement.GetString() ?? "";
+                SetCardUID(uid);
             }
             
-            if (uid == "0124c499")
-            {
-                Console.WriteLine("VISA BYN Owner: Andrew");
-            }
-            else if (uid == "c135e799")
-            {
-                Console.WriteLine("Belcard BYN Owner: Jack Jones");
-            }
-            else if (!string.IsNullOrEmpty(uid))
-            {
-                Console.WriteLine($"Unknown card UID: {uid}");
-            }
-
             string responseString = "{\"result\": \"ok\"}";
             byte[] buffer = Encoding.UTF8.GetBytes(responseString);
             context.Response.ContentType = "application/json";

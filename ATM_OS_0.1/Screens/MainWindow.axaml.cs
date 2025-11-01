@@ -4,6 +4,8 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using System;
 using Avalonia.Styling;
+using System.Threading.Tasks;
+using Avalonia.Threading;
 
 namespace ATM_OS
 {
@@ -13,6 +15,7 @@ namespace ATM_OS
         {
             InitializeComponent();
             StartPulseAnimation();
+            InitializeNfcListener();
         }
 
         private void StartPulseAnimation()
@@ -55,6 +58,53 @@ namespace ATM_OS
                     }
                 }
             };
+
+            // Применяем анимацию к изображению NFC
+            var nfcImage = this.FindControl<Image>("NfcImage");
+            if (nfcImage != null)
+            {
+                animation.RunAsync(nfcImage);
+            }
+        }
+
+        private void InitializeNfcListener()
+        {
+            // Запускаем проверку карт в фоновом режиме
+            Task.Run(async () => await CheckForCards());
+        }
+
+        private async Task CheckForCards()
+        {
+            while (true)
+            {
+                string cardUID = NfcScannerService.GetCardUID();
+                
+                if (!string.IsNullOrEmpty(cardUID))
+                {
+                    // Проверяем существование карты в базе
+                    var repository = new CardHolderRepository();
+                    if (repository.CardExists(cardUID))
+                    {
+                        // Карта распознана и существует - переключаем на окно PIN
+                        await Dispatcher.UIThread.InvokeAsync(() =>
+                        {
+                            ShowPinWindow(cardUID);
+                        });
+                    }
+                    
+                    // Сбрасываем UID для следующего сканирования
+                    NfcScannerService.SetCardUID(string.Empty);
+                }
+                
+                await Task.Delay(500); // Проверяем каждые 500ms
+            }
+        }
+
+        private void ShowPinWindow(string cardUID)
+        {
+            var pinWindow = new PinWindow(cardUID);
+            pinWindow.Show();
+            this.Close();
         }
     }
 }

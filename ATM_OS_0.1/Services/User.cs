@@ -18,5 +18,3 @@ namespace ATM_OS
         }
     }
 }
-
-

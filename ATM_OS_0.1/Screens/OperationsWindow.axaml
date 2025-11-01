@@ -1,0 +1,65 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ATM_OS.OperationsWindow"
+        Title="Bank Operations"
+        Width="600"
+        Height="500"
+        Background="#D90028">
+    
+    <Grid Margin="20">
+        <StackPanel Spacing="15">
+            
+            <!-- Информация о пользователе -->
+            <Border Background="#A3001F" CornerRadius="10" Padding="15">
+                <StackPanel>
+                    <TextBlock x:Name="UserNameText" 
+                              Text="Welcome, "
+                              FontSize="18"
+                              FontWeight="Bold"
+                              Foreground="White"/>
+                    <TextBlock x:Name="BalanceText" 
+                              Text="Balance: "
+                              FontSize="16"
+                              Foreground="White"
+                              Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Кнопки операций -->
+            <TextBlock Text="Select operation:" 
+                      FontSize="16"
+                      Foreground="White"
+                      Margin="0,10,0,0"/>
+            
+            <Button Content="Deposit" 
+                    Click="DepositButton_Click"
+                    Height="40"
+                    Background="#4CAF50"
+                    Foreground="White"
+                    FontSize="16"/>
+            
+            <Button Content="Withdraw" 
+                    Click="WithdrawButton_Click"
+                    Height="40"
+                    Background="#2196F3"
+                    Foreground="White"
+                    FontSize="16"/>
+            
+            <Button Content="Check Balance" 
+                    Click="BalanceButton_Click"
+                    Height="40"
+                    Background="#FF9800"
+                    Foreground="White"
+                    FontSize="16"/>
+            
+            <Button Content="Exit" 
+                    Click="ExitButton_Click"
+                    Height="40"
+                    Background="#F44336"
+                    Foreground="White"
+                    FontSize="16"
+                    Margin="0,20,0,0"/>
+            
+        </StackPanel>
+    </Grid>
+</Window>
