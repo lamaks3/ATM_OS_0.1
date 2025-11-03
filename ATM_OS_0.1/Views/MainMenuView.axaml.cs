@@ -37,15 +37,11 @@ namespace ATM_OS
         private void LoadUserInfo()
         {
             var userNameText = this.FindControl<TextBlock>("UserNameText");
-            var balanceText = this.FindControl<TextBlock>("BalanceText");
-            var accountText = this.FindControl<TextBlock>("AccountText");
             
             var holder = _repository.GetCardHolderByUid(_cardUID);
             if (holder != null)
             {
-                userNameText.Text = $"Welcome, {holder.HolderName}";
-                balanceText.Text = $"Balance: {_repository.GetBalance(_cardUID):N2} {_repository.GetCurrency(_cardUID)}";
-                accountText.Text = $"Account: {holder.NumberOfAccount}";
+                userNameText.Text = $"Welcome, {holder.HolderName.Split(" ")[0]}";
             }
         }
 
