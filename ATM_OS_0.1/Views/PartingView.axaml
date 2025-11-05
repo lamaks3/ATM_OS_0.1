@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ATM_OS.PartingView">
+    <Grid Background="#F6F7F8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>    
+            <RowDefinition Height="Auto"/> 
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Border Background="#FFDD2D" 
+                Grid.Row="0"
+                Height="200" 
+                Padding="0,15">
+            <Grid>
+                <Image Source="/Assets/my_logo.png" 
+                       Width="400" 
+                       Height="200"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="20,0"/>
+                <TextBlock Text="LaMaks GmbH BANK" 
+                           FontSize="100" 
+                           FontWeight="Medium"  
+                           Foreground="#333333" 
+                           VerticalAlignment="Center"
+                           Margin="200,0"/>
+            </Grid>
+        </Border>
+        
+        <!-- Center Content - Operation Result -->
+        <Border Grid.Row="1"
+                Background="#F6F7F8"
+                Padding="40">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="40">
+                
+                <!-- Operation Result Message -->
+                <TextBlock x:Name="ResultMessage" 
+                          Text="The process is complete! Don't forget your card." 
+                          FontSize="60" 
+                          FontWeight="Bold"  
+                          Foreground="#333333" 
+                          HorizontalAlignment="Center"
+                          TextAlignment="Center"
+                          TextWrapping="Wrap"/>
+                
+                <!-- Operation Details -->
+                <TextBlock x:Name="ResultDetails" 
+                          Text="Thanks for using our Bank, we glad to see You soon)" 
+                          FontSize="40" 
+                          Foreground="#666666" 
+                          HorizontalAlignment="Center"
+                          TextAlignment="Center"
+                          TextWrapping="Wrap"
+                          MaxWidth="600"/>
+                
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

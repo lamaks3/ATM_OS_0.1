@@ -14,9 +14,13 @@ namespace ATM_OS
         private MainMenuView _mainMenuView;
         private TransactionView _transactionView;
         private BalanceView _balanceView;
+        private ContinueOperationView _continueOperationView;
+        private PartingView _partingView; // Добавляем PartingView
 
         // Добавляем поле для ContentControl
         private ContentControl _mainContent;
+        private string _currentCardUID;
+        private string _currentOperationType;
 
         public Window()
         {
@@ -86,6 +90,7 @@ namespace ATM_OS
 
             _startView = new StartView();
             _mainContent.Content = _startView;
+            _currentCardUID = null;
         }
 
         private void ShowPinView(string cardUID)
@@ -108,11 +113,12 @@ namespace ATM_OS
             _mainMenuView = new MainMenuView();
             _mainMenuView.Initialize(cardUID);
             
-            _mainMenuView.OnExit += ShowStartView;
+            _mainMenuView.OnExit += ShowPartingView;
             _mainMenuView.OnTransactionRequested += (uid, operationType) => ShowTransactionView(uid, operationType);
             _mainMenuView.OnViewBalance += (uid) => ShowBalanceView(uid);
             
             _mainContent.Content = _mainMenuView;
+            _currentCardUID = cardUID;
         }
 
         private void ShowTransactionView(string cardUID, string operationType)
@@ -128,6 +134,8 @@ namespace ATM_OS
             _transactionView.OnBackToOperations += () => ShowMainMenuView(cardUID);
             
             _mainContent.Content = _transactionView;
+            _currentCardUID = cardUID;
+            _currentOperationType = operationType;
         }
 
         private void ShowBalanceView(string cardUID)
@@ -138,82 +146,66 @@ namespace ATM_OS
             _balanceView.Initialize(cardUID);
             
             _balanceView.OnBackToMainMenu += () => ShowMainMenuView(cardUID);
-            _balanceView.OnPrintReceipt += (uid) => PrintReceipt(uid);
             
             _mainContent.Content = _balanceView;
+            _currentCardUID = cardUID;
+        }
+
+        private void ShowContinueOperationView(string cardUID, string operationType, int amount, bool success)
+        {
+            if (_mainContent == null) return;
+
+            // Создаем новый экземпляр каждый раз для актуальных данных
+            _continueOperationView = new ContinueOperationView();
+            
+            // Инициализируем с данными о транзакции
+            _continueOperationView.Initialize(operationType, amount, success);
+            
+            // Подписываемся на события
+            _continueOperationView.OnBackToStartMenuView += ShowStartView;
+            _continueOperationView.OnShowPartingView += ShowPartingView; // Новый обработчик
+            
+            _mainContent.Content = _continueOperationView;
+            _currentCardUID = cardUID;
+        }
+
+        // Новый метод для показа PartingView
+        private void ShowPartingView()
+        {
+            if (_mainContent == null) return;
+
+            _partingView = new PartingView();
+            
+            // Через несколько секунд автоматически возвращаемся к StartView
+            DispatcherTimer.RunOnce(() => ShowStartView(), TimeSpan.FromSeconds(5));
+            
+            _mainContent.Content = _partingView;
+            _currentCardUID = null;
         }
 
         private void ProcessTransaction(string cardUID, string operationType, int amount)
         {
             var repository = new CardHolderRepository();
             bool success = false;
-            string message = "";
 
             if (operationType == "Deposit")
             {
                 success = repository.AddToBalance(cardUID, amount);
-                message = success ? 
-                    $"Successfully deposited {amount:N0}. New balance: {repository.GetBalance(cardUID):N2}" :
-                    "Deposit failed";
             }
             else if (operationType == "Withdraw")
             {
                 success = repository.AddToBalance(cardUID, -amount);
-                message = success ? 
-                    $"Successfully withdrawn {amount:N0}. New balance: {repository.GetBalance(cardUID):N2}" :
-                    "Withdrawal failed";
             }
 
-            // Показываем сообщение и возвращаемся к операциям
-            ShowMessage(message, () => ShowMainMenuView(cardUID));
-        }
-
-        private void PrintReceipt(string cardUID)
-        {
-            // Здесь будет логика печати чека
-            ShowMessage("Receipt printed successfully", () => ShowBalanceView(cardUID));
-        }
-
-        private async void ShowMessage(string message, Action callback)
-        {
-            var dialog = new Avalonia.Controls.Window
+            // Вместо ShowMessage показываем ContinueOperationView
+            if (success)
             {
-                Title = "Transaction Result",
-                Width = 400,
-                Height = 200,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                CanResize = false
-            };
-
-            var stackPanel = new StackPanel
+                ShowContinueOperationView(cardUID, operationType, amount, true);
+            }
+            else
             {
-                VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-                Spacing = 20
-            };
-
-            stackPanel.Children.Add(new TextBlock { 
-                Text = message, 
-                Margin = new Thickness(20),
-                TextWrapping = Avalonia.Media.TextWrapping.Wrap,
-                TextAlignment = Avalonia.Media.TextAlignment.Center,
-                FontSize = 16
-            });
-
-            var okButton = new Button { 
-                Content = "OK", 
-                Width = 100,
-                HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center
-            };
-            okButton.Click += (s, e) => {
-                dialog.Close();
-                callback?.Invoke();
-            };
-            
-            stackPanel.Children.Add(okButton);
-            dialog.Content = stackPanel;
-
-            await dialog.ShowDialog(this);
+                ShowContinueOperationView(cardUID, operationType, amount, false);
+            }
         }
     }
 }

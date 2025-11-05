@@ -13,6 +13,7 @@ namespace ATM_OS
         private string _operationType;
         private CardHolderRepository _repository;
         private string _amount = "0";
+        private const int MAX_AMOUNT = 10000; // Максимальная сумма
 
         // События
         public event Action<string, int> OnAmountConfirmed; // cardUID, amount
@@ -84,12 +85,26 @@ namespace ATM_OS
 
         private void AddDigit(char digit)
         {
-            if (_amount == "0")
-                _amount = digit.ToString();
-            else if (_amount.Length < 9) // Максимум 9 цифр
-                _amount += digit;
+            // Проверяем, не превысит ли новая сумма максимальное значение
+            string newAmount = _amount == "0" ? digit.ToString() : _amount + digit;
             
-            UpdateAmountDisplay();
+            if (int.TryParse(newAmount, out int amountValue))
+            {
+                if (amountValue <= MAX_AMOUNT)
+                {
+                    _amount = newAmount;
+                    UpdateAmountDisplay();
+                    
+                    // Скрываем ошибку если она была показана
+                    var errorText = this.FindControl<TextBlock>("ErrorText");
+                    if (errorText != null)
+                        errorText.IsVisible = false;
+                }
+                else
+                {
+                    ShowError($"Maximum amount is {MAX_AMOUNT:N0}");
+                }
+            }
         }
 
         private void RemoveLastDigit()
@@ -100,6 +115,11 @@ namespace ATM_OS
                 _amount = "0";
             
             UpdateAmountDisplay();
+            
+            // Скрываем ошибку при изменении суммы
+            var errorText = this.FindControl<TextBlock>("ErrorText");
+            if (errorText != null)
+                errorText.IsVisible = false;
         }
 
         private void UpdateAmountDisplay()
@@ -149,6 +169,13 @@ namespace ATM_OS
         {
             if (int.TryParse(_amount, out int amount) && amount > 0)
             {
+                // Проверяем максимальную сумму
+                if (amount > MAX_AMOUNT)
+                {
+                    ShowError($"Maximum transaction amount is {MAX_AMOUNT:N0}");
+                    return;
+                }
+
                 // Проверяем достаточно ли средств для снятия
                 if (_operationType == "Withdraw")
                 {

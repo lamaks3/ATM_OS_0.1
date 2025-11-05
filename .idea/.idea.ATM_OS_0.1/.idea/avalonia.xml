@@ -15,6 +15,7 @@
         <entry key="ATM_OS_0.1/Views/PinView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/StartView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/TransactionView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Views/Window.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
       </map>
     </option>
   </component>

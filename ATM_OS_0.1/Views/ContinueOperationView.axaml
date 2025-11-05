@@ -1,0 +1,123 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ATM_OS.ContinueOperationView">
+    <Grid Background="#F6F7F8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>    
+            <RowDefinition Height="Auto"/> 
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Border Background="#FFDD2D" 
+                Grid.Row="0"
+                Height="200" 
+                Padding="0,15">
+            <Grid>
+                <Image Source="/Assets/my_logo.png" 
+                       Width="400" 
+                       Height="200"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="20,0"/>
+                <TextBlock Text="LaMaks GmbH BANK" 
+                           FontSize="100" 
+                           FontWeight="Medium"  
+                           Foreground="#333333" 
+                           VerticalAlignment="Center"
+                           Margin="200,0"/>
+            </Grid>
+        </Border>
+        
+        <!-- Center Content - Operation Result -->
+        <Border Grid.Row="1"
+                Background="#F6F7F8"
+                Padding="40">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="40">
+                
+                <!-- Success/Failure Icon -->
+                <Border x:Name="ResultIcon"
+                        Width="120" 
+                        Height="120" 
+                        Background="#4CAF50" 
+                        CornerRadius="60"
+                        HorizontalAlignment="Center">
+                    <TextBlock x:Name="IconText" 
+                              Text="✓" 
+                              FontSize="60" 
+                              Foreground="White" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"/>
+                </Border>
+                
+                <!-- Operation Result Message -->
+                <TextBlock x:Name="ResultMessage" 
+                          Text="Operation Completed Successfully" 
+                          FontSize="60" 
+                          FontWeight="Bold"  
+                          Foreground="#333333" 
+                          HorizontalAlignment="Center"
+                          TextAlignment="Center"
+                          TextWrapping="Wrap"/>
+                
+                <!-- Operation Details -->
+                <TextBlock x:Name="ResultDetails" 
+                          Text="Your transaction has been processed successfully" 
+                          FontSize="40" 
+                          Foreground="#666666" 
+                          HorizontalAlignment="Center"
+                          TextAlignment="Center"
+                          TextWrapping="Wrap"
+                          MaxWidth="600"/>
+                
+            </StackPanel>
+        </Border>
+        
+        <!-- Buttons Panel -->
+        <Border Background="#FFDD2D" 
+                Grid.Row="2"
+                Height="200" 
+                Padding="0,15">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="60">
+                
+                <TextBlock Text="Do you want to continue?" 
+                           FontSize="50" 
+                           FontWeight="Medium"  
+                           Foreground="#333333" 
+                           HorizontalAlignment="Center"
+                           Margin="0,20,0,0"/>
+                
+                <Button 
+                    Content="End working"
+                    Click="EndButton_Click"
+                    Background="#F6F7F8"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                />
+            
+                <Button 
+                    Content="Continue"
+                    Click="ContinueButton_Click"
+                    Background="#F6F7F8"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
