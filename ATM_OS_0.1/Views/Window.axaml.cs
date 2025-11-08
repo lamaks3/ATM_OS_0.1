@@ -15,21 +15,20 @@ namespace ATM_OS
         private TransactionView _transactionView;
         private BalanceView _balanceView;
         private ContinueOperationView _continueOperationView;
-        private PartingView _partingView; // Добавляем PartingView
+        private PartingView _partingView;
 
         // Добавляем поле для ContentControl
         private ContentControl _mainContent;
         private string _currentCardUID;
         private string _currentOperationType;
+        private bool _nfcPaused = false; 
 
         public Window()
         {
             InitializeComponent();
             
-            // Находим MainContent после инициализации компонентов
             _mainContent = this.FindControl<ContentControl>("MainContent");
             
-            // Используем событие Loaded для инициализации после полной загрузки окна
             this.Loaded += OnWindowLoaded;
         }
 
@@ -40,7 +39,6 @@ namespace ATM_OS
 
         private void OnWindowLoaded(object sender, EventArgs e)
         {
-            // Окно полностью загружено
             InitializeNfcListener();
             ShowStartView();
         }
@@ -54,40 +52,45 @@ namespace ATM_OS
         {
             while (true)
             {
-                string cardUID = NfcScannerService.GetCardUID();
-                
-                if (!string.IsNullOrEmpty(cardUID))
+                if (IsStartViewActive())
                 {
-                    var repository = new CardHolderRepository();
-                    if (repository.CardExists(cardUID))
+                    string cardUID = NfcScannerService.GetCardUID();
+                
+                    if (!string.IsNullOrEmpty(cardUID))
                     {
-                        await Dispatcher.UIThread.InvokeAsync(() =>
+                        var repository = new CardHolderRepository();
+                        if (repository.CardExists(cardUID))
                         {
-                            ShowPinView(cardUID);
-                        });
+                            await Dispatcher.UIThread.InvokeAsync(() =>
+                            {
+                                ShowPinView(cardUID);
+                            });
+                        }
                     }
-                    
+                }
+                else
+                {
                     NfcScannerService.SetCardUID(string.Empty);
                 }
-                
+            
                 await Task.Delay(500);
             }
         }
-
-        private void ShowStartView()
+        
+        private bool IsStartViewActive()
         {
-            // Проверяем что _mainContent инициализирован
-            if (_mainContent == null)
+            return Dispatcher.UIThread.Invoke(() =>
             {
-                _mainContent = this.FindControl<ContentControl>("MainContent");
-                if (_mainContent == null)
-                {
-                    // Если все еще null, создаем временное решение
-                    _mainContent = new ContentControl();
-                    this.Content = _mainContent;
-                }
-            }
 
+                if (_mainContent.Content.GetType().Name == nameof(StartView)) return true;
+                
+                return false;
+            });
+        }
+        
+        
+        private void ShowStartView()
+        { 
             _startView = new StartView();
             _mainContent.Content = _startView;
             _currentCardUID = null;
@@ -151,7 +154,7 @@ namespace ATM_OS
             _currentCardUID = cardUID;
         }
 
-        private void ShowContinueOperationView(string cardUID, string operationType, int amount, bool success)
+        private void ShowContinueOperationView(string cardUID, string operationType, int amount, bool success, string currency)
         {
             if (_mainContent == null) return;
 
@@ -159,10 +162,10 @@ namespace ATM_OS
             _continueOperationView = new ContinueOperationView();
             
             // Инициализируем с данными о транзакции
-            _continueOperationView.Initialize(operationType, amount, success);
+            _continueOperationView.Initialize(operationType, amount, success,currency);
             
             // Подписываемся на события
-            _continueOperationView.OnBackToStartMenuView += ShowStartView;
+            _continueOperationView.OnBackToMainMenu += () => ShowMainMenuView(cardUID);
             _continueOperationView.OnShowPartingView += ShowPartingView; // Новый обработчик
             
             _mainContent.Content = _continueOperationView;
@@ -196,15 +199,16 @@ namespace ATM_OS
             {
                 success = repository.AddToBalance(cardUID, -amount);
             }
-
+            
+            string currency = repository.GetCurrency(cardUID);
             // Вместо ShowMessage показываем ContinueOperationView
             if (success)
             {
-                ShowContinueOperationView(cardUID, operationType, amount, true);
+                ShowContinueOperationView(cardUID, operationType, amount, true,currency);
             }
             else
             {
-                ShowContinueOperationView(cardUID, operationType, amount, false);
+                ShowContinueOperationView(cardUID, operationType, amount, false,currency);
             }
         }
     }

@@ -9,8 +9,8 @@ namespace ATM_OS
     public partial class ContinueOperationView : UserControl
     {
         // События для навигации
-        public event Action OnBackToStartMenuView;
-        public event Action OnShowPartingView; // Новое событие для показа PartingView
+        public event Action OnBackToMainMenu; // Изменено: было OnBackToStartMenu
+        public event Action OnShowPartingView;
 
         private TextBlock _resultMessage;
         private TextBlock _resultDetails;
@@ -30,7 +30,7 @@ namespace ATM_OS
         }
 
         // Метод для инициализации с данными о выполненной операции
-        public void Initialize(string operationType, int amount, bool success)
+        public void Initialize(string operationType, int amount, bool success,string currency)
         {
             if (_resultMessage != null && _resultDetails != null)
             {
@@ -40,11 +40,11 @@ namespace ATM_OS
                     
                     if (operationType == "Deposit")
                     {
-                        _resultDetails.Text = $"Deposit of {amount:N0} completed successfully";
+                        _resultDetails.Text = $"{amount:N0} {currency} deposited successfully";
                     }
                     else if (operationType == "Withdraw")
                     {
-                        _resultDetails.Text = $"Withdrawal of {amount:N0} completed successfully";
+                        _resultDetails.Text = $"{amount:N0} {currency} was withdrawn successfully";
                     }
                     else if (operationType == "Receipt")
                     {
@@ -77,12 +77,12 @@ namespace ATM_OS
 
         private void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
-            OnBackToStartMenuView?.Invoke();
+            OnBackToMainMenu?.Invoke(); 
         }
 
         private void EndButton_Click(object sender, RoutedEventArgs e)
         {
-            OnShowPartingView?.Invoke(); 
+            OnShowPartingView?.Invoke();
         }
     }
 }

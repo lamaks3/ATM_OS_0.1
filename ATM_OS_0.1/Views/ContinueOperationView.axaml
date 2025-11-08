@@ -32,25 +32,18 @@
         <!-- Center Content - Operation Result -->
         <Border Grid.Row="1"
                 Background="#F6F7F8"
-                Padding="40">
+                Padding="20">
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Spacing="40">
                 
                 <!-- Success/Failure Icon -->
-                <Border x:Name="ResultIcon"
-                        Width="120" 
-                        Height="120" 
-                        Background="#4CAF50" 
-                        CornerRadius="60"
-                        HorizontalAlignment="Center">
-                    <TextBlock x:Name="IconText" 
-                              Text="✓" 
-                              FontSize="60" 
-                              Foreground="White" 
-                              HorizontalAlignment="Center" 
-                              VerticalAlignment="Center"/>
-                </Border>
+                <Image Source="/Assets/successOperation.png" 
+                       Width="400" 
+                       Height="200"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="20,0"/>
                 
                 <!-- Operation Result Message -->
                 <TextBlock x:Name="ResultMessage" 
