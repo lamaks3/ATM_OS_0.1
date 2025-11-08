@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
@@ -16,12 +15,8 @@ namespace ATM_OS
         private BalanceView _balanceView;
         private ContinueOperationView _continueOperationView;
         private PartingView _partingView;
-
-        // Добавляем поле для ContentControl
+        
         private ContentControl _mainContent;
-        private string _currentCardUID;
-        private string _currentOperationType;
-        private bool _nfcPaused = false; 
 
         public Window()
         {
@@ -54,16 +49,16 @@ namespace ATM_OS
             {
                 if (IsStartViewActive())
                 {
-                    string cardUID = NfcScannerService.GetCardUID();
+                    string cardUid = NfcScannerService.GetCardUID();
                 
-                    if (!string.IsNullOrEmpty(cardUID))
+                    if (!string.IsNullOrEmpty(cardUid))
                     {
                         var repository = new CardHolderRepository();
-                        if (repository.CardExists(cardUID))
+                        if (repository.CardExists(cardUid))
                         {
                             await Dispatcher.UIThread.InvokeAsync(() =>
                             {
-                                ShowPinView(cardUID);
+                                ShowPinView(cardUid);
                             });
                         }
                     }
@@ -79,27 +74,21 @@ namespace ATM_OS
         
         private bool IsStartViewActive()
         {
-            return Dispatcher.UIThread.Invoke(() =>
-            {
-
-                if (_mainContent.Content.GetType().Name == nameof(StartView)) return true;
-                
-                return false;
-            });
+            return Dispatcher.UIThread.Invoke(() => 
+                _mainContent?.Content?.GetType().Name == nameof(StartView)
+            );
         }
-        
         
         private void ShowStartView()
         { 
             _startView = new StartView();
             _mainContent.Content = _startView;
-            _currentCardUID = null;
         }
 
-        private void ShowPinView(string cardUID)
+        private void ShowPinView(string cardUid)
         {
             _pinView = new PinView();
-            _pinView.Initialize(cardUID);
+            _pinView.Initialize(cardUid);
             
             _pinView.OnPinVerified += (uid) => ShowMainMenuView(uid);
             _pinView.OnBackToMain += ShowStartView;
@@ -107,55 +96,50 @@ namespace ATM_OS
             _mainContent.Content = _pinView;
         }
 
-        private void ShowMainMenuView(string cardUID)
+        private void ShowMainMenuView(string cardUid)
         {
             _mainMenuView = new MainMenuView();
-            _mainMenuView.Initialize(cardUID);
+            _mainMenuView.Initialize(cardUid);
             
             _mainMenuView.OnExit += ShowPartingView;
             _mainMenuView.OnTransactionRequested += (uid, operationType) => ShowTransactionView(uid, operationType);
             _mainMenuView.OnViewBalance += (uid) => ShowBalanceView(uid);
             
             _mainContent.Content = _mainMenuView;
-            _currentCardUID = cardUID;
         }
 
-        private void ShowTransactionView(string cardUID, string operationType)
+        private void ShowTransactionView(string cardUid, string operationType)
         {
             _transactionView = new TransactionView();
             
             string title = operationType == "Deposit" ? "Enter deposit amount" : "Enter withdrawal amount";
-            _transactionView.Initialize(cardUID, operationType, title);
+            _transactionView.Initialize(cardUid, operationType, title);
             
             _transactionView.OnAmountConfirmed += (uid, amount) => ProcessTransaction(uid, operationType, amount);
-            _transactionView.OnBackToOperations += () => ShowMainMenuView(cardUID);
+            _transactionView.OnBackToOperations += () => ShowMainMenuView(cardUid);
             
             _mainContent.Content = _transactionView;
-            _currentCardUID = cardUID;
-            _currentOperationType = operationType;
         }
 
-        private void ShowBalanceView(string cardUID)
+        private void ShowBalanceView(string cardUid)
         {
             _balanceView = new BalanceView();
-            _balanceView.Initialize(cardUID);
+            _balanceView.Initialize(cardUid);
             
-            _balanceView.OnBackToMainMenu += () => ShowMainMenuView(cardUID);
+            _balanceView.OnBackToMainMenu += () => ShowMainMenuView(cardUid);
             
             _mainContent.Content = _balanceView;
-            _currentCardUID = cardUID;
         }
 
-        private void ShowContinueOperationView(string cardUID, string operationType, int amount, bool success, string currency)
+        private void ShowContinueOperationView(string cardUid, string operationType, int amount, bool success, string currency)
         {
             _continueOperationView = new ContinueOperationView();
             _continueOperationView.Initialize(operationType, amount, success,currency);
             
-            _continueOperationView.OnBackToMainMenu += () => ShowMainMenuView(cardUID);
+            _continueOperationView.OnBackToMainMenu += () => ShowMainMenuView(cardUid);
             _continueOperationView.OnShowPartingView += ShowPartingView;
             
             _mainContent.Content = _continueOperationView;
-            _currentCardUID = cardUID;
         }
         
         private void ShowPartingView()
@@ -165,32 +149,31 @@ namespace ATM_OS
             DispatcherTimer.RunOnce(() => ShowStartView(), TimeSpan.FromSeconds(5));
             
             _mainContent.Content = _partingView;
-            _currentCardUID = null;
         }
 
-        private void ProcessTransaction(string cardUID, string operationType, int amount)
+        private void ProcessTransaction(string cardUid, string operationType, int amount)
         {
             var repository = new CardHolderRepository();
             bool success = false;
 
             if (operationType == "Deposit")
             {
-                success = repository.AddToBalance(cardUID, amount);
+                success = repository.AddToBalance(cardUid, amount);
             }
             else if (operationType == "Withdraw")
             {
-                success = repository.AddToBalance(cardUID, -amount);
+                success = repository.AddToBalance(cardUid, -amount);
             }
             
-            string currency = repository.GetCurrency(cardUID);
+            string currency = repository.GetCurrency(cardUid);
             
             if (success)
             {
-                ShowContinueOperationView(cardUID, operationType, amount, true,currency);
+                ShowContinueOperationView(cardUid, operationType, amount, true,currency);
             }
             else
             {
-                ShowContinueOperationView(cardUID, operationType, amount, false,currency);
+                ShowContinueOperationView(cardUid, operationType, amount, false,currency);
             }
         }
     }
