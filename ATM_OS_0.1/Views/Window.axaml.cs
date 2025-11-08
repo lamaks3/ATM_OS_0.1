@@ -98,8 +98,6 @@ namespace ATM_OS
 
         private void ShowPinView(string cardUID)
         {
-            if (_mainContent == null) return;
-
             _pinView = new PinView();
             _pinView.Initialize(cardUID);
             
@@ -111,8 +109,6 @@ namespace ATM_OS
 
         private void ShowMainMenuView(string cardUID)
         {
-            if (_mainContent == null) return;
-
             _mainMenuView = new MainMenuView();
             _mainMenuView.Initialize(cardUID);
             
@@ -126,8 +122,6 @@ namespace ATM_OS
 
         private void ShowTransactionView(string cardUID, string operationType)
         {
-            if (_mainContent == null) return;
-
             _transactionView = new TransactionView();
             
             string title = operationType == "Deposit" ? "Enter deposit amount" : "Enter withdrawal amount";
@@ -143,8 +137,6 @@ namespace ATM_OS
 
         private void ShowBalanceView(string cardUID)
         {
-            if (_mainContent == null) return;
-
             _balanceView = new BalanceView();
             _balanceView.Initialize(cardUID);
             
@@ -156,30 +148,20 @@ namespace ATM_OS
 
         private void ShowContinueOperationView(string cardUID, string operationType, int amount, bool success, string currency)
         {
-            if (_mainContent == null) return;
-
-            // Создаем новый экземпляр каждый раз для актуальных данных
             _continueOperationView = new ContinueOperationView();
-            
-            // Инициализируем с данными о транзакции
             _continueOperationView.Initialize(operationType, amount, success,currency);
             
-            // Подписываемся на события
             _continueOperationView.OnBackToMainMenu += () => ShowMainMenuView(cardUID);
-            _continueOperationView.OnShowPartingView += ShowPartingView; // Новый обработчик
+            _continueOperationView.OnShowPartingView += ShowPartingView;
             
             _mainContent.Content = _continueOperationView;
             _currentCardUID = cardUID;
         }
-
-        // Новый метод для показа PartingView
+        
         private void ShowPartingView()
         {
-            if (_mainContent == null) return;
-
             _partingView = new PartingView();
             
-            // Через несколько секунд автоматически возвращаемся к StartView
             DispatcherTimer.RunOnce(() => ShowStartView(), TimeSpan.FromSeconds(5));
             
             _mainContent.Content = _partingView;
@@ -201,7 +183,7 @@ namespace ATM_OS
             }
             
             string currency = repository.GetCurrency(cardUID);
-            // Вместо ShowMessage показываем ContinueOperationView
+            
             if (success)
             {
                 ShowContinueOperationView(cardUID, operationType, amount, true,currency);
