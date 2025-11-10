@@ -26,15 +26,12 @@ namespace ATM_OS
             this.AddHandler(KeyDownEvent, OnKeyDown, RoutingStrategies.Tunnel);
         }
 
-        public void Initialize(string cardUID)
+        public void Initialize(string cardUid)
         {
-            _cardUid = cardUID;
+            _cardUid = cardUid;
             _repository = new CardHolderRepository();
             _pinCode = "";
             _attempts = 0;
-            
-            var errorText = this.FindControl<TextBlock>("ErrorText");
-            errorText.IsVisible = false;
             
             this.Focus();
         }

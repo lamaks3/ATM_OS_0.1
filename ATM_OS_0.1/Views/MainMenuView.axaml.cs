@@ -9,13 +9,12 @@ namespace ATM_OS
 {
     public partial class MainMenuView : UserControl
     {
-        private string _cardUID;
+        private string _cardUid;
         private CardHolderRepository _repository;
-
-        // События для навигации
+        
         public event Action OnExit;
-        public event Action<string, string> OnTransactionRequested; // cardUID, operationType
-        public event Action<string> OnViewBalance; // cardUID
+        public event Action<string, string> OnTransactionRequested; 
+        public event Action<string> OnViewBalance; 
 
         public MainMenuView()
         {
@@ -24,7 +23,7 @@ namespace ATM_OS
 
         public void Initialize(string cardUID)
         {
-            _cardUID = cardUID;
+            _cardUid = cardUID;
             _repository = new CardHolderRepository();
             LoadUserInfo();
         }
@@ -37,27 +36,23 @@ namespace ATM_OS
         private void LoadUserInfo()
         {
             var userNameText = this.FindControl<TextBlock>("UserNameText");
-            
-            var holder = _repository.GetCardHolderByUid(_cardUID);
-            if (holder != null)
-            {
-                userNameText.Text = $"Welcome, {holder.HolderName.Split(" ")[0]}";
-            }
+            var holder = _repository.GetCardHolderByUid(_cardUid);
+            userNameText.Text = $"Welcome, {holder.HolderName.Split(" ")[0]}";
         }
 
         private void DepositButton_Click(object sender, RoutedEventArgs e)
         {
-            OnTransactionRequested?.Invoke(_cardUID, "Deposit");
+            OnTransactionRequested?.Invoke(_cardUid, "Deposit");
         }
 
         private void WithdrawButton_Click(object sender, RoutedEventArgs e)
         {
-            OnTransactionRequested?.Invoke(_cardUID, "Withdraw");
+            OnTransactionRequested?.Invoke(_cardUid, "Withdraw");
         }
 
         private void BalanceButton_Click(object sender, RoutedEventArgs e)
         {
-            OnViewBalance?.Invoke(_cardUID);
+            OnViewBalance?.Invoke(_cardUid);
         }
         
         private void ExitButton_Click(object sender, RoutedEventArgs e)

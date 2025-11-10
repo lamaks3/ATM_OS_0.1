@@ -47,7 +47,7 @@
                 
                 <!-- Operation Result Message -->
                 <TextBlock x:Name="ResultMessage" 
-                          Text="Operation Completed Successfully" 
+                          Text="Operation status" 
                           FontSize="60" 
                           FontWeight="Bold"  
                           Foreground="#333333" 
@@ -57,13 +57,13 @@
                 
                 <!-- Operation Details -->
                 <TextBlock x:Name="ResultDetails" 
-                          Text="Your transaction has been processed successfully" 
+                          Text="Transaction info" 
                           FontSize="40" 
                           Foreground="#666666" 
                           HorizontalAlignment="Center"
                           TextAlignment="Center"
                           TextWrapping="Wrap"
-                          MaxWidth="600"/>
+                          MaxWidth="800"/>
                 
             </StackPanel>
         </Border>
