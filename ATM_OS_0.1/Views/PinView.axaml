@@ -20,7 +20,7 @@
                     BorderThickness="0"
                     CornerRadius="15"/>
             
-            <!-- Клавиатура по центру -->
+            
             <Grid Width="480" Height="480" HorizontalAlignment="Center" Margin="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -34,7 +34,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 
-                <!-- Цифровые кнопки -->
+                <!-- Digits buttons -->
                 <Button Grid.Row="0" Grid.Column="0" Content="1" Click="NumberButton_Click" 
                         Width="120" Height="120" Margin="4"
                         Background="White" Foreground="Black" CornerRadius="15"
@@ -74,7 +74,7 @@
                         Background="White" Foreground="Black" CornerRadius="15"
                         FontSize="32" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                 
-                <!-- Специальные кнопки -->
+                <!-- Clear, number, OK buttons -->
                 <Button Grid.Row="3" Grid.Column="0" Content="Clear" Click="ClearButton_Click" 
                         Width="120" Height="120" Margin="4"
                         Background="#FFDD2D" Foreground="#333333" CornerRadius="15"

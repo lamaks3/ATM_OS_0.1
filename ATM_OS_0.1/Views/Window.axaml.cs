@@ -50,6 +50,8 @@ namespace ATM_OS
                 if (IsStartViewActive())
                 {
                     string cardUid = NfcScannerService.GetCardUID();
+                    
+                    cardUid = "210bc299"; //for test
                 
                     if (!string.IsNullOrEmpty(cardUid))
                     {
