@@ -12,9 +12,8 @@ namespace ATM_OS
         private string _cardUID;
         private CardHolderRepository _repository;
 
-        // События для навигации
+        
         public event Action OnBackToMainMenu;
-        public event Action<string> OnPrintReceipt; // cardUID
 
         public BalanceView()
         {
@@ -73,32 +72,12 @@ namespace ATM_OS
             // Форматируем номер счета для лучшего отображения
             return $"**** **** **** {accountNumber.Substring(accountNumber.Length - 4)}";
         }
-
-        private void PrintReceiptButton_Click(object sender, RoutedEventArgs e)
-        {
-            ShowMessage("Receipt printing feature will be implemented soon");
-            OnPrintReceipt?.Invoke(_cardUID);
-        }
-
+        
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             OnBackToMainMenu?.Invoke();
         }
-
-        private async void ShowMessage(string message)
-        {
-            var messageText = this.FindControl<TextBlock>("MessageText");
-            if (messageText != null)
-            {
-                messageText.Text = message;
-                messageText.IsVisible = true;
-                
-                // Автоматически скрываем сообщение через 3 секунды
-                await Task.Delay(3000);
-                messageText.IsVisible = false;
-            }
-        }
-
+        
         // Метод для обновления баланса (если нужно обновить данные)
         public void RefreshBalance()
         {

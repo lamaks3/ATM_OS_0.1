@@ -122,7 +122,7 @@ namespace ATM_OS
                 return;
             }
 
-            bool isValid = _repository.checkPIN(_cardUid, _pinCode);
+            bool isValid = _repository.VerifyPIN(_cardUid, _pinCode);
             
             if (isValid)
             {

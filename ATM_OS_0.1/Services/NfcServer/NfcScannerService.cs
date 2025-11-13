@@ -11,11 +11,6 @@ namespace ATM_OS;
 public class NfcScannerService
 {
     public static string CardUID { get; private set; } = string.Empty;
-
-    public NfcScannerService()
-    {
-        
-    }
     
     public static string GetCardUID()
     {

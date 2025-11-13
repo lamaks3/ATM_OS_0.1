@@ -6,7 +6,7 @@ public class CardHolderRepository
 {
     private readonly string _connectionString;
 
-    public CardHolderRepository(string dbPath = "CardHolder.db")
+    public CardHolderRepository(string dbPath = "CardHolders.db")
     {
         _connectionString = $"Data Source={dbPath}";
     }
@@ -24,7 +24,7 @@ public class CardHolderRepository
             WHERE [Card UID] = @cardUid
             """;
         command.Parameters.AddWithValue("@cardUid", cardUid);
-
+        
         using var reader = command.ExecuteReader();
         if (reader.Read())
         {
@@ -82,20 +82,21 @@ public class CardHolderRepository
         var command = connection.CreateCommand();
         command.CommandText = "SELECT [Currency] FROM Users WHERE [Card UID] = @cardUid";
         command.Parameters.AddWithValue("@cardUid", cardUid);
-        var result = command.ExecuteScalar();
-        
-        return result.ToString();
+        string result = command.ExecuteScalar().ToString();
+
+        return result;
     }
-    public bool checkPIN(string cardUid, string password)
+    public bool VerifyPIN(string cardUid, string enteredPin)
     {
         using var connection = new SqliteConnection(_connectionString);
         connection.Open();
-        
+    
         var command = connection.CreateCommand();
         command.CommandText = "SELECT [PIN Code] FROM Users WHERE [Card UID] = @cardUid";
         command.Parameters.AddWithValue("@cardUid", cardUid);
-            
-        return command.ExecuteScalar().ToString()==password;
+    
+        string storedPin = command.ExecuteScalar().ToString();
+        return storedPin == enteredPin;
     }
     
     public bool CardExists(string cardUid)

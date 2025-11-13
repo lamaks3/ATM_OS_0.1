@@ -131,7 +131,7 @@ namespace ATM_OS
                 double currentBalance = _repository.GetBalance(_cardUID);
                 if (amount > currentBalance)
                 {
-                    ShowError($"Insufficient funds. Available: {currentBalance}");
+                    ShowError($"Insufficient funds. Available: ");
                     return;
                 }
             }
