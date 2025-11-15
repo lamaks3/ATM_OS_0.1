@@ -1,115 +1,127 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="ATM_OS.MainMenuView">
-    <Grid Background="#F6F7F8" Margin="0">
-        <StackPanel Spacing="25">
-            
-            <Border Background="#FFDD2D" 
-                    Height="200" 
-                    VerticalAlignment="Top"
-                    Padding="0,15">
-                <Grid>
-                    <Image Source="/Assets/my_logo.png" 
-                           Width="500" 
-                           Height="200"
-                           HorizontalAlignment="Left"
+    <Grid Background="#F6F7F8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/> <!-- Верхняя панель -->
+            <RowDefinition Height="Auto"/> <!-- Приветствие -->
+            <RowDefinition Height="*"/> <!-- Кнопки -->
+            <RowDefinition Height="800"/> <!-- Нижняя панель -->
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель -->
+        <Border Grid.Row="0" Background="#FFDD2D" Padding="0,15">
+            <Grid>
+                <Image Source="/Assets/my_logo.png" 
+                       Width="500" 
+                       Height="200"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="20,0"/>
+                <TextBlock Text="LaMaks GmbH BANK" 
+                           FontSize="100" 
+                           FontWeight="Medium"  
+                           Foreground="#333333" 
                            VerticalAlignment="Center"
-                           Margin="20,0"/>
-                    <TextBlock Text="LaMaks GmbH BANK" 
-                               FontSize="100" 
-                               FontWeight="Medium"  
-                               Foreground="#333333" 
-                               VerticalAlignment="Center"
-                               Margin="200,0"/>
-                           
-                </Grid>
-            </Border>
-            
-            <!-- Информация о пользователе -->
-            <Border Background="#FFDD2D" CornerRadius="15" Padding="25"
-                    Width="700" Height="80" HorizontalAlignment="Center">
-                <StackPanel>
-                    <TextBlock x:Name="UserNameText" 
-                              Text="Welcome, "
-                              FontSize="28"
-                              FontWeight="Bold"
-                              HorizontalAlignment="Center"
-                              Foreground="#333333"
-                              />
-                </StackPanel>
-                
-            </Border>
-            
-            <!-- Контейнер для кнопок операций в два столбика -->
-            <Grid Height="50" Width="700">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                
-                <!-- Пополнение -->
-                <Button Grid.Row="0" Grid.Column="0"
-                        Content="Deposit"
-                        Click="DepositButton_Click"
-                        Background="#FFDD2D"
-                        Foreground="#333333"
-                        Width="320" 
-                        Height="100"
-                        FontSize="35"
-                        CornerRadius="15"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center"
-                        />
-                
-                <!-- Снятие -->
-                <Button Grid.Row="0" Grid.Column="1" 
-                        Content="Withdraw"
-                        Click="WithdrawButton_Click"
-                        Background="#FFDD2D"
-                        Foreground="#333333"
-                        Width="320" 
-                        Height="100"
-                        FontSize="35"
-                        CornerRadius="15"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center"
-                        Margin="60"
-                        />
-                
-                <!-- Баланс -->
-                <Button Grid.Row="1" Grid.Column="0"
-                        Content="View Balance"
-                        Click="BalanceButton_Click"
-                        Background="#FFDD2D"
-                        Foreground="#333333"
-                        Width="320" 
-                        Height="100"
-                        FontSize="35"
-                        CornerRadius="15"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center"
-                        />
-                
-                <!-- Можно добавить четвертую кнопку для будущих функций -->
-                <Button Grid.Row="1" Grid.Column="1"
-                         Content="End working" 
-                        Click="ExitButton_Click"
-                         Background="#FFDD2D"
-                         Foreground="#333333"
-                         Width="320" 
-                         Height="100"
-                         FontSize="35"
-                         CornerRadius="15"
-                         VerticalContentAlignment="Center"
-                         HorizontalContentAlignment="Center"
-                         Margin="60"
-                        />
+                           Margin="200,0"/>
             </Grid>
+        </Border>
+
+        <!-- Приветствие -->
+        <Border Grid.Row="1" 
+                Background="#FFDD2D" 
+                CornerRadius="15" 
+                Padding="25"
+                Width="700" 
+                Height="80" 
+                HorizontalAlignment="Center"
+                Margin="0,20">
+            <TextBlock x:Name="UserNameText" 
+                       Text="Welcome, "
+                       FontSize="28"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="#333333"/>
+        </Border>
+
+        <!-- Кнопки меню -->
+        <Grid Grid.Row="2" 
+              HorizontalAlignment="Center" 
+              VerticalAlignment="Top"
+              Margin="0,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
             
-        </StackPanel>
+            <!-- Первый ряд кнопок -->
+            <Button Grid.Row="0" Grid.Column="0"
+                    Content="Deposit"
+                    Click="DepositButton_Click"
+                    Background="#FFDD2D"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,0,20,20"/>
+            
+            <Button Grid.Row="0" Grid.Column="1"
+                    Content="Withdraw"
+                    Click="WithdrawButton_Click"
+                    Background="#FFDD2D"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,0,0,20"/>
+            
+            <!-- Второй ряд кнопок -->
+            <Button Grid.Row="1" Grid.Column="0"
+                    Content="View Balance"
+                    Click="BalanceButton_Click"
+                    Background="#FFDD2D"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,0,20,0"/>
+            
+            <Button Grid.Row="1" Grid.Column="1"
+                    Content="End working" 
+                    Click="ExitButton_Click"
+                    Background="#FFDD2D"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"/>
+        </Grid>
+
+        <!-- Нижняя панель -->
+        <Border Grid.Row="3">
+            <Border CornerRadius="20" 
+                    ClipToBounds="True"
+                    Width="750" 
+                    Height="300">
+                <Image Source="/Assets/advertisiment2.jpg" 
+                       Stretch="UniformToFill"/>
+            </Border>
+        </Border>
     </Grid>
 </UserControl>

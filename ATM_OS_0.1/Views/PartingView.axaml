@@ -37,10 +37,17 @@
                         VerticalAlignment="Center"
                         Spacing="40">
                 
+                <Image Source="/Assets/advertisiment3.JPEG" 
+                       Width="750" 
+                       Height="300"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="20,0"/>
+                
                 <!-- Operation Result Message -->
                 <TextBlock x:Name="ResultMessage" 
                           Text="The process is complete! Don't forget your card." 
-                          FontSize="60" 
+                          FontSize="50" 
                           FontWeight="Bold"  
                           Foreground="#333333" 
                           HorizontalAlignment="Center"

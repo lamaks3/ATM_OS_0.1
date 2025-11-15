@@ -107,7 +107,8 @@ public class CardHolderRepository
         var command = connection.CreateCommand();
         command.CommandText = "SELECT 1 FROM Users WHERE [Card UID] = @cardUid";
         command.Parameters.AddWithValue("@cardUid", cardUid);
-
+        
+        
         return command.ExecuteScalar() != null;
     }
 }

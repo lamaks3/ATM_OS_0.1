@@ -58,15 +58,23 @@ namespace ATM_OS
                         var repository = new CardHolderRepository();
                         if (repository.CardExists(cardUid))
                         {
+                            Console.WriteLine("[Work with DB] Card found in database");
+                            Console.WriteLine("[Operations with DB] Access granted");
                             await Dispatcher.UIThread.InvokeAsync(() =>
                             {
                                 ShowPinView(cardUid);
                             });
                         }
+                        else
+                        {
+                            NfcScannerService.SetCardUID(string.Empty);
+                            Console.WriteLine("[Operations with DB] Card NOT found in database");
+                            Console.WriteLine("[Operations with DB] Access denied");
+                        }
                     }
                 }
                 else
-                {
+                {   
                     NfcScannerService.SetCardUID(string.Empty);
                 }
             
@@ -148,7 +156,7 @@ namespace ATM_OS
         {
             _partingView = new PartingView();
             
-            DispatcherTimer.RunOnce(() => ShowStartView(), TimeSpan.FromSeconds(5));
+            DispatcherTimer.RunOnce(() => ShowStartView(), TimeSpan.FromSeconds(7));
             
             _mainContent.Content = _partingView;
         }

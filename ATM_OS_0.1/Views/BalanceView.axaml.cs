@@ -44,23 +44,17 @@ namespace ATM_OS
                 var paymentSystemText = this.FindControl<TextBlock>("PaymentSystemText");
                 var expiryDateText = this.FindControl<TextBlock>("ExpiryDateText");
 
-                if (holderNameText != null)
-                    holderNameText.Text = holder.HolderName;
+                holderNameText.Text = holder.HolderName;
                 
-                if (accountNumberText != null)
-                    accountNumberText.Text = FormatAccountNumber(holder.NumberOfAccount);
+                accountNumberText.Text = FormatAccountNumber(holder.NumberOfAccount);
                 
-                if (balanceAmountText != null)
-                    balanceAmountText.Text = $"{_repository.GetBalance(_cardUID):N2}";
+                balanceAmountText.Text = $"{_repository.GetBalance(_cardUID):N2}";
                 
-                if (currencyText != null)
-                    currencyText.Text = holder.Currency;
+                currencyText.Text = holder.Currency;
                 
-                if (paymentSystemText != null)
-                    paymentSystemText.Text = $"{holder.PaymentSystem} • Card UID: {holder.CardUid}";
+                paymentSystemText.Text = $"{holder.PaymentSystem} • Card UID: {holder.CardUid}";
                 
-                if (expiryDateText != null)
-                    expiryDateText.Text = $"Valid thru: {holder.ExpireDate}";
+                expiryDateText.Text = $"Valid thru: {holder.ExpireDate}";
             }
         }
 
@@ -69,19 +63,12 @@ namespace ATM_OS
             if (string.IsNullOrEmpty(accountNumber) || accountNumber.Length < 4)
                 return accountNumber;
             
-            // Форматируем номер счета для лучшего отображения
             return $"**** **** **** {accountNumber.Substring(accountNumber.Length - 4)}";
         }
         
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             OnBackToMainMenu?.Invoke();
-        }
-        
-        // Метод для обновления баланса (если нужно обновить данные)
-        public void RefreshBalance()
-        {
-            LoadBalanceInfo();
         }
     }
 }

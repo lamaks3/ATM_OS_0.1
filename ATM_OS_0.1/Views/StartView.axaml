@@ -31,7 +31,7 @@
                     Spacing="2">
             
             <!-- Рекламное изображение -->
-                <Image Source="/Assets/advertisiment1.png" 
+                <Image Source="/Assets/advertisiment1.JPEG" 
                        Width="1200" 
                        Height="600"  
                        HorizontalAlignment="Center" 

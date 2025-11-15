@@ -10,7 +10,7 @@ namespace ATM_OS;
 
 public class NfcScannerService
 {
-    public static string CardUID { get; private set; } = string.Empty;
+    public static string CardUID { get; private set; } 
     
     public static string GetCardUID()
     {
@@ -24,20 +24,13 @@ public class NfcScannerService
     
     static void RunAdbReverse()
     {
-        try
-        {
-            var process = new Process();
-            process.StartInfo.FileName = "adb";
-            process.StartInfo.Arguments = "reverse tcp:5055 tcp:5055";
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.UseShellExecute = false;
-            process.Start();
-            process.WaitForExit();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error with adb reverse: " + ex.Message);
-        }
+        var process = new Process();
+        process.StartInfo.FileName = "adb";
+        process.StartInfo.Arguments = "reverse tcp:5055 tcp:5055";
+        process.StartInfo.CreateNoWindow = true;
+        process.StartInfo.UseShellExecute = false;
+        process.Start();
+        process.WaitForExit();
     }
     
     public static async Task StartServer()
@@ -46,7 +39,7 @@ public class NfcScannerService
         var listener = new HttpListener();
         listener.Prefixes.Add("http://127.0.0.1:5055/api/identify/");
         listener.Start();
-        Console.WriteLine("\n\n\nServer is working");
+        Console.WriteLine("[Server status] Server started successfully");
 
         while (true)
         {
