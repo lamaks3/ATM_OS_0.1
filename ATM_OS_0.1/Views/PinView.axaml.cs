@@ -24,6 +24,7 @@ namespace ATM_OS
             
             this.Focusable = true;
             this.AddHandler(KeyDownEvent, OnKeyDown, RoutingStrategies.Tunnel);
+            this.AttachedToVisualTree += (s, e) => this.Focus();
         }
 
         public void Initialize(string cardUid)
