@@ -11,8 +11,10 @@
         <entry key="ATM_OS_0.1/Views/AmountInputView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/App.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/BalanceView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Views/ChangePinView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/ContinueOperationView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/MainMenuView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Views/NumericKeyboard.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/PartingView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/PinChangingView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/PinView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />

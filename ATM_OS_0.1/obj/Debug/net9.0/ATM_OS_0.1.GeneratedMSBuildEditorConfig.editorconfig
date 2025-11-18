@@ -33,6 +33,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/MainMenuView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/NumericKeyboard.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/PartingView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
