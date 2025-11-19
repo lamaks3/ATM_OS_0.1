@@ -24,29 +24,29 @@ build_property.EnableCodeStyleSeverity =
 [/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/BalanceView.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Componets/NumericKeyboard.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/ContinueOperationView.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/MainMenuView.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/BalanceView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/NumericKeyboard.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/ContinueOperationView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/PartingView.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/MainMenuView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/PinView.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/PartingView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/StartView.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/PinView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/TransactionView.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/StartView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Window.axaml]
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/TransactionView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

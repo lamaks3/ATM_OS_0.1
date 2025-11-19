@@ -6,7 +6,7 @@ using Avalonia.Threading;
 
 namespace ATM_OS
 {
-    public partial class Window : Avalonia.Controls.Window
+    public partial class MainWindow : Avalonia.Controls.Window
     {
         private StartView _startView;
         private PinView _pinView;
@@ -18,7 +18,7 @@ namespace ATM_OS
         
         private ContentControl _mainContent;
 
-        public Window()
+        public MainWindow()
         {
             InitializeComponent();
             

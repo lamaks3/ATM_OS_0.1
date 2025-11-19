@@ -39,14 +39,40 @@
      <Compile Update="Screens\Operations.Window.axaml.cs">
        <DependentUpon>OperationsWindow.axaml</DependentUpon>
      </Compile>
-     <Compile Update="Views\Window.axaml.cs">
+     <Compile Update="Views\MainWindow.axaml.cs">
        <DependentUpon>MainWindow.axaml</DependentUpon>
      </Compile>
-     <Compile Update="Views\MainMenuView.axaml.cs">
-       <DependentUpon>OperationsView.axaml</DependentUpon>
+     <Compile Update="Views\Componets\NumericKeyboard.axaml.cs">
+       <DependentUpon>NumericKeyboard.axaml</DependentUpon>
+       <SubType>Code</SubType>
      </Compile>
-     <Compile Update="Views\TransactionView.axaml.cs">
+     <Compile Update="Views\Pages\ContinueOperationView.axaml.cs">
+       <DependentUpon>ContinueOperationView.axaml</DependentUpon>
+       <SubType>Code</SubType>
+     </Compile>
+     <Compile Update="Views\Pages\BalanceView.axaml.cs">
+       <DependentUpon>BalanceView.axaml</DependentUpon>
+       <SubType>Code</SubType>
+     </Compile>
+     <Compile Update="Views\Pages\MainMenuView.axaml.cs">
+       <DependentUpon>MainMenuView.axaml</DependentUpon>
+       <SubType>Code</SubType>
+     </Compile>
+     <Compile Update="Views\Pages\PartingView.axaml.cs">
+       <DependentUpon>PartingView.axaml</DependentUpon>
+       <SubType>Code</SubType>
+     </Compile>
+     <Compile Update="Views\Pages\PinView.axaml.cs">
+       <DependentUpon>PinView.axaml</DependentUpon>
+       <SubType>Code</SubType>
+     </Compile>
+     <Compile Update="Views\Pages\StartView.axaml.cs">
+       <DependentUpon>StartView.axaml</DependentUpon>
+       <SubType>Code</SubType>
+     </Compile>
+     <Compile Update="Views\Pages\TransactionView.axaml.cs">
        <DependentUpon>TransactionView.axaml</DependentUpon>
+       <SubType>Code</SubType>
      </Compile>
      
    </ItemGroup>

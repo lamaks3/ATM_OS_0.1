@@ -30,6 +30,7 @@ namespace ATM_OS
             var keyboard = this.FindControl<NumericKeyboard>("Keyboard");
             keyboard.Reset();
             keyboard.SetMaxLength(PIN_LENGTH); 
+            keyboard.enablePinMode();
             
             ClearError();
         }

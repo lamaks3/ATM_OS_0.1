@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 
 namespace ATM_OS
 {
@@ -11,7 +12,7 @@ namespace ATM_OS
         private string _currentValue = "0";
         private int maxLegth = 6;
         private TextBlock _displayTextBlock;
-        private string _cardUid;
+        private bool pinMode = false;
         
         public event Action<string> OnValueChanged;
         public event Action<string> OnValueConfirmed;
@@ -28,24 +29,24 @@ namespace ATM_OS
             this.AddHandler(KeyDownEvent, OnKeyDown, RoutingStrategies.Tunnel);
             this.AttachedToVisualTree += (s, e) => this.Focus();
         }
-
-        private void InitializeComponent(string cardUid)
-        {
-            _cardUid = cardUid;
-            AvaloniaXamlLoader.Load(this);
-        }
-
+        
         private void InitializeDisplay()
         {
             _displayTextBlock = this.FindControl<TextBlock>("DisplayText");
             UpdateDisplay();
         }
 
+        public void enablePinMode()
+        {
+            pinMode = true;
+            _currentValue = "";
+            UpdateDisplay();
+        }
         public string CurrentValue => _currentValue;
 
         public void Reset()
         {
-            _currentValue = "0";
+            _currentValue = pinMode ? "" : "0";
             UpdateDisplay();
             this.Focus(); // Возвращаем фокус после сброса
         }
@@ -57,9 +58,13 @@ namespace ATM_OS
 
         private void UpdateDisplay()
         {
-            if (_displayTextBlock != null)
+            if (_displayTextBlock != null && !pinMode)
             {
                 _displayTextBlock.Text = _currentValue;
+            }
+            else
+            {
+                _displayTextBlock.Text = new string('*', _currentValue.Length);
             }
             OnValueChanged?.Invoke(_currentValue);
         }
@@ -106,18 +111,19 @@ namespace ATM_OS
         private void AddDigit(char digit)
         {
             if (_currentValue.Length >= maxLegth) return;
-
+            
             if (_currentValue == "0")
                 _currentValue = digit.ToString();
             else
                 _currentValue += digit;
-
+            
             UpdateDisplay();
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            _currentValue = "0";
+            _currentValue = pinMode ? "" : "0";
+            
             UpdateDisplay();
             OnClearPressed?.Invoke();
         }
@@ -127,7 +133,9 @@ namespace ATM_OS
             if (_currentValue.Length > 1)
                 _currentValue = _currentValue.Substring(0, _currentValue.Length - 1);
             else
-                _currentValue = "0";
+            {
+                _currentValue = pinMode ? "" : "0";
+            }
 
             UpdateDisplay();
             OnBackPressed?.Invoke();

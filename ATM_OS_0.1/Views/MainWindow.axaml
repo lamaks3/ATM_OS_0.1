@@ -1,6 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        x:Class="ATM_OS.Window"
+        x:Class="ATM_OS.MainWindow"
         Title="ATM_OS_0.1"
         Background="#FFDD2D"
         WindowState="FullScreen"
