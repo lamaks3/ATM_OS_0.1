@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ATM_OS"
+             x:Class="ATM_OS.ChangePinView">
+    <Grid Background="#F6F7F8">
+        <StackPanel HorizontalAlignment="Center" >
+            
+            <!-- Заголовок -->
+            <TextBlock x:Name="TitleText" 
+                       Padding="0,20,0,0"
+                       Text="Enter Amount"
+                       FontSize="36"
+                       FontWeight="Bold"
+                       Foreground="#333333"
+                       HorizontalAlignment="Center"/>
+            
+            <!-- Сообщение об ошибке -->
+            <TextBlock x:Name="ErrorText" 
+                       Text=""
+                       Padding="0,10,0,0"
+                       FontSize="18"
+                       Foreground="#D32F2F"
+                       HorizontalAlignment="Center"
+            />
+            
+            <Border VerticalAlignment="Center" Padding="20"/>
+            <local:NumericKeyboard x:Name="Keyboard"
+                                   OnValueChanged="Keyboard_OnValueChanged"
+                                   OnValueConfirmed="Keyboard_OnValueConfirmed"
+                                   OnClearPressed="Keyboard_OnClearPressed"
+                                   OnBackPressed="Keyboard_OnBackPressed"/>
+            
+            
+       
+            <Button Content="Back to Operations" 
+                    Click="BackButton_Click"
+                    Background="Transparent"
+                    Foreground="#333333"
+                    BorderBrush="#333333"
+                    BorderThickness="2"
+                    FontSize="20"
+                    Height="60"
+                    CornerRadius="10"
+                    Padding="20,10"
+                    HorizontalAlignment="Center"/>
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

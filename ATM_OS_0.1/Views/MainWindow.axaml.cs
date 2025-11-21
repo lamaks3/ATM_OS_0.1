@@ -15,6 +15,7 @@ namespace ATM_OS
         private BalanceView _balanceView;
         private ContinueOperationView _continueOperationView;
         private PartingView _partingView;
+        private ChangePinView _changePinView;
         
         private ContentControl _mainContent;
 
@@ -114,6 +115,7 @@ namespace ATM_OS
             _mainMenuView.OnExit += ShowPartingView;
             _mainMenuView.OnTransactionRequested += (uid, operationType) => ShowTransactionView(uid, operationType);
             _mainMenuView.OnViewBalance += (uid) => ShowBalanceView(uid);
+            _mainMenuView.OnChangePin += (uid) => ShowChangePinView(uid);
             
             _mainContent.Content = _mainMenuView;
         }
@@ -141,15 +143,26 @@ namespace ATM_OS
             _mainContent.Content = _balanceView;
         }
 
-        private void ShowContinueOperationView(string cardUid, string operationType, int amount, bool success, string currency)
+        private void ShowContinueOperationView(string cardUid, string operationType, int amount, string currency)
         {
             _continueOperationView = new ContinueOperationView();
-            _continueOperationView.Initialize(operationType, amount, success,currency);
+            _continueOperationView.Initialize(operationType, amount,currency);
             
             _continueOperationView.OnBackToMainMenu += () => ShowMainMenuView(cardUid);
             _continueOperationView.OnShowPartingView += ShowPartingView;
             
             _mainContent.Content = _continueOperationView;
+        }
+        
+        private void ShowChangePinView(string cardUid)
+        {
+            _changePinView = new ChangePinView();
+            _changePinView.Initialize(cardUid);
+            
+            _changePinView.OnBackToMain += () => ShowMainMenuView(cardUid);
+            _changePinView.OnShowPartingView += () => ShowMainMenuView(cardUid);
+            
+            _mainContent.Content = _changePinView;
         }
         
         private void ShowPartingView()
@@ -160,31 +173,23 @@ namespace ATM_OS
             
             _mainContent.Content = _partingView;
         }
-
+        
         private void ProcessTransaction(string cardUid, string operationType, int amount)
         {
             var repository = new CardHolderRepository();
-            bool success = false;
-
+            
             if (operationType == "Deposit")
             {
-                success = repository.AddToBalance(cardUid, amount);
+                repository.AddToBalance(cardUid, amount);
             }
             else if (operationType == "Withdraw")
             {
-                success = repository.AddToBalance(cardUid, -amount);
+                repository.AddToBalance(cardUid, -amount);
             }
             
             string currency = repository.GetCurrency(cardUid);
             
-            if (success)
-            {
-                ShowContinueOperationView(cardUid, operationType, amount, true,currency);
-            }
-            else
-            {
-                ShowContinueOperationView(cardUid, operationType, amount, false,currency);
-            }
+            ShowContinueOperationView(cardUid, operationType, amount,currency);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace ATM_OS
         public event Action OnExit;
         public event Action<string, string> OnTransactionRequested; 
         public event Action<string> OnViewBalance; 
+        public event Action<string> OnChangePin; 
 
         public MainMenuView()
         {
@@ -48,6 +49,11 @@ namespace ATM_OS
         private void WithdrawButton_Click(object sender, RoutedEventArgs e)
         {
             OnTransactionRequested?.Invoke(_cardUid, "Withdraw");
+        }
+        
+        private void ChangePinButton_Click(object sender, RoutedEventArgs e)
+        {
+            OnChangePin?.Invoke(_cardUid);
         }
 
         private void BalanceButton_Click(object sender, RoutedEventArgs e)

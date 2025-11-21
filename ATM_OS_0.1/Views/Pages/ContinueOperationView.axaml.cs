@@ -24,53 +24,31 @@ namespace ATM_OS
         {
             AvaloniaXamlLoader.Load(this);
             
-            // Находим элементы после загрузки XAML
             _resultMessage = this.FindControl<TextBlock>("ResultMessage");
             _resultDetails = this.FindControl<TextBlock>("ResultDetails");
         }
-
-        // Метод для инициализации с данными о выполненной операции
-        public void Initialize(string operationType, int amount, bool success,string currency)
+        
+        public void Initialize(string operationType, int amount,string currency)
         {
             if (_resultMessage != null && _resultDetails != null)
             {
-                if (success)
+                _resultMessage.Text = "Successful";
+                
+                if (operationType == "Deposit")
                 {
-                    _resultMessage.Text = "Successful";
-                    
-                    if (operationType == "Deposit")
-                    {
-                        _resultDetails.Text = $"{amount:N0} {currency} deposited successfully";
-                    }
-                    else if (operationType == "Withdraw")
-                    {
-                        _resultDetails.Text = $"{amount:N0} {currency} was withdrawn successfully";
-                    }
-                    else if (operationType == "Receipt")
-                    {
-                        _resultDetails.Text = "Receipt printed successfully";
-                    }
-                    else
-                    {
-                        _resultDetails.Text = "Operation completed successfully";
-                    }
+                    _resultDetails.Text = $"{amount:N0} {currency} deposited successfully";
+                }
+                else if (operationType == "Withdraw")
+                {
+                    _resultDetails.Text = $"{amount:N0} {currency} was withdrawn successfully";
+                }
+                else if (operationType == "Receipt")
+                {
+                    _resultDetails.Text = "Receipt printed successfully";
                 }
                 else
                 {
-                    _resultMessage.Text = "Unsuccessful";
-                    
-                    if (operationType == "Deposit")
-                    {
-                        _resultDetails.Text = "Deposit failed. Please try again.";
-                    }
-                    else if (operationType == "Withdraw")
-                    {
-                        _resultDetails.Text = "Withdrawal failed. Please check your balance.";
-                    }
-                    else
-                    {
-                        _resultDetails.Text = "Operation failed. Please try again.";
-                    }
+                    _resultDetails.Text = "Operation completed successfully";
                 }
             }
         }

@@ -33,6 +33,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/BalanceView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/ChangePinView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/ContinueOperationView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

@@ -44,13 +44,12 @@ public class CardHolderRepository
         return null;
     }
 
-    public bool AddToBalance(string cardUid, int amount)
+    public void AddToBalance(string cardUid, int amount)
     {
-        
         using var connection = new SqliteConnection(_connectionString);
         connection.Open();
         
-        if(GetBalance(cardUid) + amount < 0) return false;
+        if(GetBalance(cardUid) + amount < 0) amount = 0;
 
         amount *= 100;
         var command = connection.CreateCommand();
@@ -59,9 +58,18 @@ public class CardHolderRepository
         command.Parameters.AddWithValue("@cardUid", cardUid);
 
         command.ExecuteNonQuery();
-        return true;
     }
-    
+
+    public void changePin(string cardUid,string newPinCode)
+    {
+        using var connection = new SqliteConnection(_connectionString);
+        connection.Open();
+        
+        var command = connection.CreateCommand();
+        command.CommandText = "UPDATE Users SET [PinCode] = @newPinCode WHERE [Card UID] = @cardUid";
+        command.Parameters.AddWithValue("@newPinCode", newPinCode);
+        command.ExecuteNonQuery();
+    }
     public double GetBalance(string cardUid)
     {
         using var connection = new SqliteConnection(_connectionString);

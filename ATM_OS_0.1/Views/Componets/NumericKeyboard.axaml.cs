@@ -112,7 +112,7 @@ namespace ATM_OS
         {
             if (_currentValue.Length >= maxLegth) return;
             
-            if (_currentValue == "0")
+            if (_currentValue == "0" && !pinMode)
                 _currentValue = digit.ToString();
             else
                 _currentValue += digit;
