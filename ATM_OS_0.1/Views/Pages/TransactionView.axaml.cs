@@ -7,11 +7,11 @@ namespace ATM_OS
 {
     public partial class TransactionView : UserControl
     {
+        
         private string _cardUID;
-        private string _operationType;
         private CardHolderRepository _repository;
         private const int MAX_AMOUNT = 10000;
-        
+        private MainMenuView.OperationType _operationType;
         public event Action<string, int> OnAmountConfirmed;
         public event Action OnBackToOperations;
 
@@ -20,11 +20,24 @@ namespace ATM_OS
             InitializeComponent();
         }
 
-        public void Initialize(string cardUID, string operationType, string title)
+        public void Initialize(string cardUID, MainMenuView.OperationType operationType)
         {
             _cardUID = cardUID;
             _operationType = operationType;
             _repository = new CardHolderRepository();
+            string title = "";
+
+            if (MainMenuView.OperationType.withdraw == _operationType)
+            {
+                title += "Withdraw";
+            }else if (MainMenuView.OperationType.deposit == _operationType)
+            {
+                title += "Deposit";
+            }else if (MainMenuView.OperationType.pinChange == _operationType)
+            {
+                title += "PinChange";
+            }
+                
             
             var titleText = this.FindControl<TextBlock>("TitleText");
             titleText.Text = title;
@@ -63,7 +76,7 @@ namespace ATM_OS
                 return;
             }
             
-            if (_operationType == "Withdraw")
+            if (_operationType == MainMenuView.OperationType.withdraw)
             {
                 double currentBalance = _repository.GetBalance(_cardUID);
                 if (amount > currentBalance)

@@ -113,19 +113,17 @@ namespace ATM_OS
             _mainMenuView.Initialize(cardUid);
             
             _mainMenuView.OnExit += ShowPartingView;
-            _mainMenuView.OnTransactionRequested += (uid, operationType) => ShowTransactionView(uid, operationType);
-            _mainMenuView.OnViewBalance += (uid) => ShowBalanceView(uid);
+            _mainMenuView.OnTransactionRequested += (uid, operationType) => ShowTransactionView(uid, operationType);            _mainMenuView.OnViewBalance += (uid) => ShowBalanceView(uid);
             _mainMenuView.OnChangePin += (uid) => ShowChangePinView(uid);
             
             _mainContent.Content = _mainMenuView;
         }
 
-        private void ShowTransactionView(string cardUid, string operationType)
+        private void ShowTransactionView(string cardUid, MainMenuView.OperationType operationType)
         {
             _transactionView = new TransactionView();
             
-            string title = operationType == "Deposit" ? "Enter deposit amount" : "Enter withdrawal amount";
-            _transactionView.Initialize(cardUid, operationType, title);
+            _transactionView.Initialize(cardUid, operationType);
             
             _transactionView.OnAmountConfirmed += (uid, amount) => ProcessTransaction(uid, operationType, amount);
             _transactionView.OnBackToOperations += () => ShowMainMenuView(cardUid);
@@ -143,7 +141,7 @@ namespace ATM_OS
             _mainContent.Content = _balanceView;
         }
 
-        private void ShowContinueOperationView(string cardUid, string operationType, int amount, string currency)
+        private void ShowContinueOperationView(string cardUid, MainMenuView.OperationType operationType, int amount, string currency)
         {
             _continueOperationView = new ContinueOperationView();
             _continueOperationView.Initialize(operationType, amount,currency);
@@ -174,15 +172,15 @@ namespace ATM_OS
             _mainContent.Content = _partingView;
         }
         
-        private void ProcessTransaction(string cardUid, string operationType, int amount)
+        private void ProcessTransaction(string cardUid, MainMenuView.OperationType operationType, int amount)
         {
             var repository = new CardHolderRepository();
             
-            if (operationType == "Deposit")
+            if (operationType == MainMenuView.OperationType.deposit)
             {
                 repository.AddToBalance(cardUid, amount);
             }
-            else if (operationType == "Withdraw")
+            else if (operationType == MainMenuView.OperationType.withdraw)
             {
                 repository.AddToBalance(cardUid, -amount);
             }

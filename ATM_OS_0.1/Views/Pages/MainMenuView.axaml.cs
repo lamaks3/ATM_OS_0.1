@@ -12,8 +12,13 @@ namespace ATM_OS
         private string _cardUid;
         private CardHolderRepository _repository;
         
+        public enum OperationType
+        {
+            deposit,withdraw,pinChange
+        }
+        
         public event Action OnExit;
-        public event Action<string, string> OnTransactionRequested; 
+        public event Action<string, OperationType> OnTransactionRequested; 
         public event Action<string> OnViewBalance; 
         public event Action<string> OnChangePin; 
 
@@ -43,12 +48,12 @@ namespace ATM_OS
 
         private void DepositButton_Click(object sender, RoutedEventArgs e)
         {
-            OnTransactionRequested?.Invoke(_cardUid, "Deposit");
+            OnTransactionRequested?.Invoke(_cardUid, OperationType.deposit);
         }
 
         private void WithdrawButton_Click(object sender, RoutedEventArgs e)
         {
-            OnTransactionRequested?.Invoke(_cardUid, "Withdraw");
+            OnTransactionRequested?.Invoke(_cardUid, OperationType.withdraw);
         }
         
         private void ChangePinButton_Click(object sender, RoutedEventArgs e)
