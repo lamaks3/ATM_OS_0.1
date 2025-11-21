@@ -66,8 +66,9 @@ public class CardHolderRepository
         connection.Open();
         
         var command = connection.CreateCommand();
-        command.CommandText = "UPDATE Users SET [PinCode] = @newPinCode WHERE [Card UID] = @cardUid";
+        command.CommandText = "UPDATE Users SET [PIN Code] = @newPinCode WHERE [Card UID] = @cardUid";
         command.Parameters.AddWithValue("@newPinCode", newPinCode);
+        command.Parameters.AddWithValue("@cardUid", cardUid);
         command.ExecuteNonQuery();
     }
     public double GetBalance(string cardUid)

@@ -158,7 +158,7 @@ namespace ATM_OS
             _changePinView.Initialize(cardUid);
             
             _changePinView.OnBackToMain += () => ShowMainMenuView(cardUid);
-            _changePinView.OnShowPartingView += () => ShowMainMenuView(cardUid);
+            _changePinView.OnShowPartingView += () => ShowContinueOperationView(cardUid, MainMenuView.OperationType.pinChange, 0, "");;
             
             _mainContent.Content = _changePinView;
         }
