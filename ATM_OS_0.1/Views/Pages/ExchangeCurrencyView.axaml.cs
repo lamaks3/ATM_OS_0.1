@@ -18,7 +18,6 @@ namespace ATM_OS
             InitializeComponent();
             _httpClient = new HttpClient();
             
-            // Инициализируем ErrorText
             InitializeErrorText();
         }
 
@@ -27,15 +26,15 @@ namespace ATM_OS
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void InitializeErrorText()
+        private async void InitializeErrorText()
         {
             var errorText = this.FindControl<TextBlock>("ErrorText");
             errorText.Text = "";
             errorText.IsVisible = false;
-            UpdateRates();
+            await UpdateRates();
         }
 
-        private async void OnReturnHomeClick(object sender, RoutedEventArgs e)
+        private void OnReturnHomeClick(object sender, RoutedEventArgs e)
         {
             OnBackToMain?.Invoke();
         }
@@ -44,7 +43,6 @@ namespace ATM_OS
         {
             try
             {
-                // Получаем элементы при каждом использовании
                 var errorText = this.FindControl<TextBlock>("ErrorText");
                 var usdInText = this.FindControl<TextBlock>("USDInText");
                 var usdOutText = this.FindControl<TextBlock>("USDOutText");
@@ -60,44 +58,23 @@ namespace ATM_OS
 
                 using var jsonDocument = JsonDocument.Parse(response);
                 var root = jsonDocument.RootElement;
+                
+                var firstBranch = root[0];
 
-                if (root.ValueKind == JsonValueKind.Array && root.GetArrayLength() > 0)
-                {
-                    var firstBranch = root[0];
+                usdInText.Text = firstBranch.GetProperty("USD_in").GetString() ?? "?";
+                usdOutText.Text = firstBranch.GetProperty("USD_out").GetString() ?? "?";
 
-                    usdInText.Text = firstBranch.GetProperty("USD_in").GetString() ?? "?";
-                    usdOutText.Text = firstBranch.GetProperty("USD_out").GetString() ?? "?";
+                eurInText.Text = firstBranch.GetProperty("EUR_in").GetString() ?? "?";
+                eurOutText.Text = firstBranch.GetProperty("EUR_out").GetString() ?? "?";
 
-                    eurInText.Text = firstBranch.GetProperty("EUR_in").GetString() ?? "?";
-                    eurOutText.Text = firstBranch.GetProperty("EUR_out").GetString() ?? "?";
-
-                    lastUpdateText.Text = $"Updated: {DateTime.Now:HH:mm:ss}";
-                }
-                else
-                {
-                    throw new Exception("No data available");
-                }
+                lastUpdateText.Text = $"Updated: {DateTime.Now:HH:mm:ss}";
             }
             catch (Exception ex)
             {
                 var errorText = this.FindControl<TextBlock>("ErrorText");
-                errorText.Text = $"Error: {ex.Message}";
+                errorText.Text = $"Connection error: {ex.Message}";
                 errorText.IsVisible = true;
-                SetErrorState();
             }
-        }
-
-        private void SetErrorState()
-        {
-            var usdInText = this.FindControl<TextBlock>("USDInText");
-            var usdOutText = this.FindControl<TextBlock>("USDOutText");
-            var eurInText = this.FindControl<TextBlock>("EURInText");
-            var eurOutText = this.FindControl<TextBlock>("EUROutText");
-
-            usdInText.Text = "?";
-            usdOutText.Text = "?";
-            eurInText.Text = "?";
-            eurOutText.Text = "?";
         }
     }
 }
