@@ -1,0 +1,160 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ATM_OS.HomeView">
+    <Grid Background="#F6F7F8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/> <!-- Верхняя панель -->
+            <RowDefinition Height="Auto"/> <!-- Приветствие -->
+            <RowDefinition Height="*"/> <!-- Кнопки -->
+            <RowDefinition Height="900"/> <!-- Нижняя панель -->
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель -->
+        <Border Grid.Row="0" Background="#FFDD2D" Padding="0,15">
+            <Grid>
+                <Image Source="/Assets/my_logo.png" 
+                       Width="500" 
+                       Height="200"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Margin="20,0"/>
+                <TextBlock Text="LaMaks GmbH BANK" 
+                           FontSize="100" 
+                           FontWeight="Medium"  
+                           Foreground="#333333" 
+                           VerticalAlignment="Center"
+                           Margin="200,0"/>
+            </Grid>
+        </Border>
+
+        <!-- Приветствие -->
+        <Border Grid.Row="1" 
+                Background="#FFDD2D" 
+                CornerRadius="15" 
+                Padding="25"
+                Width="700" 
+                Height="80" 
+                HorizontalAlignment="Center"
+                Margin="0,20">
+            <TextBlock x:Name="UserNameText" 
+                       Text="Welcome, "
+                       FontSize="28"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="#333333"/>
+        </Border>
+
+        <!-- Кнопки меню -->
+        <Grid Grid.Row="2" 
+              HorizontalAlignment="Center" 
+              VerticalAlignment="Top"
+              Margin="0,20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Первый ряд кнопок -->
+            <Button Grid.Row="0" Grid.Column="0"
+                    Content="Deposit"
+                    Click="DepositButton_Click"
+                    Background="#FFDD2D"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,0,0,20"/>
+            
+            <Button Grid.Row="0" Grid.Column="1"
+                    Content="Withdraw"
+                    Click="WithdrawButton_Click"
+                    Background="#FFDD2D"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,0,0,20"/>
+            
+            <!-- Второй ряд кнопок -->
+            <Button Grid.Row="1" Grid.Column="0"
+                    Content="View Balance"
+                    Click="BalanceButton_Click"
+                    Background="#FFDD2D"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,0,20,0"/>
+            
+            <Button Grid.Row="1" Grid.Column="1"
+                    Content="Change PIN" 
+                    Click="ChangePinButton_Click"
+                    Background="#FFDD2D"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,0,20,0"/>
+            
+            <Button Grid.Row="2" Grid.Column="0"
+                    Content="Exchange rate" 
+                    Click="ExchangeCurrencyButton_Click"
+                    Background="#FFDD2D"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,20,0,0"/>
+            
+            <Button Grid.Row="2" Grid.Column="1"
+                    Content="End working" 
+                    Click="ExitButton_Click"
+                    Background="#FFDD2D"
+                    Foreground="#333333"
+                    Width="320" 
+                    Height="100"
+                    FontSize="35"
+                    CornerRadius="15"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,20,0,0"/>
+        </Grid>
+
+        <!-- Нижняя панель -->
+        <Border Grid.Row="3">
+            <Border CornerRadius="20" 
+                    ClipToBounds="True"
+                    Width="650" 
+                    Height="200">
+                <Image Source="/Assets/advertisiment2.jpg" 
+                       Stretch="UniformToFill"/>
+                
+            </Border>
+            
+        </Border>
+        
+        
+    </Grid>
+</UserControl>

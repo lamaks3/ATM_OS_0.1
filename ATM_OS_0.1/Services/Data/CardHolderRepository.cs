@@ -60,7 +60,7 @@ public class CardHolderRepository
         command.ExecuteNonQuery();
     }
 
-    public void changePin(string cardUid,string newPinCode)
+    public void ChangePin(string cardUid,string newPinCode)
     {
         using var connection = new SqliteConnection(_connectionString);
         connection.Open();

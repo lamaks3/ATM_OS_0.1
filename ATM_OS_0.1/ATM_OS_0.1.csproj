@@ -54,7 +54,7 @@
        <DependentUpon>BalanceView.axaml</DependentUpon>
        <SubType>Code</SubType>
      </Compile>
-     <Compile Update="Views\Pages\MainMenuView.axaml.cs">
+     <Compile Update="Views\Pages\HomeView.axaml.cs">
        <DependentUpon>MainMenuView.axaml</DependentUpon>
        <SubType>Code</SubType>
      </Compile>
@@ -73,6 +73,9 @@
      <Compile Update="Views\Pages\TransactionView.axaml.cs">
        <DependentUpon>TransactionView.axaml</DependentUpon>
        <SubType>Code</SubType>
+     </Compile>
+     <Compile Update="Views\Pages\ExchangeCurrencyView.axaml.cs">
+       <DependentUpon>ExchangeCurrencyView.axaml</DependentUpon>
      </Compile>
      
    </ItemGroup>

@@ -28,21 +28,21 @@ namespace ATM_OS
             _resultDetails = this.FindControl<TextBlock>("ResultDetails");
         }
         
-        public void Initialize(MainMenuView.OperationType operationType, int amount,string currency)
+        public void Initialize(HomeView.OperationType operationType, int amount,string currency)
         {
             if (_resultMessage != null && _resultDetails != null)
             {
                 _resultMessage.Text = "Successful";
                 
-                if (MainMenuView.OperationType.deposit == operationType)
+                if (HomeView.OperationType.Deposit == operationType)
                 {
                     _resultDetails.Text = $"{amount} {currency} deposited successfully";
                 }
-                else if (MainMenuView.OperationType.withdraw == operationType)
+                else if (HomeView.OperationType.Withdraw == operationType)
                 {
                     _resultDetails.Text = $"{amount} {currency} was withdrawn successfully";
                 }
-                else if (MainMenuView.OperationType.pinChange == operationType)
+                else if (HomeView.OperationType.PinChange == operationType)
                 {
                     _resultDetails.Text = "Pin changed successfully";
                 }

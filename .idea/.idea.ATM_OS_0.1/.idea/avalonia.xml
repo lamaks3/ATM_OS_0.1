@@ -21,6 +21,8 @@
         <entry key="ATM_OS_0.1/Views/Pages/BalanceView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/Pages/ChangePinView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/Pages/ContinueOperationView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Views/Pages/ExchangeCurrencyView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
+        <entry key="ATM_OS_0.1/Views/Pages/HomeView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/Pages/MainMenuView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/Pages/PartingView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />
         <entry key="ATM_OS_0.1/Views/Pages/PinView.axaml" value="ATM_OS_0.1/ATM_OS_0.1.csproj" />

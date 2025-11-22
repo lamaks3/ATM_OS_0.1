@@ -65,7 +65,7 @@ namespace ATM_OS
             {
                 if (tempPin == value)
                 {
-                    _repository.changePin(_cardUID, value);
+                    _repository.ChangePin(_cardUID, value);
                     OnShowPartingView?.Invoke();
                 }
                 else

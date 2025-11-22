@@ -11,7 +11,7 @@ namespace ATM_OS
         private string _cardUID;
         private CardHolderRepository _repository;
         private const int MAX_AMOUNT = 10000;
-        private MainMenuView.OperationType _operationType;
+        private HomeView.OperationType _operationType;
         public event Action<string, int> OnAmountConfirmed;
         public event Action OnBackToOperations;
 
@@ -20,20 +20,20 @@ namespace ATM_OS
             InitializeComponent();
         }
 
-        public void Initialize(string cardUID, MainMenuView.OperationType operationType)
+        public void Initialize(string cardUID, HomeView.OperationType operationType)
         {
             _cardUID = cardUID;
             _operationType = operationType;
             _repository = new CardHolderRepository();
             string title = "";
 
-            if (MainMenuView.OperationType.withdraw == _operationType)
+            if (HomeView.OperationType.Withdraw == _operationType)
             {
                 title += "Withdraw";
-            }else if (MainMenuView.OperationType.deposit == _operationType)
+            }else if (HomeView.OperationType.Deposit == _operationType)
             {
                 title += "Deposit";
-            }else if (MainMenuView.OperationType.pinChange == _operationType)
+            }else if (HomeView.OperationType.PinChange == _operationType)
             {
                 title += "PinChange";
             }
@@ -76,7 +76,7 @@ namespace ATM_OS
                 return;
             }
             
-            if (_operationType == MainMenuView.OperationType.withdraw)
+            if (_operationType == HomeView.OperationType.Withdraw)
             {
                 double currentBalance = _repository.GetBalance(_cardUID);
                 if (amount > currentBalance)
