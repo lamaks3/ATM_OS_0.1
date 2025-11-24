@@ -9,8 +9,11 @@ class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        Task.Run(() => NfcScannerService.StartServer());
         
+        Task.Run(() => NfcScannerService.StartServer());
+
+        _ = ExchangeCurrencyView.PreloadRatesAsync();
+            
         BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
     }
