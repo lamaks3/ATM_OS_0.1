@@ -70,19 +70,13 @@ namespace ATM_OS
                 }
                 else
                 {
-                    ShowError("PIN codes don't match");
-                    ResetPinChange();
+                    var keyboard = this.FindControl<NumericKeyboard>("Keyboard");
+                    keyboard.Clean();
+                    ShowError("PIN codes don't match. Try again");
                 }
             }
         }
-
-        private void ResetPinChange()
-        {
-            tempPin = null;
-            this.FindControl<TextBlock>("TitleText").Text = "Enter PIN code";
-            this.FindControl<NumericKeyboard>("Keyboard").Reset();
-        }
-
+        
         private void Keyboard_OnClearPressed()
         {
             ClearError();

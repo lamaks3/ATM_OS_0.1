@@ -132,10 +132,6 @@
                             
                             <!-- Время обновления -->
                             <StackPanel>
-                                <TextBlock Text="Last Update"
-                                          FontSize="14"
-                                          Foreground="#CCFFFFFF"
-                                          HorizontalAlignment="Center"/>
                                 <TextBlock x:Name="LastUpdateText"
                                           Text=""
                                           FontSize="12"

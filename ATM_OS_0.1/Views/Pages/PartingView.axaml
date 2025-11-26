@@ -39,7 +39,7 @@
                 
                 <Image Source="/Assets/goodbyeScreen.png" 
                        Width="750" 
-                       Height="300"
+                       Height="400"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Margin="20,0"

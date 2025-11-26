@@ -23,7 +23,7 @@ namespace ATM_OS
     {
         try
         {
-            var url = "https://belarusbank.by/api/kursExchange?city=Дятлово";
+            var url = "https://belarusbank.by/api/kursExchange?city=Гродно";
             var response = await _httpClient.GetStringAsync(url);
 
             using var jsonDocument = JsonDocument.Parse(response);

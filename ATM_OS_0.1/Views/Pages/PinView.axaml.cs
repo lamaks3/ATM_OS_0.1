@@ -10,7 +10,7 @@ namespace ATM_OS
         private string _cardUID;
         private CardHolderRepository _repository;
         private const int PIN_LENGTH = 4;
-        
+        private int pinAttemps = 1;
         public event Action<string> OnPinVerified;
         public event Action OnBackToMain;
 
@@ -60,7 +60,11 @@ namespace ATM_OS
             }
             else
             {
-                ShowError("Incorrect PIN code");
+                var keyboard = this.FindControl<NumericKeyboard>("Keyboard");
+                keyboard.Clean();
+                if (pinAttemps == 3) OnBackToMain?.Invoke();
+                ShowError("Incorrect PIN code (" + pinAttemps + "/3)");
+                pinAttemps += 1;
             }
         }
 

@@ -51,6 +51,12 @@ namespace ATM_OS
             this.Focus(); // Возвращаем фокус после сброса
         }
 
+        public void Clean()
+        {
+            _currentValue = pinMode ? "" : "0";
+            UpdateDisplay();
+        }
+
         public void SetMaxLength(int _maxLenght)
         {
             maxLegth = _maxLenght;
