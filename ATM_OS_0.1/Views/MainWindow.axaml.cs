@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Threading;
 
 namespace ATM_OS
@@ -53,7 +54,7 @@ namespace ATM_OS
                 {
                     string cardUid = NfcScannerService.GetCardUID();
                     
-                    cardUid = "210bc299"; //for test
+                    //cardUid = "210bc299"; //for test
                 
                     if (!string.IsNullOrEmpty(cardUid))
                     {
@@ -94,7 +95,14 @@ namespace ATM_OS
         private void ShowStartView()
         { 
             _startView = new StartView();
+            
+            _startView.ExitAppRequested += OnExitAppRequested;
             _mainContent.Content = _startView;
+        }
+
+        private void OnExitAppRequested()
+        {
+            Environment.Exit(0);
         }
 
         private void ShowPinView(string cardUid)

@@ -31,7 +31,6 @@
                                        OnBackPressed="Keyboard_OnBackPressed"/>
             
             
-       
             <Button Content="Back to Operations" 
                     Click="BackButton_Click"
                     Background="Transparent"
