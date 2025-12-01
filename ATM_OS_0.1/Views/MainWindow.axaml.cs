@@ -52,7 +52,7 @@ namespace ATM_OS
             {
                 if (IsStartViewActive())
                 {
-                    string cardUid = NfcScannerService.GetCardUID();
+                    string cardUid = NfcScannerService.GetCardUid();
                     
                     //cardUid = "210bc299"; //for test
                 
@@ -70,7 +70,7 @@ namespace ATM_OS
                         }
                         else
                         {
-                            NfcScannerService.SetCardUID(string.Empty);
+                            NfcScannerService.SetCardUid(string.Empty);
                             Console.WriteLine("[Operations with DB] Card NOT found in database");
                             Console.WriteLine("[Operations with DB] Access denied");
                         }
@@ -78,7 +78,7 @@ namespace ATM_OS
                 }
                 else
                 {   
-                    NfcScannerService.SetCardUID(string.Empty);
+                    NfcScannerService.SetCardUid(string.Empty);
                 }
             
                 await Task.Delay(500);
