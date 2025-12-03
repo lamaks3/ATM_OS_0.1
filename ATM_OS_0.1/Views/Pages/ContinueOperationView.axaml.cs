@@ -8,8 +8,7 @@ namespace ATM_OS
 {
     public partial class ContinueOperationView : UserControl
     {
-        // События для навигации
-        public event Action OnBackToMainMenu; // Изменено: было OnBackToStartMenu
+        public event Action OnBackToMainMenu;
         public event Action OnShowPartingView;
 
         private TextBlock _resultMessage;

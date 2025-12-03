@@ -15,26 +15,26 @@ namespace ATM_OS
         public enum OperationType
         {
             Deposit = 0,
-            Withdraw = 2,
-            PinChange = 3
+            Withdraw = 1,
+            PinChange = 2
         }
         
         public event Action OnExit;
-        public event Action<OperationType> OnTransactionRequested; 
-        public event Action OnViewBalance; 
-        public event Action OnChangePin; 
-        public event Action OnExchangeCurrency;
+        public event Action<string,OperationType> OnTransactionRequested; 
+        public event Action<string> OnViewBalance; 
+        public event Action<string> OnChangePin; 
+        public event Action<string> OnExchangeCurrency;
 
         public HomeView()
         {
             InitializeComponent();
         }
 
-        public void Initialize(string cardUID)
+        public void Initialize(string cardUid)
         {
-            _cardUid = cardUID;
+            _cardUid = cardUid;
             _repository = new CardHolderRepository();
-            LoadUserInfo();
+            LoadUserName();
         }
 
         private void InitializeComponent()
@@ -42,7 +42,7 @@ namespace ATM_OS
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void LoadUserInfo()
+        private void LoadUserName()
         {
             var userNameText = this.FindControl<TextBlock>("UserNameText");
             var userName = _repository.GetUserName(_cardUid);
@@ -51,27 +51,27 @@ namespace ATM_OS
 
         private void DepositButton_Click(object sender, RoutedEventArgs e)
         {
-            OnTransactionRequested?.Invoke(OperationType.Deposit);
+            OnTransactionRequested?.Invoke(_cardUid,OperationType.Deposit);
         }
 
         private void WithdrawButton_Click(object sender, RoutedEventArgs e)
         {
-            OnTransactionRequested?.Invoke(OperationType.Withdraw);
+            OnTransactionRequested?.Invoke(_cardUid,OperationType.Withdraw);
         }
         
         private void ChangePinButton_Click(object sender, RoutedEventArgs e)
         {
-            OnChangePin?.Invoke();
+            OnChangePin?.Invoke(_cardUid);
         }
 
         private void BalanceButton_Click(object sender, RoutedEventArgs e)
         {
-            OnViewBalance?.Invoke();
+            OnViewBalance?.Invoke(_cardUid);
         }
         
         private void ExchangeCurrencyButton_Click(object sender, RoutedEventArgs e)
         {
-            OnExchangeCurrency?.Invoke();
+            OnExchangeCurrency?.Invoke(_cardUid);
         }
         
         private void ExitButton_Click(object sender, RoutedEventArgs e)

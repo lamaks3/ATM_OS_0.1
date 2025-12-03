@@ -110,7 +110,7 @@ namespace ATM_OS
             _pinView = new PinView();
             _pinView.Initialize(cardUid);
             
-            _pinView.OnPinVerified += (uid) => ShowMainMenuView(uid);
+            _pinView.OnPinVerified += ShowMainMenuView;
             _pinView.OnBackToMain += ShowStartView;
             
             _mainContent.Content = _pinView;
@@ -122,23 +122,22 @@ namespace ATM_OS
             _mainMenuView.Initialize(cardUid);
             
             _mainMenuView.OnExit += ShowPartingView;
-            _mainMenuView.OnTransactionRequested += (operationType) => ShowTransactionView(cardUid, operationType); 
-            _mainMenuView.OnViewBalance += () => ShowBalanceView(cardUid);
-            _mainMenuView.OnChangePin += () => ShowChangePinView(cardUid);
-            _mainMenuView.OnExchangeCurrency += () => ShowExchangeCurrencyView(cardUid);
+            _mainMenuView.OnTransactionRequested += ShowTransactionView; 
+            _mainMenuView.OnViewBalance += ShowBalanceView;
+            _mainMenuView.OnChangePin += ShowChangePinView;
+            _mainMenuView.OnExchangeCurrency += ShowExchangeCurrencyView;
             
             _mainContent.Content = _mainMenuView;
         }
         
-
         private void ShowTransactionView(string cardUid, HomeView.OperationType operationType)
         {
             _transactionView = new TransactionView();
             
             _transactionView.Initialize(cardUid, operationType);
             
-            _transactionView.OnAmountConfirmed += (amount) => ProcessTransaction(cardUid, operationType, amount);
-            _transactionView.OnBackToOperations += () => ShowMainMenuView(cardUid);
+            _transactionView.OnAmountConfirmed += ProcessTransaction;
+            _transactionView.OnBackToOperations += ShowMainMenuView;
             
             _mainContent.Content = _transactionView;
         }
@@ -148,7 +147,7 @@ namespace ATM_OS
             _balanceView = new BalanceView();
             _balanceView.Initialize(cardUid);
             
-            _balanceView.OnBackToMainMenu += () => ShowMainMenuView(cardUid);
+            _balanceView.OnBackToMainMenu += ShowMainMenuView;
             
             _mainContent.Content = _balanceView;
         }
@@ -169,7 +168,7 @@ namespace ATM_OS
             _changePinView = new ChangePinView();
             _changePinView.Initialize(cardUid);
             
-            _changePinView.OnBackToMain += () => ShowMainMenuView(cardUid);
+            _changePinView.OnBackToMain += ShowMainMenuView;
             _changePinView.OnShowPartingView += () => ShowContinueOperationView(cardUid, HomeView.OperationType.PinChange, 0, "");;
             
             _mainContent.Content = _changePinView;

@@ -9,11 +9,11 @@ namespace ATM_OS
 {
     public partial class BalanceView : UserControl
     {
-        private string _cardUID;
+        private string _cardUid;
         private CardHolderRepository _repository;
 
         
-        public event Action OnBackToMainMenu;
+        public event Action<string> OnBackToMainMenu;
 
         public BalanceView()
         {
@@ -22,7 +22,7 @@ namespace ATM_OS
 
         public void Initialize(string cardUID)
         {
-            _cardUID = cardUID;
+            _cardUid = cardUID;
             _repository = new CardHolderRepository();
             LoadBalanceInfo();
         }
@@ -34,7 +34,7 @@ namespace ATM_OS
 
         private void LoadBalanceInfo()
         {
-            var holder = _repository.GetUser(_cardUID);
+            var holder = _repository.GetUser(_cardUid);
             if (holder != null)
             {
                 var holderNameText = this.FindControl<TextBlock>("HolderNameText");
@@ -48,7 +48,7 @@ namespace ATM_OS
                 
                 accountNumberText.Text = FormatAccountNumber(holder.NumberOfAccount);
                 
-                balanceAmountText.Text = $"{_repository.GetBalance(_cardUID):N2}";
+                balanceAmountText.Text = $"{_repository.GetBalance(_cardUid):N2}";
                 
                 currencyText.Text = holder.Currency;
                 
@@ -68,7 +68,7 @@ namespace ATM_OS
         
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            OnBackToMainMenu?.Invoke();
+            OnBackToMainMenu?.Invoke(_cardUid);
         }
     }
 }

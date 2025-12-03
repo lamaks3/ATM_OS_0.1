@@ -8,12 +8,12 @@ namespace ATM_OS
     public partial class TransactionView : UserControl
     {
         
-        private string _cardUID;
+        private string _cardUid;
         private CardHolderRepository _repository;
         private const int MAX_AMOUNT = 10000;
         private HomeView.OperationType _operationType;
-        public event Action<int> OnAmountConfirmed;
-        public event Action OnBackToOperations;
+        public event Action<string, HomeView.OperationType, int> OnAmountConfirmed;
+        public event Action<string> OnBackToOperations;
 
         public TransactionView()
         {
@@ -22,7 +22,7 @@ namespace ATM_OS
 
         public void Initialize(string cardUID, HomeView.OperationType operationType)
         {
-            _cardUID = cardUID;
+            _cardUid = cardUID;
             _operationType = operationType;
             _repository = new CardHolderRepository();
             string title = "";
@@ -78,7 +78,7 @@ namespace ATM_OS
             
             if (_operationType == HomeView.OperationType.Withdraw)
             {
-                double currentBalance = _repository.GetBalance(_cardUID);
+                double currentBalance = _repository.GetBalance(_cardUid);
                 if (amount > currentBalance)
                 {
                     ShowError("Insufficient funds");
@@ -86,7 +86,7 @@ namespace ATM_OS
                 }
             }
             
-            OnAmountConfirmed?.Invoke(amount);
+            OnAmountConfirmed?.Invoke(_cardUid, _operationType, amount);
         }
 
         private void Keyboard_OnClearPressed()
@@ -101,7 +101,7 @@ namespace ATM_OS
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            OnBackToOperations?.Invoke();
+            OnBackToOperations?.Invoke(_cardUid);
         }
 
         private void ShowError(string message)

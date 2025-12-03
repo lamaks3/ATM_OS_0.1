@@ -12,7 +12,7 @@ namespace ATM_OS
         private const int PIN_LENGTH = 4;
         private string tempPin;
         
-        public event Action OnBackToMain;
+        public event Action<string> OnBackToMain;
         public event Action OnShowPartingView;
 
         public ChangePinView()
@@ -89,7 +89,7 @@ namespace ATM_OS
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            OnBackToMain?.Invoke();
+            OnBackToMain?.Invoke(_cardUID);
         }
 
         private void ShowError(string message)
