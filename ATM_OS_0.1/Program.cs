@@ -12,7 +12,7 @@ class Program
         
         Task.Run(() => NfcScannerService.StartServer());
 
-        _ = ExchangeCurrencyView.PreloadRatesAsync();
+        _ = CurrencyUpdateService.PreloadRatesAsync();
             
         BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);

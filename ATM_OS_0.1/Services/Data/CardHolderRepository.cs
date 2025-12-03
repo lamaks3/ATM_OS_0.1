@@ -1,12 +1,13 @@
 using Microsoft.Data.Sqlite;
 using System;
+
 namespace ATM_OS;
 
 public class CardHolderRepository
 {
     private readonly string _connectionString;
 
-    public CardHolderRepository(string dbPath = "CardHolders.db")
+    public CardHolderRepository(string dbPath = DbScheme.DatabaseFile)
     {
         _connectionString = $"Data Source={dbPath}";
     }
@@ -17,7 +18,7 @@ public class CardHolderRepository
         connection.Open();
 
         var command = connection.CreateCommand();
-        command.CommandText = $"SELECT [{columnName}] FROM Users WHERE [card_uid] = @cardUid";
+        command.CommandText = $"SELECT [{columnName}] FROM {DbScheme.UsersTable} WHERE [{DbScheme.CardUid}] = @cardUid";
         command.Parameters.AddWithValue("@cardUid", cardUid);
 
         var result = command.ExecuteScalar();
@@ -30,7 +31,7 @@ public class CardHolderRepository
         connection.Open();
     
         var command = connection.CreateCommand();
-        command.CommandText = $"UPDATE Users SET [{columnName}] = @newValue WHERE [card_uid] = @cardUid";
+        command.CommandText = $"UPDATE {DbScheme.UsersTable} SET [{columnName}] = @newValue WHERE [{DbScheme.CardUid}] = @cardUid";
         command.Parameters.AddWithValue("@newValue", newValue);
         command.Parameters.AddWithValue("@cardUid", cardUid);
         command.ExecuteNonQuery();
@@ -40,13 +41,13 @@ public class CardHolderRepository
     {
         if (!CardExists(cardUid)) return null;
         
-        string cardUidData = GetUserData<string>("card_uid", cardUid);
-        string holderName = GetUserData<string>("user_name", cardUid);
-        string numberOfAccount = GetUserData<string>("account_number", cardUid);
-        string paymentSystem = GetUserData<string>("payment_system", cardUid);
-        string currency = GetUserData<string>("currency", cardUid);
-        string expireDate = GetUserData<string>("expire_date", cardUid);
-        string balanceStr = GetUserData<string>("balance_cents", cardUid);
+        string cardUidData = GetUserData<string>(DbScheme.CardUid, cardUid);
+        string holderName = GetUserData<string>(DbScheme.UserName, cardUid);
+        string numberOfAccount = GetUserData<string>(DbScheme.AccountNumber, cardUid);
+        string paymentSystem = GetUserData<string>(DbScheme.PaymentSystem, cardUid);
+        string currency = GetUserData<string>(DbScheme.Currency, cardUid);
+        string expireDate = GetUserData<string>(DbScheme.ExpireDate, cardUid);
+        string balanceStr = GetUserData<string>(DbScheme.BalanceCents, cardUid);
         
         double balanceCents = double.Parse(balanceStr);
         
@@ -65,42 +66,42 @@ public class CardHolderRepository
 
     public string GetUserName(string cardUid)
     {
-        string userName = GetUserData<string>("user_name", cardUid).Split(" ")[0];
+        string userName = GetUserData<string>(DbScheme.UserName, cardUid).Split(" ")[0];
         return userName;
     }
     public void UpdateBalance(string cardUid, double amount)
     {
         int newBalance = (int)((GetBalance(cardUid) + amount)*100);
-        if(newBalance < 0) return;
+        if (newBalance < 0) return;
         
-        UpdateUserData("balance_cents", cardUid, newBalance.ToString());
+        UpdateUserData(DbScheme.BalanceCents, cardUid, newBalance.ToString());
     }
 
     public void ChangePin(string cardUid, string newPinCode)
     {
-        UpdateUserData("pin_code", cardUid, newPinCode);
+        UpdateUserData(DbScheme.PinCode, cardUid, newPinCode);
     }
     public double GetBalance(string cardUid)
     {
-        int balance = GetUserData<int>("balance_cents", cardUid);
-        double balanceCents = balance/100.0;
+        int balance = GetUserData<int>(DbScheme.BalanceCents, cardUid);
+        double balanceCents = balance / 100.0;
         return balanceCents;
     }
     
     public string GetCurrency(string cardUid)
     {
-        string currency = GetUserData<string>("currency", cardUid);
+        string currency = GetUserData<string>(DbScheme.Currency, cardUid);
         return currency;
     }
     public bool VerifyPin(string cardUid, string enteredPin)
     {
-        string pinCode = GetUserData<string>("pin_code", cardUid);
+        string pinCode = GetUserData<string>(DbScheme.PinCode, cardUid);
         return pinCode == enteredPin;
     }
     
     public bool CardExists(string cardUid)
     {
-        string userData = GetUserData<string>("card_uid", cardUid);
+        string userData = GetUserData<string>(DbScheme.CardUid, cardUid);
         return userData != null;
     }
 }

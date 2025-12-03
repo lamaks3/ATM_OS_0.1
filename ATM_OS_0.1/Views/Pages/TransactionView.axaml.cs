@@ -10,7 +10,7 @@ namespace ATM_OS
         
         private string _cardUid;
         private CardHolderRepository _repository;
-        private const int MAX_AMOUNT = 10000;
+        private const int MaxAmount = 10000;
         private HomeView.OperationType _operationType;
         public event Action<string, HomeView.OperationType, int> OnAmountConfirmed;
         public event Action<string> OnBackToOperations;
@@ -56,7 +56,6 @@ namespace ATM_OS
 
         private void Keyboard_OnValueChanged(string value)
         {
-            // Теперь здесь только очистка ошибки, отображение в клавиатуре
             ClearError();
         }
 
@@ -70,9 +69,9 @@ namespace ATM_OS
                 return;
             }
             
-            if (amount > MAX_AMOUNT)
+            if (amount > MaxAmount)
             {
-                ShowError($"Maximum amount is {MAX_AMOUNT}");
+                ShowError($"Maximum amount is {MaxAmount}");
                 return;
             }
             
