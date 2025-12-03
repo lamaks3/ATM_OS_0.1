@@ -6,7 +6,7 @@ public class CardHolderRepository
 {
     private readonly string _connectionString;
 
-    private CardHolderRepository(string dbPath = "CardHolders.db")
+    public CardHolderRepository(string dbPath = "CardHolders.db")
     {
         _connectionString = $"Data Source={dbPath}";
     }

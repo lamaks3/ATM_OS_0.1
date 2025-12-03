@@ -20,10 +20,10 @@ namespace ATM_OS
         }
         
         public event Action OnExit;
-        public event Action<string, OperationType> OnTransactionRequested; 
-        public event Action<string> OnViewBalance; 
-        public event Action<string> OnChangePin; 
-        public event Action<string> OnExchangeCurrency;
+        public event Action<OperationType> OnTransactionRequested; 
+        public event Action OnViewBalance; 
+        public event Action OnChangePin; 
+        public event Action OnExchangeCurrency;
 
         public HomeView()
         {
@@ -51,27 +51,27 @@ namespace ATM_OS
 
         private void DepositButton_Click(object sender, RoutedEventArgs e)
         {
-            OnTransactionRequested?.Invoke(_cardUid, OperationType.Deposit);
+            OnTransactionRequested?.Invoke(OperationType.Deposit);
         }
 
         private void WithdrawButton_Click(object sender, RoutedEventArgs e)
         {
-            OnTransactionRequested?.Invoke(_cardUid, OperationType.Withdraw);
+            OnTransactionRequested?.Invoke(OperationType.Withdraw);
         }
         
         private void ChangePinButton_Click(object sender, RoutedEventArgs e)
         {
-            OnChangePin?.Invoke(_cardUid);
+            OnChangePin?.Invoke();
         }
 
         private void BalanceButton_Click(object sender, RoutedEventArgs e)
         {
-            OnViewBalance?.Invoke(_cardUid);
+            OnViewBalance?.Invoke();
         }
         
         private void ExchangeCurrencyButton_Click(object sender, RoutedEventArgs e)
         {
-            OnExchangeCurrency?.Invoke(_cardUid);
+            OnExchangeCurrency?.Invoke();
         }
         
         private void ExitButton_Click(object sender, RoutedEventArgs e)

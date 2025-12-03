@@ -12,7 +12,7 @@ namespace ATM_OS
         private CardHolderRepository _repository;
         private const int MAX_AMOUNT = 10000;
         private HomeView.OperationType _operationType;
-        public event Action<string, int> OnAmountConfirmed;
+        public event Action<int> OnAmountConfirmed;
         public event Action OnBackToOperations;
 
         public TransactionView()
@@ -86,7 +86,7 @@ namespace ATM_OS
                 }
             }
             
-            OnAmountConfirmed?.Invoke(_cardUID, amount);
+            OnAmountConfirmed?.Invoke(amount);
         }
 
         private void Keyboard_OnClearPressed()

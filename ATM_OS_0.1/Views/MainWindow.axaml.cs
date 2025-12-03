@@ -122,10 +122,10 @@ namespace ATM_OS
             _mainMenuView.Initialize(cardUid);
             
             _mainMenuView.OnExit += ShowPartingView;
-            _mainMenuView.OnTransactionRequested += (uid, operationType) => ShowTransactionView(uid, operationType); 
-            _mainMenuView.OnViewBalance += (uid) => ShowBalanceView(uid);
-            _mainMenuView.OnChangePin += (uid) => ShowChangePinView(uid);
-            _mainMenuView.OnExchangeCurrency += (uid) => ShowExchangeCurrencyView(uid);
+            _mainMenuView.OnTransactionRequested += (operationType) => ShowTransactionView(cardUid, operationType); 
+            _mainMenuView.OnViewBalance += () => ShowBalanceView(cardUid);
+            _mainMenuView.OnChangePin += () => ShowChangePinView(cardUid);
+            _mainMenuView.OnExchangeCurrency += () => ShowExchangeCurrencyView(cardUid);
             
             _mainContent.Content = _mainMenuView;
         }
@@ -137,7 +137,7 @@ namespace ATM_OS
             
             _transactionView.Initialize(cardUid, operationType);
             
-            _transactionView.OnAmountConfirmed += (uid, amount) => ProcessTransaction(uid, operationType, amount);
+            _transactionView.OnAmountConfirmed += (amount) => ProcessTransaction(cardUid, operationType, amount);
             _transactionView.OnBackToOperations += () => ShowMainMenuView(cardUid);
             
             _mainContent.Content = _transactionView;
