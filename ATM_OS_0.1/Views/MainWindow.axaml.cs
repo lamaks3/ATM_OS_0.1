@@ -122,12 +122,14 @@ namespace ATM_OS
             _mainMenuView.Initialize(cardUid);
             
             _mainMenuView.OnExit += ShowPartingView;
-            _mainMenuView.OnTransactionRequested += (uid, operationType) => ShowTransactionView(uid, operationType);            _mainMenuView.OnViewBalance += (uid) => ShowBalanceView(uid);
+            _mainMenuView.OnTransactionRequested += (uid, operationType) => ShowTransactionView(uid, operationType); 
+            _mainMenuView.OnViewBalance += (uid) => ShowBalanceView(uid);
             _mainMenuView.OnChangePin += (uid) => ShowChangePinView(uid);
             _mainMenuView.OnExchangeCurrency += (uid) => ShowExchangeCurrencyView(uid);
             
             _mainContent.Content = _mainMenuView;
         }
+        
 
         private void ShowTransactionView(string cardUid, HomeView.OperationType operationType)
         {
@@ -196,11 +198,11 @@ namespace ATM_OS
             
             if (operationType == HomeView.OperationType.Deposit)
             {
-                repository.AddToBalance(cardUid, amount);
+                repository.UpdateBalance(cardUid, amount);
             }
             else if (operationType == HomeView.OperationType.Withdraw)
             {
-                repository.AddToBalance(cardUid, -amount);
+                repository.UpdateBalance(cardUid, -amount);
             }
             
             string currency = repository.GetCurrency(cardUid);

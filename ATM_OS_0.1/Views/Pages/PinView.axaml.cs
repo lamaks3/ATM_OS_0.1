@@ -54,7 +54,7 @@ namespace ATM_OS
                 return;
             }
 
-            if (_repository.VerifyPIN(_cardUID, value))
+            if (_repository.VerifyPin(_cardUID, value))
             {
                 OnPinVerified?.Invoke(_cardUID);
             }

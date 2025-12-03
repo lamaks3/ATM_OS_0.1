@@ -26,9 +26,7 @@ public class NfcScannerService
     {
         var process = new Process();
         process.StartInfo.FileName = "adb";
-        process.StartInfo.Arguments = "reverse tcp:5055 tcp:5055";
-        process.StartInfo.CreateNoWindow = true;
-        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.Arguments = "reverse tcp:5055 tcp:5055"; //forward
         process.Start();
         process.WaitForExit();
     }
@@ -52,17 +50,15 @@ public class NfcScannerService
                 string body;
                 using (var reader = new StreamReader(request.InputStream, request.ContentEncoding))
                 {
-                    body = await reader.ReadToEndAsync();
+                    body = reader.ReadToEnd();
                 }
 
                 Console.WriteLine($"Request received: {body}");
-                string uid = "";
 
                 var json = JsonDocument.Parse(body);
-                if (json.RootElement.TryGetProperty("uid", out var uidElement))
+                if (json.RootElement.TryGetProperty("uid", out var uidElement)) //спросить начет var
                 {
-                    uid = uidElement.GetString() ?? "";
-                    SetCardUid(uid);
+                    SetCardUid((uidElement.GetString() ?? "").ToString());
                 }
 
                 string responseString = "{\"result\": \"data recieved\"}";
@@ -76,7 +72,6 @@ public class NfcScannerService
             {
                 Console.WriteLine($"[Error] request failed: {ex.Message}");
             }
-
         }
     }
 }

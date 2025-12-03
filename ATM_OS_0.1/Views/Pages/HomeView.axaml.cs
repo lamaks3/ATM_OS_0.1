@@ -45,8 +45,8 @@ namespace ATM_OS
         private void LoadUserInfo()
         {
             var userNameText = this.FindControl<TextBlock>("UserNameText");
-            var holder = _repository.GetCardHolderByUid(_cardUid);
-            userNameText.Text = $"Welcome, {holder.HolderName.Split(" ")[0]}";
+            var userName = _repository.GetUserName(_cardUid);
+            userNameText.Text = $"Welcome, {userName}!";
         }
 
         private void DepositButton_Click(object sender, RoutedEventArgs e)

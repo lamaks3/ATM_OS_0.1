@@ -34,7 +34,7 @@ namespace ATM_OS
 
         private void LoadBalanceInfo()
         {
-            var holder = _repository.GetCardHolderByUid(_cardUID);
+            var holder = _repository.GetUser(_cardUID);
             if (holder != null)
             {
                 var holderNameText = this.FindControl<TextBlock>("HolderNameText");
