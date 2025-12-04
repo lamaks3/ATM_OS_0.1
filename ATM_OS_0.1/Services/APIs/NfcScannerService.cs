@@ -21,6 +21,11 @@ public class NfcScannerService
     {
         сardUid = num;
     }
+
+    public static void ClearCardUid()
+    {
+        сardUid = string.Empty;
+    }
     
     static void RunAdbReverse()
     {
@@ -38,7 +43,7 @@ public class NfcScannerService
         var listener = new HttpListener();
         listener.Prefixes.Add("http://127.0.0.1:5055/api/nfc/scan/");
         listener.Start();
-        Console.WriteLine("[Server status] Server started successfully");
+        Console.WriteLine("[Server status] Server started");
 
         while (true)
         {
@@ -53,7 +58,7 @@ public class NfcScannerService
                     body = reader.ReadToEnd();
                 }
 
-                Console.WriteLine($"Request received: {body}");
+                Console.WriteLine($"[Server] Request received: {body}");
 
                 var json = JsonDocument.Parse(body);
                 if (json.RootElement.TryGetProperty("uid", out var uidElement)) //спросить начет var

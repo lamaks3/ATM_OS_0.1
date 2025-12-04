@@ -37,65 +37,14 @@ namespace ATM_OS
 
         private void OnWindowLoaded(object sender, EventArgs e)
         {
-            InitializeNfcListener();
             ShowStartView();
-        }
-
-        private void InitializeNfcListener()
-        {
-            Task.Run(async () => await CheckForCards());
-        }
-
-        private async Task CheckForCards()
-        {
-            while (true)
-            {
-                if (IsStartViewActive())
-                {
-                    string cardUid = NfcScannerService.GetCardUid();
-                    
-                    //cardUid = "210bc299"; //for test
-                
-                    if (!string.IsNullOrEmpty(cardUid))
-                    {
-                        var repository = new CardHolderRepository();
-                        if (repository.CardExists(cardUid))
-                        {
-                            Console.WriteLine("[Work with DB] Card found in database");
-                            Console.WriteLine("[Operations with DB] Access granted");
-                            await Dispatcher.UIThread.InvokeAsync(() =>
-                            {
-                                ShowPinView(cardUid);
-                            });
-                        }
-                        else
-                        {
-                            NfcScannerService.SetCardUid(string.Empty);
-                            Console.WriteLine("[Operations with DB] Card NOT found in database");
-                            Console.WriteLine("[Operations with DB] Access denied");
-                        }
-                    }
-                }
-                else
-                {   
-                    NfcScannerService.SetCardUid(string.Empty);
-                }
-            
-                await Task.Delay(500);
-            }
-        }
-        
-        private bool IsStartViewActive()
-        {
-            return Dispatcher.UIThread.Invoke(() => 
-                _mainContent?.Content?.GetType().Name == nameof(StartView)
-            );
         }
         
         private void ShowStartView()
         { 
             _startView = new StartView();
-            
+
+            _startView.CardDetectedAndVerified += ShowPinView;
             _startView.ExitAppRequested += OnExitAppRequested;
             _mainContent.Content = _startView;
         }
