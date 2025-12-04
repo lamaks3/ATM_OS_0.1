@@ -5,20 +5,17 @@
     <Grid Background="#FFDD2D">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="40">
             
-            <!-- Заголовок -->
             <TextBlock Text="Exchange Rates"
                       FontSize="36"
                       FontWeight="Bold"
                       Foreground="#333333"
                       HorizontalAlignment="Center"/>
             
-            <!-- Основная информация о курсах -->
             <Border Background="#BABABA" CornerRadius="15" Padding="30" Width="500">
                 <StackPanel Spacing="0">
                     <Border Background="#333333" CornerRadius="10" Padding="20" Margin="0,0,0,10">
                         <StackPanel Spacing="25">
                             
-                            <!-- Доллар США -->
                             <StackPanel>
                                 <TextBlock Text="US Dollar (USD)"
                                           FontSize="18"
@@ -32,7 +29,6 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     
-                                    <!-- Покупка -->
                                     <StackPanel Grid.Column="0" HorizontalAlignment="Center">
                                         <TextBlock Text="BUY"
                                                   FontSize="14"
@@ -52,7 +48,6 @@
                                                   Margin="0,2,0,0"/>
                                     </StackPanel>
                                     
-                                    <!-- Продажа -->
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                                         <TextBlock Text="SELL"
                                                   FontSize="14"
@@ -74,7 +69,6 @@
                                 </Grid>
                             </StackPanel>
                             
-                            <!-- Евро -->
                             <StackPanel>
                                 <TextBlock Text="Euro (EUR)"
                                           FontSize="18"
@@ -88,7 +82,6 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     
-                                    <!-- Покупка -->
                                     <StackPanel Grid.Column="0" HorizontalAlignment="Center">
                                         <TextBlock Text="BUY"
                                                   FontSize="14"
@@ -108,7 +101,6 @@
                                                   Margin="0,2,0,0"/>
                                     </StackPanel>
                                     
-                                    <!-- Продажа -->
                                     <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                                         <TextBlock Text="SELL"
                                                   FontSize="14"
@@ -130,7 +122,6 @@
                                 </Grid>
                             </StackPanel>
                             
-                            <!-- Время обновления -->
                             <StackPanel>
                                 <TextBlock x:Name="LastUpdateText"
                                           Text=""
@@ -158,7 +149,6 @@
                 </StackPanel>
             </Border>
             
-            <!-- Сообщение об ошибке -->
             <TextBlock x:Name="ErrorText"
                       Text=""
                       FontSize="16"

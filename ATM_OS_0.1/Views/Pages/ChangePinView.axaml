@@ -5,7 +5,6 @@
     <Grid Background="#F6F7F8">
         <StackPanel HorizontalAlignment="Center" >
             
-            <!-- Заголовок -->
             <TextBlock x:Name="TitleText" 
                        Padding="0,20,0,0"
                        Text="Enter Amount"
@@ -14,7 +13,6 @@
                        Foreground="#333333"
                        HorizontalAlignment="Center"/>
             
-            <!-- Сообщение об ошибке -->
             <TextBlock x:Name="ErrorText" 
                        Text=""
                        Padding="0,10,0,0"

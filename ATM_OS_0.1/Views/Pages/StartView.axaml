@@ -3,7 +3,6 @@
              x:Class="ATM_OS.StartView">
     <Grid Background="#F6F7F8">
         
-        <!-- Верхняя панель -->
         <Border Background="#FFDD2D" 
                 Height="200" 
                 VerticalAlignment="Top"
@@ -41,20 +40,17 @@
             </Grid>
         </Border>
         
-        <!-- Центральный контент -->
         <StackPanel VerticalAlignment="Center" 
                     HorizontalAlignment="Center" 
                     Spacing="2">
             
-            <!-- Рекламное изображение -->
                 <Image Source="/Assets/advertisiment1.JPEG" 
                        Width="1200" 
                        Height="600"  
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center"/>
             
-            
-            <!-- Инструкция -->
+                
             <StackPanel HorizontalAlignment="Center" 
                         Spacing="2">
                 <TextBlock Text="Hold your card near" 
@@ -74,7 +70,6 @@
             
         </StackPanel>
         
-        <!-- Нижняя панель -->
         <Border Background="#FFDD2D" 
                 Height="60" 
                 VerticalAlignment="Bottom"

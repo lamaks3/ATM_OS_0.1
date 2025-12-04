@@ -10,7 +10,7 @@ namespace ATM_OS
     public partial class BalanceView : UserControl
     {
         private string _cardUid;
-        private CardHolderRepository _repository;
+        private ATMService _atmService;
 
         
         public event Action<string> OnBackToMainMenu;
@@ -23,7 +23,7 @@ namespace ATM_OS
         public void Initialize(string cardUID)
         {
             _cardUid = cardUID;
-            _repository = new CardHolderRepository();
+            _atmService = new ATMService();
             LoadBalanceInfo();
         }
 
@@ -34,7 +34,7 @@ namespace ATM_OS
 
         private void LoadBalanceInfo()
         {
-            var holder = _repository.GetUser(_cardUid);
+            var holder = _atmService.GetCardHolderInfo(_cardUid);
             if (holder != null)
             {
                 var holderNameText = this.FindControl<TextBlock>("HolderNameText");
@@ -48,7 +48,7 @@ namespace ATM_OS
                 
                 accountNumberText.Text = FormatAccountNumber(holder.NumberOfAccount);
                 
-                balanceAmountText.Text = $"{_repository.GetBalance(_cardUid):N2}";
+                balanceAmountText.Text = $"{_atmService.GetBalance(_cardUid):N2}";
                 
                 currencyText.Text = holder.Currency;
                 

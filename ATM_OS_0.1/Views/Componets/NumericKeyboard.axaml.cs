@@ -24,7 +24,6 @@ namespace ATM_OS
             InitializeComponent();
             InitializeDisplay();
             
-            // Добавляем обработку клавиатуры
             this.Focusable = true;
             this.AddHandler(KeyDownEvent, OnKeyDown, RoutingStrategies.Tunnel);
             this.AttachedToVisualTree += (s, e) => this.Focus();
@@ -48,7 +47,7 @@ namespace ATM_OS
         {
             _currentValue = pinMode ? "" : "0";
             UpdateDisplay();
-            this.Focus(); // Возвращаем фокус после сброса
+            this.Focus();
         }
 
         public void Clean()
@@ -74,8 +73,7 @@ namespace ATM_OS
             }
             OnValueChanged?.Invoke(_currentValue);
         }
-
-        // Обработка ввода с клавиатуры
+        
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key >= Key.D0 && e.Key <= Key.D9)

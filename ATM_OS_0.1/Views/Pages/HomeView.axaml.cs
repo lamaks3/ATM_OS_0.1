@@ -10,7 +10,7 @@ namespace ATM_OS
     public partial class HomeView : UserControl
     {
         private string _cardUid;
-        private CardHolderRepository _repository;
+        private ATMService _atmService;
         
         public enum OperationType
         {
@@ -33,7 +33,7 @@ namespace ATM_OS
         public void Initialize(string cardUid)
         {
             _cardUid = cardUid;
-            _repository = new CardHolderRepository();
+            _atmService = new ATMService();
             LoadUserName();
         }
 
@@ -45,7 +45,7 @@ namespace ATM_OS
         private void LoadUserName()
         {
             var userNameText = this.FindControl<TextBlock>("UserNameText");
-            var userName = _repository.GetUserName(_cardUid);
+            var userName = _atmService.GetUserName(_cardUid);
             userNameText.Text = $"Welcome, {userName}!";
         }
 

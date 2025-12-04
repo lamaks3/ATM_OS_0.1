@@ -61,7 +61,7 @@ namespace ATM_OS
             
             if (_operationType == HomeView.OperationType.Withdraw)
             {
-                if (!_repository.TryPerformTransaction(_cardUid, -amount))
+                if (!_atmService.TryProceedTransaction(_cardUid, amount,_operationType))
                 {
                     ShowError("Insufficient funds");
                     return;
@@ -69,12 +69,12 @@ namespace ATM_OS
             }
             else
             {
-                if (!_repository.TryPerformTransaction(_cardUid, amount))
+                if (!_atmService.TryProceedTransaction(_cardUid, amount,_operationType))
                 {
                     ShowError("Uknown error");
                 };
             }
-            string currency = _repository.GetCurrency(_cardUid);
+            string currency = _atmService.GetCurrency(_cardUid);
             OnAmountConfirmed?.Invoke(_cardUid, _operationType, amount, currency );
         }
         

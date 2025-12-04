@@ -4,20 +4,17 @@
     <Grid Background="#FFDD2D">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="40">
             
-            <!-- Заголовок -->
             <TextBlock Text="Account Balance"
                       FontSize="36"
                       FontWeight="Bold"
                       Foreground="#333333"
                       HorizontalAlignment="Center"/>
             
-            <!-- Основная информация о балансе -->
             <Border Background="#BABABA" CornerRadius="15" Padding="30" Width="500">
                 <StackPanel Spacing="0">
                     <Border Background="#333333" CornerRadius="10" Padding="20" Margin="0,0,0,10">
                         <StackPanel Spacing="20">
                             
-                            <!-- Имя владельца -->
                             <StackPanel>
                                 <TextBlock Text="Account Holder"
                                           FontSize="16"
@@ -32,7 +29,6 @@
                                           Margin="0,5,0,0"/>
                             </StackPanel>
                             
-                            <!-- Номер счета -->
                             <StackPanel>
                                 <TextBlock Text="Account Number"
                                           FontSize="16"
@@ -46,7 +42,6 @@
                                           Margin="0,5,0,0"/>
                             </StackPanel>
                             
-                            <!-- Текущий баланс -->
                             <StackPanel>
                                 <TextBlock Text="Available Balance"
                                           FontSize="18"
@@ -67,7 +62,6 @@
                                           Margin="0,5,0,0"/>
                             </StackPanel>
                             
-                            <!-- Дополнительная информация -->
                             <StackPanel>
                                 <TextBlock x:Name="PaymentSystemText"
                                           Text=""
@@ -100,7 +94,6 @@
                 </StackPanel>
             </Border>
             
-            <!-- Сообщение -->
             <TextBlock x:Name="MessageText"
                       Text=""
                       FontSize="16"

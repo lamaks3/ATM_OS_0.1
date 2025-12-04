@@ -8,7 +8,6 @@
             <RowDefinition Height="Auto"/> 
         </Grid.RowDefinitions>
         
-        <!-- Header -->
         <Border Background="#FFDD2D" 
                 Grid.Row="0"
                 Height="200" 
@@ -29,7 +28,6 @@
             </Grid>
         </Border>
         
-        <!-- Center Content - Operation Result -->
         <Border Grid.Row="1"
                 Background="#F6F7F8"
                 Padding="20">
@@ -37,7 +35,6 @@
                         VerticalAlignment="Center"
                         Spacing="40">
                 
-                <!-- Success/Failure Icon -->
                 <Image Source="/Assets/successOperation.png" 
                        Width="500" 
                        Height="300"
@@ -45,7 +42,6 @@
                        VerticalAlignment="Center"
                        Margin="20,0"/>
                 
-                <!-- Operation Result Message -->
                 <TextBlock x:Name="ResultMessage" 
                           Text="Operation status" 
                           FontSize="60" 
@@ -55,7 +51,6 @@
                           TextAlignment="Center"
                           TextWrapping="Wrap"/>
                 
-                <!-- Operation Details -->
                 <TextBlock x:Name="ResultDetails" 
                           Text="Transaction info" 
                           FontSize="40" 
@@ -68,7 +63,6 @@
             </StackPanel>
         </Border>
         
-        <!-- Buttons Panel -->
         <Border Background="#FFDD2D" 
                 Grid.Row="2"
                 Height="200" 

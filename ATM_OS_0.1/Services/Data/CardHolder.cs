@@ -2,7 +2,6 @@ using ATM_OS;
 
 public class CardHolder
 {
-    private CardHolderRepository _repository;
     public string CardUid { get; set; } = string.Empty;
     public string HolderName { get; set; } = string.Empty;
     public string NumberOfAccount { get; set; } = string.Empty;

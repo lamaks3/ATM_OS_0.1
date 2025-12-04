@@ -22,6 +22,9 @@ public class CardHolderRepository
         command.Parameters.AddWithValue("@cardUid", cardUid);
 
         var result = command.ExecuteScalar();
+        if (result == null || result == DBNull.Value)
+            return default;
+            
         return (T)Convert.ChangeType(result, typeof(T));
     }
 
@@ -37,7 +40,7 @@ public class CardHolderRepository
         command.ExecuteNonQuery();
     }
     
-    public CardHolder GetUser(string cardUid)
+    public CardHolder GetCardHolder(string cardUid)
     {
         if (!CardExists(cardUid)) return null;
         
@@ -64,24 +67,17 @@ public class CardHolderRepository
         return cardHolder;
     }
 
-    public string GetUserName(string cardUid)
+    public void UpdateBalance(string cardUid, double newBalance)
     {
-        string userName = GetUserData<string>(DbScheme.UserName, cardUid).Split(" ")[0];
-        return userName;
-    }
-    public bool TryPerformTransaction(string cardUid, double amount)
-    {
-        int newBalance = (int)((GetBalance(cardUid) + amount)*100);
-        if (newBalance < 0) return false;
-        
-        UpdateUserData(DbScheme.BalanceCents, cardUid, newBalance);
-        return true;
+        int balanceCents = (int)(newBalance * 100);
+        UpdateUserData(DbScheme.BalanceCents, cardUid, balanceCents);
     }
 
-    public void ChangePin(string cardUid, string newPinCode)
+    public void UpdatePin(string cardUid, string newPin)
     {
-        UpdateUserData(DbScheme.PinCode, cardUid, newPinCode);
+        UpdateUserData(DbScheme.PinCode, cardUid, newPin);
     }
+
     public double GetBalance(string cardUid)
     {
         int balance = GetUserData<int>(DbScheme.BalanceCents, cardUid);
@@ -94,6 +90,7 @@ public class CardHolderRepository
         string currency = GetUserData<string>(DbScheme.Currency, cardUid);
         return currency;
     }
+    
     public bool VerifyPin(string cardUid, string enteredPin)
     {
         string pinCode = GetUserData<string>(DbScheme.PinCode, cardUid);
@@ -105,4 +102,5 @@ public class CardHolderRepository
         string userData = GetUserData<string>(DbScheme.CardUid, cardUid);
         return userData != null;
     }
+    
 }

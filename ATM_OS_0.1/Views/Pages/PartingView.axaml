@@ -8,7 +8,6 @@
             <RowDefinition Height="Auto"/> 
         </Grid.RowDefinitions>
         
-        <!-- Header -->
         <Border Background="#FFDD2D" 
                 Grid.Row="0"
                 Height="200" 
@@ -29,7 +28,6 @@
             </Grid>
         </Border>
         
-        <!-- Center Content - Operation Result -->
         <Border Grid.Row="1"
                 Background="#F6F7F8"
                 Padding="40">
@@ -45,7 +43,6 @@
                        Margin="20,0"
                        Stretch="Uniform"/>
                 
-                <!-- Operation Result Message -->
                 <TextBlock x:Name="ResultMessage" 
                           Text="The process is complete! Don't forget your card." 
                           FontSize="50" 
@@ -55,7 +52,6 @@
                           TextAlignment="Center"
                           TextWrapping="Wrap"/>
                 
-                <!-- Operation Details -->
                 <TextBlock x:Name="ResultDetails" 
                           Text="Thanks for using our Bank, we glad to see You soon)" 
                           FontSize="40" 

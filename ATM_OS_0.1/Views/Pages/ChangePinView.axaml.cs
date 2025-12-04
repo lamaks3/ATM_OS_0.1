@@ -49,7 +49,7 @@ namespace ATM_OS
             {
                 if (_tempPin == value)
                 {
-                    _repository.ChangePin(_cardUid, value);
+                    _atmService.ChangePin(_cardUid, value);
                     OnShowPartingView?.Invoke();
                 }
                 else
