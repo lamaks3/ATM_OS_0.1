@@ -69,12 +69,13 @@ public class CardHolderRepository
         string userName = GetUserData<string>(DbScheme.UserName, cardUid).Split(" ")[0];
         return userName;
     }
-    public void UpdateBalance(string cardUid, double amount)
+    public bool TryPerformTransaction(string cardUid, double amount)
     {
         int newBalance = (int)((GetBalance(cardUid) + amount)*100);
-        if (newBalance < 0) return;
+        if (newBalance < 0) return false;
         
-        UpdateUserData(DbScheme.BalanceCents, cardUid, newBalance.ToString());
+        UpdateUserData(DbScheme.BalanceCents, cardUid, newBalance);
+        return true;
     }
 
     public void ChangePin(string cardUid, string newPinCode)

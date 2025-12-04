@@ -85,7 +85,7 @@ namespace ATM_OS
             
             _transactionView.Initialize(cardUid, operationType);
             
-            _transactionView.OnAmountConfirmed += ProcessTransaction;
+            _transactionView.OnAmountConfirmed += ShowContinueOperationView;
             _transactionView.OnBackToOperations += ShowMainMenuView;
             
             _mainContent.Content = _transactionView;
@@ -137,25 +137,6 @@ namespace ATM_OS
             _exchangeCurrencyView = new ExchangeCurrencyView();
             _exchangeCurrencyView.OnBackToMain += () => ShowMainMenuView(cardUid);
             _mainContent.Content = _exchangeCurrencyView;
-            
-        }
-        
-        private void ProcessTransaction(string cardUid, HomeView.OperationType operationType, int amount)
-        {
-            var repository = new CardHolderRepository();
-            
-            if (operationType == HomeView.OperationType.Deposit)
-            {
-                repository.UpdateBalance(cardUid, amount);
-            }
-            else if (operationType == HomeView.OperationType.Withdraw)
-            {
-                repository.UpdateBalance(cardUid, -amount);
-            }
-            
-            string currency = repository.GetCurrency(cardUid);
-            
-            ShowContinueOperationView(cardUid, operationType, amount,currency);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ATM_OS
         private CardHolderRepository _repository;
         private const int MaxAmount = 10000;
         private HomeView.OperationType _operationType;
-        public event Action<string, HomeView.OperationType, int> OnAmountConfirmed;
+        public event Action<string, HomeView.OperationType, int, string> OnAmountConfirmed;
         public event Action<string> OnBackToOperations;
 
         public TransactionView()
@@ -77,15 +77,21 @@ namespace ATM_OS
             
             if (_operationType == HomeView.OperationType.Withdraw)
             {
-                double currentBalance = _repository.GetBalance(_cardUid);
-                if (amount > currentBalance)
+                if (!_repository.TryPerformTransaction(_cardUid, -amount))
                 {
                     ShowError("Insufficient funds");
                     return;
                 }
             }
-            
-            OnAmountConfirmed?.Invoke(_cardUid, _operationType, amount);
+            else
+            {
+                if (!_repository.TryPerformTransaction(_cardUid, amount))
+                {
+                    ShowError("Uknown error");
+                };
+            }
+            string currency = _repository.GetCurrency(_cardUid);
+            OnAmountConfirmed?.Invoke(_cardUid, _operationType, amount, currency );
         }
 
         private void Keyboard_OnClearPressed()
