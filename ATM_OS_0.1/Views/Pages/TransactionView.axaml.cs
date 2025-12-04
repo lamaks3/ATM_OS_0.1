@@ -5,11 +5,9 @@ using Avalonia.Markup.Xaml;
 
 namespace ATM_OS
 {
-    public partial class TransactionView : UserControl
+    public partial class TransactionView : KeyboardViewBase
     {
         
-        private string _cardUid;
-        private CardHolderRepository _repository;
         private const int MaxAmount = 10000;
         private HomeView.OperationType _operationType;
         public event Action<string, HomeView.OperationType, int, string> OnAmountConfirmed;
@@ -20,33 +18,23 @@ namespace ATM_OS
             InitializeComponent();
         }
 
-        public void Initialize(string cardUID, HomeView.OperationType operationType)
+        public void Initialize(string cardUid, HomeView.OperationType operationType)
         {
-            _cardUid = cardUID;
             _operationType = operationType;
-            _repository = new CardHolderRepository();
             string title = "";
-
+            
             if (HomeView.OperationType.Withdraw == _operationType)
             {
-                title += "Withdraw";
+                title = "Withdraw";
             }else if (HomeView.OperationType.Deposit == _operationType)
             {
-                title += "Deposit";
+                title = "Deposit";
             }else if (HomeView.OperationType.PinChange == _operationType)
             {
-                title += "PinChange";
+                title = "PinChange";
             }
-                
-            
-            var titleText = this.FindControl<TextBlock>("TitleText");
-            titleText.Text = title;
-            
-            var keyboard = this.FindControl<NumericKeyboard>("Keyboard");
-            keyboard.Reset();
-            keyboard.SetMaxLength(5); 
-            
-            ClearError();
+
+            CommonInitialize(cardUid, title, 5);
         }
 
         private void InitializeComponent()
@@ -54,11 +42,7 @@ namespace ATM_OS
             AvaloniaXamlLoader.Load(this);
         }
 
-        private void Keyboard_OnValueChanged(string value)
-        {
-            ClearError();
-        }
-
+        
         private void Keyboard_OnValueConfirmed(string value)
         {
             int amount = int.Parse(value);
@@ -93,32 +77,10 @@ namespace ATM_OS
             string currency = _repository.GetCurrency(_cardUid);
             OnAmountConfirmed?.Invoke(_cardUid, _operationType, amount, currency );
         }
-
-        private void Keyboard_OnClearPressed()
-        {
-            ClearError();
-        }
-
-        private void Keyboard_OnBackPressed()
-        {
-            ClearError();
-        }
-
+        
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             OnBackToOperations?.Invoke(_cardUid);
-        }
-
-        private void ShowError(string message)
-        {
-            var errorText = this.FindControl<TextBlock>("ErrorText");
-            errorText.Text = message;
-        }
-
-        private void ClearError()
-        {
-            var errorText = this.FindControl<TextBlock>("ErrorText");
-            errorText.Text = "";
         }
     }
 }

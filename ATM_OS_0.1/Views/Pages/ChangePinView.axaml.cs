@@ -5,12 +5,10 @@ using Avalonia.Markup.Xaml;
 
 namespace ATM_OS
 {
-    public partial class ChangePinView : UserControl
+    public partial class ChangePinView : KeyboardViewBase
     {
-        private string _cardUID;
-        private CardHolderRepository _repository;
-        private const int PIN_LENGTH = 4;
-        private string tempPin;
+        private const int PinLength = 4;
+        private string _tempPin;
         
         public event Action<string> OnBackToMain;
         public event Action OnShowPartingView;
@@ -20,52 +18,38 @@ namespace ATM_OS
             InitializeComponent();
         }
 
-        public void Initialize(string cardUID)
+        public void Initialize(string cardUid)
         {
-            _cardUID = cardUID;
-            _repository = new CardHolderRepository();
-            
-            var titleText = this.FindControl<TextBlock>("TitleText");
-            titleText.Text = "Enter new PIN code";
-            
-            var keyboard = this.FindControl<NumericKeyboard>("Keyboard");
-            keyboard.Reset();
-            keyboard.SetMaxLength(PIN_LENGTH); 
-            keyboard.enablePinMode();
-            
-            ClearError();
+            CommonInitialize(cardUid, "Pin change", PinLength, true);
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
-
-        private void Keyboard_OnValueChanged(string value)
-        {
-            ClearError();
-        }
-
+        
         private void Keyboard_OnValueConfirmed(string value)
         {
-            if (value?.Length != PIN_LENGTH)
+            if (value?.Length != PinLength)
             {
                 ShowError("PIN must be 4 digits");
                 return;
             }
 
-            if (tempPin == null)
+            if (_tempPin == null)
             {
-                tempPin = value;
-                this.FindControl<TextBlock>("TitleText").Text = "Confirm PIN code";
-                this.FindControl<NumericKeyboard>("Keyboard").Reset();
+                _tempPin = value;
+                var titleText = this.FindControl<TextBlock>("TitleText");
+                titleText.Text = "Change Pin";
+                var keyboard = this.FindControl<NumericKeyboard>("Keyboard");
+                keyboard.Reset();
                 ClearError();
             }
             else
             {
-                if (tempPin == value)
+                if (_tempPin == value)
                 {
-                    _repository.ChangePin(_cardUID, value);
+                    _repository.ChangePin(_cardUid, value);
                     OnShowPartingView?.Invoke();
                 }
                 else
@@ -77,31 +61,9 @@ namespace ATM_OS
             }
         }
         
-        private void Keyboard_OnClearPressed()
-        {
-            ClearError();
-        }
-
-        private void Keyboard_OnBackPressed()
-        {
-            ClearError();
-        }
-
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            OnBackToMain?.Invoke(_cardUID);
-        }
-
-        private void ShowError(string message)
-        {
-            var errorText = this.FindControl<TextBlock>("ErrorText");
-            errorText.Text = message;
-        }
-
-        private void ClearError()
-        {
-            var errorText = this.FindControl<TextBlock>("ErrorText");
-            errorText.Text = "";
+            OnBackToMain?.Invoke(_cardUid);
         }
     }
 }
