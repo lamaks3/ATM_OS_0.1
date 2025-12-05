@@ -53,7 +53,7 @@ namespace ATM_OS.Services
                 
                 if (_isScanningActive)
                 {
-                    await Task.Delay(500);
+                    await Task.Delay(AtmConfiguration.CardCheckIntervalMs);
                 }
             }
         }

@@ -78,6 +78,5 @@ namespace ATM_OS
         {
             OnExit?.Invoke();
         }
-        
     }
 }

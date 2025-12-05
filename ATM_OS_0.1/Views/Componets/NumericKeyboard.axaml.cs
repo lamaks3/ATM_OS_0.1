@@ -10,7 +10,7 @@ namespace ATM_OS
     public partial class NumericKeyboard : UserControl
     {
         private string _currentValue = "0";
-        private int maxLegth = 6;
+        private int maxInputLength;
         private TextBlock _displayTextBlock;
         private bool pinMode = false;
         
@@ -58,7 +58,7 @@ namespace ATM_OS
 
         public void SetMaxLength(int _maxLenght)
         {
-            maxLegth = _maxLenght;
+            maxInputLength = _maxLenght;
         }
 
         private void UpdateDisplay()
@@ -114,7 +114,7 @@ namespace ATM_OS
 
         private void AddDigit(char digit)
         {
-            if (_currentValue.Length >= maxLegth) return;
+            if (_currentValue.Length >= maxInputLength) return;
             
             if (_currentValue == "0" && !pinMode)
                 _currentValue = digit.ToString();

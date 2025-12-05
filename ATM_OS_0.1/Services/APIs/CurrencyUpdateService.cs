@@ -9,14 +9,14 @@ namespace ATM_OS
     public class CurrencyUpdateService
     {
         private static readonly HttpClient _httpClient = new HttpClient();
-        public static Dictionary<string, string> _rates = new Dictionary<string, string>
+        private static Dictionary<string, string> _rates = new Dictionary<string, string>
         {
             { "USD_in", "?" },
             { "USD_out", "?" },
             { "EUR_in", "?" },
             { "EUR_out", "?" }
         };
-        public static string _lastUpdate = "Not updated";
+        private static string _lastUpdate = "Not updated";
         
         public static Dictionary<string, string> Rates => _rates;
 
@@ -26,7 +26,7 @@ namespace ATM_OS
         {
             try
             {
-                var url = "https://belarusbank.by/api/kursExchange?city=Гродно";
+                var url = AtmConfiguration.CurrencyApiUrl;
                 var response = await _httpClient.GetStringAsync(url);
 
                 using var jsonDocument = JsonDocument.Parse(response);

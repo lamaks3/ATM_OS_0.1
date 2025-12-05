@@ -10,7 +10,7 @@ namespace ATM_OS
         protected string _cardUid;
         protected ATMService _atmService;
         
-        protected void CommonInitialize(string cardUid, string title, int inputLength, bool enablePinMode = false)
+        protected void CommonInitialize(string cardUid, string title, bool enablePinMode = false)
         {
             _cardUid = cardUid;
             _atmService = new ATMService();
@@ -20,7 +20,7 @@ namespace ATM_OS
             
             var keyboard = this.FindControl<NumericKeyboard>("Keyboard");
             keyboard.Reset();
-            keyboard.SetMaxLength(inputLength); 
+            keyboard.SetMaxLength(enablePinMode ? AtmConfiguration.PinLength : AtmConfiguration.TransactionInputLength);
             
             if (enablePinMode)
             {

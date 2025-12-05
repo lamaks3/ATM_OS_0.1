@@ -7,7 +7,6 @@ namespace ATM_OS
 {
     public partial class ChangePinView : KeyboardViewBase
     {
-        private const int PinLength = 4;
         private string _tempPin;
         
         public event Action<string> OnBackToMain;
@@ -20,7 +19,7 @@ namespace ATM_OS
 
         public void Initialize(string cardUid)
         {
-            CommonInitialize(cardUid, "Pin change", PinLength, true);
+            CommonInitialize(cardUid, "Pin change", true);
         }
 
         private void InitializeComponent()
@@ -30,7 +29,7 @@ namespace ATM_OS
         
         private void Keyboard_OnValueConfirmed(string value)
         {
-            if (value?.Length != PinLength)
+            if (value?.Length != AtmConfiguration.PinLength)
             {
                 ShowError("PIN must be 4 digits");
                 return;

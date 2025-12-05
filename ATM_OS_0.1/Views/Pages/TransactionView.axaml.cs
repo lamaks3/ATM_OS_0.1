@@ -8,7 +8,7 @@ namespace ATM_OS
     public partial class TransactionView : KeyboardViewBase
     {
         
-        private const int MaxAmount = 10000;
+        private const int MaxAmount = AtmConfiguration.MaxTransactionAmount;
         private HomeView.OperationType _operationType;
         public event Action<string, HomeView.OperationType, int, string> OnAmountConfirmed;
         public event Action<string> OnBackToOperations;
@@ -34,7 +34,7 @@ namespace ATM_OS
                 title = "PinChange";
             }
 
-            CommonInitialize(cardUid, title, 5);
+            CommonInitialize(cardUid, title);
         }
 
         private void InitializeComponent()

@@ -41,7 +41,7 @@ public class NfcScannerService
 
         RunAdbReverse();
         var listener = new HttpListener();
-        listener.Prefixes.Add("http://127.0.0.1:5055/api/nfc/scan/");
+        listener.Prefixes.Add(AtmConfiguration.NfcServerUrl);
         listener.Start();
         Console.WriteLine("[Server status] Server started");
 

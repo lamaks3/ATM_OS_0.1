@@ -118,7 +118,8 @@ namespace ATM_OS
             _changePinView.Initialize(cardUid);
             
             _changePinView.OnBackToMain += ShowMainMenuView;
-            _changePinView.OnShowPartingView += () => ShowContinueOperationView(cardUid, HomeView.OperationType.PinChange, 0, "");;
+            _changePinView.OnShowPartingView += () => ShowContinueOperationView(cardUid, 
+                HomeView.OperationType.PinChange, 0, "");;
             
             _mainContent.Content = _changePinView;
         }
@@ -127,7 +128,8 @@ namespace ATM_OS
         {
             _partingView = new PartingView();
             
-            DispatcherTimer.RunOnce(() => ShowStartView(), TimeSpan.FromSeconds(7));
+            DispatcherTimer.RunOnce(() => ShowStartView(), 
+                TimeSpan.FromSeconds(AtmConfiguration.PartingViewDelaySeconds));
             
             _mainContent.Content = _partingView;
         }
