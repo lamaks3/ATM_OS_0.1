@@ -18,16 +18,23 @@
                        Padding="0,10,0,0"
                        FontSize="18"
                        Foreground="#D32F2F"
-                       HorizontalAlignment="Center"
-                       />
+                       HorizontalAlignment="Center"/>
             
             <Border VerticalAlignment="Center" Padding="20"/>
-                <local:NumericKeyboard x:Name="Keyboard"
-                                       OnValueChanged="Keyboard_OnValueChanged"
-                                       OnValueConfirmed="Keyboard_OnValueConfirmed"
-                                       OnClearPressed="Keyboard_OnClearPressed"
-                                       OnBackPressed="Keyboard_OnBackPressed"/>
+            <local:NumericKeyboard x:Name="Keyboard"
+                                   OnValueChanged="Keyboard_OnValueChanged"
+                                   OnValueConfirmed="Keyboard_OnValueConfirmed"
+                                   OnClearPressed="Keyboard_OnClearPressed"
+                                   OnBackPressed="Keyboard_OnBackPressed"/>
             
+            <TextBlock x:Name="BanknotesText"
+                       Margin="0,30,0,20"
+                       Padding="20,15"
+                       FontSize="18"
+                       Foreground="#2E7D32"
+                       HorizontalAlignment="Center"
+                       TextWrapping="Wrap"
+                       MaxWidth="400"/>
             
             <Button Content="Back to Operations" 
                     Click="BackButton_Click"

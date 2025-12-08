@@ -1,15 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using ATMProject;
 
 namespace ATM_OS
 {
     public partial class TransactionView : KeyboardViewBase
     {
-        
         private const int MaxAmount = AtmConfiguration.MaxTransactionAmount;
         private HomeView.OperationType _operationType;
+        private string _currency;
+        
         public event Action<string, HomeView.OperationType, int, string> OnAmountConfirmed;
         public event Action<string> OnBackToOperations;
 
@@ -21,20 +25,15 @@ namespace ATM_OS
         public void Initialize(string cardUid, HomeView.OperationType operationType)
         {
             _operationType = operationType;
-            string title = "";
+            _currency = new AtmOperations().GetCurrency(cardUid);
             
-            if (HomeView.OperationType.Withdraw == _operationType)
-            {
-                title = "Withdraw";
-            }else if (HomeView.OperationType.Deposit == _operationType)
-            {
-                title = "Deposit";
-            }else if (HomeView.OperationType.PinChange == _operationType)
-            {
-                title = "PinChange";
-            }
-
+            string title = _operationType == HomeView.OperationType.Withdraw ? "Withdraw" : "Deposit";
             CommonInitialize(cardUid, title);
+            
+            if (_operationType == HomeView.OperationType.Withdraw)
+            {
+                UpdateAvailableBanknotesDisplay();
+            }
         }
 
         private void InitializeComponent()
@@ -42,7 +41,42 @@ namespace ATM_OS
             AvaloniaXamlLoader.Load(this);
         }
 
-        
+        private void UpdateAvailableBanknotesDisplay()
+        {
+            var banknotesText = this.FindControl<TextBlock>("BanknotesText");
+            if (banknotesText == null) return;
+            
+            CashHandler.Currency currencyEnum = _currency switch
+            {
+                "BYN" => CashHandler.Currency.BYN,
+                "USD" => CashHandler.Currency.USD,
+                "EUR" => CashHandler.Currency.EUR,
+                _ => CashHandler.Currency.BYN
+            };
+            
+            var banknotes = CashHandler.GetBanknotes(currencyEnum);
+            
+            var banknoteStrings = new List<string>();
+            banknoteStrings.Add("Available banknotes");
+            
+            foreach (var kvp in banknotes.OrderByDescending(x => x.Key))
+            {
+                if (kvp.Value > 0)
+                {
+                    banknoteStrings.Add($"{kvp.Key} {_currency}×{kvp.Value}");
+                }
+            }
+            
+            if (banknoteStrings.Count == 1)
+            {
+                banknotesText.Text = "No banknotes available";
+            }
+            else
+            {
+                banknotesText.Text = string.Join(" | ", banknoteStrings);
+            }
+        }
+
         private void Keyboard_OnValueConfirmed(string value)
         {
             int amount = int.Parse(value);
@@ -61,21 +95,45 @@ namespace ATM_OS
             
             if (_operationType == HomeView.OperationType.Withdraw)
             {
-                if (!_atmService.TryProceedTransaction(_cardUid, amount,_operationType))
+                CashHandler.Currency currencyEnum = _currency switch
                 {
-                    ShowError("Insufficient funds");
+                    "BYN" => CashHandler.Currency.BYN,
+                    "USD" => CashHandler.Currency.USD,
+                    "EUR" => CashHandler.Currency.EUR,
+                };
+                
+                try
+                {
+                    var banknotesToWithdraw = CashHandler.WithdrawAmountGreedy(currencyEnum, amount);
+                    
+                    if (!new AtmOperations().TryProceedTransaction(_cardUid, amount, _operationType))
+                    {
+                        foreach (var kvp in banknotesToWithdraw)
+                        {
+                            CashHandler.AddBanknotes(currencyEnum, kvp.Key, kvp.Value);
+                        }
+                        ShowError("Insufficient funds");
+                        return;
+                    }
+                    
+                    UpdateAvailableBanknotesDisplay();
+                }
+                catch
+                {
+                    ShowError("Cannot withdraw this amount with available banknotes");
                     return;
                 }
             }
             else
             {
-                if (!_atmService.TryProceedTransaction(_cardUid, amount,_operationType))
+                if (!new AtmOperations().TryProceedTransaction(_cardUid, amount, _operationType))
                 {
-                    ShowError("Uknown error");
-                };
+                    ShowError("Transaction failed");
+                    return;
+                }
             }
-            string currency = _atmService.GetCurrency(_cardUid);
-            OnAmountConfirmed?.Invoke(_cardUid, _operationType, amount, currency );
+            
+            OnAmountConfirmed?.Invoke(_cardUid, _operationType, amount, _currency);
         }
         
         private void BackButton_Click(object sender, RoutedEventArgs e)

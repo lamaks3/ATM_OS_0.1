@@ -39,6 +39,9 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/ContinueOperationView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/DepositView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [/Users/lamaks/RiderProjects/ATM_OS_0.1/ATM_OS_0.1/Views/Pages/ExchangeCurrencyView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

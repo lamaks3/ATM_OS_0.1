@@ -61,7 +61,7 @@ public class NfcScannerService
                 Console.WriteLine($"[Server] Request received: {body}");
 
                 var json = JsonDocument.Parse(body);
-                if (json.RootElement.TryGetProperty("uid", out var uidElement)) //спросить начет var
+                if (json.RootElement.TryGetProperty("uid", out var uidElement))
                 {
                     SetCardUid((uidElement.GetString() ?? "").ToString());
                 }

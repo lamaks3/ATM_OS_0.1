@@ -17,6 +17,7 @@ namespace ATM_OS
         private ContinueOperationView _continueOperationView;
         private PartingView _partingView;
         private ChangePinView _changePinView;
+        private DepositView _depositView;
         private ExchangeCurrencyView _exchangeCurrencyView;
         
         private ContentControl _mainContent;
@@ -72,11 +73,24 @@ namespace ATM_OS
             
             _mainMenuView.OnExit += ShowPartingView;
             _mainMenuView.OnTransactionRequested += ShowTransactionView; 
+            _mainMenuView.OnDepositRequested += ShowDepositView; 
             _mainMenuView.OnViewBalance += ShowBalanceView;
             _mainMenuView.OnChangePin += ShowChangePinView;
             _mainMenuView.OnExchangeCurrency += ShowExchangeCurrencyView;
             
             _mainContent.Content = _mainMenuView;
+        }
+        
+        private void ShowDepositView(string cardUid)
+        {
+            _depositView = new DepositView();
+            
+            _depositView.Initialize(cardUid);
+            
+            _depositView.OnAmountConfirmed += ShowContinueOperationView;
+            _depositView.OnBackToOperations += ShowMainMenuView;
+            
+            _mainContent.Content = _depositView;
         }
         
         private void ShowTransactionView(string cardUid, HomeView.OperationType operationType)

@@ -10,7 +10,7 @@ namespace ATM_OS
     public partial class HomeView : UserControl
     {
         private string _cardUid;
-        private ATMService _atmService;
+        private AtmOperations _atmOperations;
         
         public enum OperationType
         {
@@ -23,6 +23,7 @@ namespace ATM_OS
         public event Action<string,OperationType> OnTransactionRequested; 
         public event Action<string> OnViewBalance; 
         public event Action<string> OnChangePin; 
+        public event Action<string> OnDepositRequested; 
         public event Action<string> OnExchangeCurrency;
 
         public HomeView()
@@ -33,7 +34,7 @@ namespace ATM_OS
         public void Initialize(string cardUid)
         {
             _cardUid = cardUid;
-            _atmService = new ATMService();
+            _atmOperations = new AtmOperations();
             LoadUserName();
         }
 
@@ -45,13 +46,13 @@ namespace ATM_OS
         private void LoadUserName()
         {
             var userNameText = this.FindControl<TextBlock>("UserNameText");
-            var userName = _atmService.GetUserName(_cardUid);
+            var userName = _atmOperations.GetUserName(_cardUid);
             userNameText.Text = $"Welcome, {userName}!";
         }
 
         private void DepositButton_Click(object sender, RoutedEventArgs e)
         {
-            OnTransactionRequested?.Invoke(_cardUid,OperationType.Deposit);
+            OnDepositRequested?.Invoke(_cardUid);
         }
 
         private void WithdrawButton_Click(object sender, RoutedEventArgs e)

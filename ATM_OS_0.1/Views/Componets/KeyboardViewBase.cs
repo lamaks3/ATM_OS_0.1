@@ -8,12 +8,12 @@ namespace ATM_OS
     public abstract class KeyboardViewBase : UserControl
     {
         protected string _cardUid;
-        protected ATMService _atmService;
+        protected AtmOperations AtmOperations;
         
         protected void CommonInitialize(string cardUid, string title, bool enablePinMode = false)
         {
             _cardUid = cardUid;
-            _atmService = new ATMService();
+            AtmOperations = new AtmOperations();
             
             var titleText = this.FindControl<TextBlock>("TitleText");
             titleText.Text = title;

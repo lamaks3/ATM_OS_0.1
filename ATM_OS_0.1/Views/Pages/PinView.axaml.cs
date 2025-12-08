@@ -34,7 +34,7 @@ namespace ATM_OS
                 return;
             }
 
-            if (_atmService.VerifyPin(_cardUid, value))
+            if (AtmOperations.VerifyPin(_cardUid, value))
             {
                 OnPinVerified?.Invoke(_cardUid);
             }

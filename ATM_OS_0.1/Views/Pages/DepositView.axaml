@@ -1,0 +1,271 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ATM_OS"
+             x:Class="ATM_OS.DepositView">
+    <Grid Background="#F6F7F8">
+        <ScrollViewer>
+            <StackPanel HorizontalAlignment="Center" Margin="0,20,0,20">
+                
+                <TextBlock x:Name="TitleText" 
+                           Text="Insert Banknotes"
+                           FontSize="36"
+                           FontWeight="Bold"
+                           Foreground="#333333"
+                           HorizontalAlignment="Center"/>
+                
+                <TextBlock x:Name="SubtitleText"
+                           Text="Click to add banknotes"
+                           FontSize="20"
+                           Foreground="#666666"
+                           HorizontalAlignment="Center"
+                           Margin="0,10,0,20"/>
+                
+                <TextBlock x:Name="CurrencyText"
+                           Text="BYN"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           Foreground="#333333"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10"/>
+                
+                <TextBlock x:Name="ErrorText" 
+                           Text=""
+                           FontSize="18"
+                           Foreground="#D32F2F"
+                           HorizontalAlignment="Center"
+                           Margin="0,10,0,10"
+                           />
+                
+                <Border Background="#FFDD2D" 
+                        CornerRadius="15" 
+                        Padding="30,20"
+                        Margin="0,0,0,30">
+                    <StackPanel>
+                        <TextBlock Text="Total Deposit:"
+                                   FontSize="20"
+                                   Foreground="#333333"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="TotalText"
+                                   Text="0 BYN"
+                                   FontSize="32"
+                                   FontWeight="Bold"
+                                   Foreground="#333333"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,5,0,0"/>
+                    </StackPanel>
+                </Border>
+                
+                <TextBlock Text="Add Banknotes:"
+                           FontSize="22"
+                           FontWeight="SemiBold"
+                           Foreground="#333333"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,15"/>
+                
+                <WrapPanel HorizontalAlignment="Center" 
+                           Margin="0,0,0,20"
+                           MaxWidth="600">
+                    
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <Button x:Name="Btn1" 
+                                    Content="1"
+                                    Tag="1"
+                                    Click="AmountButton_Click"
+                                    Width="120" Height="90" 
+                                    Background="White" Foreground="#333333" 
+                                    BorderBrush="#4CAF50" BorderThickness="2"
+                                    CornerRadius="10"
+                                    FontSize="26" FontWeight="Bold"
+                                    IsVisible="False"/>
+                            
+                            <TextBlock x:Name="Count1Text"
+                                       Text="×0"
+                                       FontSize="16"
+                                       Foreground="#666666"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"
+                                       IsVisible="False"/>
+                        </StackPanel>
+                        
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <Button x:Name="Btn5" 
+                                    Content="5"
+                                    Tag="5"
+                                    Click="AmountButton_Click"
+                                    Width="120" Height="90" 
+                                    Background="White" Foreground="#333333" 
+                                    BorderBrush="#4CAF50" BorderThickness="2"
+                                    CornerRadius="10"
+                                    FontSize="26" FontWeight="Bold"/>
+                            <TextBlock x:Name="Count5Text"
+                                       Text="×0"
+                                       FontSize="16"
+                                       Foreground="#666666"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                        
+                        
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <Button x:Name="Btn10" 
+                                    Content="10"
+                                    Tag="10"
+                                    Click="AmountButton_Click"
+                                    Width="120" Height="90" 
+                                    Background="White" Foreground="#333333" 
+                                    BorderBrush="#4CAF50" BorderThickness="2"
+                                    CornerRadius="10"
+                                    FontSize="26" FontWeight="Bold"/>
+                            <TextBlock x:Name="Count10Text"
+                                       Text="×0"
+                                       FontSize="16"
+                                       Foreground="#666666"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                        
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <Button x:Name="Btn20" 
+                                    Content="20"
+                                    Tag="20"
+                                    Click="AmountButton_Click"
+                                    Width="120" Height="90" 
+                                    Background="White" Foreground="#333333" 
+                                    BorderBrush="#4CAF50" BorderThickness="2"
+                                    CornerRadius="10"
+                                    FontSize="26" FontWeight="Bold"/>
+                            <TextBlock x:Name="Count20Text"
+                                       Text="×0"
+                                       FontSize="16"
+                                       Foreground="#666666"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <Button x:Name="Btn50" 
+                                    Content="50"
+                                    Tag="50"
+                                    Click="AmountButton_Click"
+                                    Width="120" Height="90" 
+                                    Background="White" Foreground="#333333" 
+                                    BorderBrush="#4CAF50" BorderThickness="2"
+                                    CornerRadius="10"
+                                    FontSize="26" FontWeight="Bold"/>
+                            <TextBlock x:Name="Count50Text"
+                                       Text="×0"
+                                       FontSize="16"
+                                       Foreground="#666666"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                        
+                        
+                        <StackPanel Margin="10" HorizontalAlignment="Center">
+                            <Button x:Name="Btn100" 
+                                    Content="100"
+                                    Tag="100"
+                                    Click="AmountButton_Click"
+                                    Width="120" Height="90" 
+                                    Background="White" Foreground="#333333" 
+                                    BorderBrush="#4CAF50" BorderThickness="2"
+                                    CornerRadius="10"
+                                    FontSize="26" FontWeight="Bold"/>
+                            <TextBlock x:Name="Count100Text"
+                                       Text="×0"
+                                       FontSize="16"
+                                       Foreground="#666666"
+                                       HorizontalAlignment="Center"
+                                       Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="10" HorizontalAlignment="Center">
+                        <Button x:Name="Btn200" 
+                                Content="200"
+                                Tag="200"
+                                Click="AmountButton_Click"
+                                Width="120" Height="90" 
+                                Background="White" Foreground="#333333" 
+                                BorderBrush="#4CAF50" BorderThickness="2"
+                                CornerRadius="10"
+                                FontSize="26" FontWeight="Bold"
+                                IsVisible="False"/>
+                        <TextBlock x:Name="Count200Text"
+                                   Text="×0"
+                                   FontSize="16"
+                                   Foreground="#666666"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,5,0,0"
+                                   IsVisible="False"/>
+                    </StackPanel>
+                    
+                    <StackPanel Margin="10" HorizontalAlignment="Center">
+                        <Button x:Name="Btn500" 
+                                Content="500"
+                                Tag="500"
+                                Click="AmountButton_Click"
+                                Width="120" Height="90" 
+                                Background="White" Foreground="#333333" 
+                                BorderBrush="#4CAF50" BorderThickness="2"
+                                CornerRadius="10"
+                                FontSize="26" FontWeight="Bold"
+                                IsVisible="False"/>
+                        <TextBlock x:Name="Count500Text"
+                                   Text="×0"
+                                   FontSize="16"
+                                   Foreground="#666666"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,5,0,0"
+                                   IsVisible="False"/>
+                    </StackPanel>
+                    
+                </WrapPanel>
+                
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            Margin="0,20,0,30"
+                            Spacing="20">
+                    <Button Content="Reset" 
+                            Click="ResetButton_Click"
+                            Background="#FFDD2D"
+                            Foreground="#333333"
+                            BorderBrush="#FFDD2D"
+                            BorderThickness="2"
+                            FontSize="20"
+                            Width="180" Height="60"
+                            CornerRadius="10"/>
+                    
+                    <Button Content="Confirm Deposit" 
+                            Click="ConfirmButton_Click"
+                            Background="#4CAF50"
+                            Foreground="White"
+                            BorderBrush="#4CAF50"
+                            BorderThickness="2"
+                            FontSize="20"
+                            Width="180" Height="60"
+                            CornerRadius="10"/>
+                </StackPanel>
+                
+                <Button Content="Back to Operations" 
+                        Click="BackButton_Click"
+                        Background="Transparent"
+                        Foreground="#333333"
+                        BorderBrush="#333333"
+                        BorderThickness="2"
+                        FontSize="20"
+                        Height="60"
+                        CornerRadius="10"
+                        Padding="20,10"
+                        HorizontalAlignment="Center"/>
+                
+                
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
