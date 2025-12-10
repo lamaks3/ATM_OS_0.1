@@ -1,4 +1,5 @@
 using System;
+using ATM_OS_DB;
 
 namespace ATM_OS;
 
@@ -78,9 +79,5 @@ public class AtmOperations
         var user = _repository.GetCardHolder(cardUid);
         return user.HolderName.Split(" ")[0]; 
     }
-
-    public static void LoadRates()
-    {
-        _ =CurrencyUpdateService.PreloadRatesAsync();
-    }
+    
 }

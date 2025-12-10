@@ -65,7 +65,7 @@
         
         <Border Background="#FFDD2D" 
                 Grid.Row="2"
-                Height="200" 
+                Height="150" 
                 Padding="0,15">
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center"

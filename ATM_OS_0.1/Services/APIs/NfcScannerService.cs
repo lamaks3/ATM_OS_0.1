@@ -5,19 +5,21 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 using System.Text.Json;
+using ATM_OS_Configuration;
+using ATM_OS;
 
-namespace ATM_OS;
+namespace ATM_OS_services;
 
 public class NfcScannerService
 {
-    private static string сardUid { get; set; } 
+    private static string сardUid;
     
     public static string GetCardUid()
     {
         return сardUid;
     }
     
-    public static void SetCardUid(string num)
+    private static void SetCardUid(string num)
     {
         сardUid = num;
     }

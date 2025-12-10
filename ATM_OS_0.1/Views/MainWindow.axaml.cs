@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
 using System.Threading.Tasks;
+using ATM_OS_Configuration;
 using Avalonia;
 using Avalonia.Threading;
 
@@ -115,10 +116,10 @@ namespace ATM_OS
             _mainContent.Content = _balanceView;
         }
 
-        private void ShowContinueOperationView(string cardUid, HomeView.OperationType operationType, int amount, string currency)
+        private void ShowContinueOperationView(string cardUid, HomeView.OperationType operationType, string text, string currency)
         {
             _continueOperationView = new ContinueOperationView();
-            _continueOperationView.Initialize(operationType, amount,currency);
+            _continueOperationView.Initialize(operationType, text,currency);
             
             _continueOperationView.OnBackToMainMenu += () => ShowMainMenuView(cardUid);
             _continueOperationView.OnShowPartingView += ShowPartingView;
@@ -133,7 +134,7 @@ namespace ATM_OS
             
             _changePinView.OnBackToMain += ShowMainMenuView;
             _changePinView.OnShowPartingView += () => ShowContinueOperationView(cardUid, 
-                HomeView.OperationType.PinChange, 0, "");;
+                HomeView.OperationType.PinChange, "0", "");;
             
             _mainContent.Content = _changePinView;
         }

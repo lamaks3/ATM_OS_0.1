@@ -20,14 +20,6 @@
                            HorizontalAlignment="Center"
                            Margin="0,10,0,20"/>
                 
-                <TextBlock x:Name="CurrencyText"
-                           Text="BYN"
-                           FontSize="24"
-                           FontWeight="SemiBold"
-                           Foreground="#333333"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,10"/>
-                
                 <TextBlock x:Name="ErrorText" 
                            Text=""
                            FontSize="18"

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ATM_OS_Configuration;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using ATMProject;
 
 namespace ATM_OS
 {
@@ -14,7 +14,7 @@ namespace ATM_OS
         private HomeView.OperationType _operationType;
         private string _currency;
         
-        public event Action<string, HomeView.OperationType, int, string> OnAmountConfirmed;
+        public event Action<string, HomeView.OperationType, string, string> OnAmountConfirmed;
         public event Action<string> OnBackToOperations;
 
         public TransactionView()
@@ -80,6 +80,7 @@ namespace ATM_OS
         private void Keyboard_OnValueConfirmed(string value)
         {
             int amount = int.Parse(value);
+            string result = "";
             
             if (amount == 0)
             {
@@ -102,27 +103,30 @@ namespace ATM_OS
                     "EUR" => CashHandler.Currency.EUR,
                 };
                 
-                try
+                
+                var banknotesToWithdraw = CashHandler.WithdrawAmountGreedy(currencyEnum, amount);
+                
+                if (banknotesToWithdraw != null)
                 {
-                    var banknotesToWithdraw = CashHandler.WithdrawAmountGreedy(currencyEnum, amount);
-                    
-                    if (!new AtmOperations().TryProceedTransaction(_cardUid, amount, _operationType))
-                    {
-                        foreach (var kvp in banknotesToWithdraw)
-                        {
-                            CashHandler.AddBanknotes(currencyEnum, kvp.Key, kvp.Value);
-                        }
-                        ShowError("Insufficient funds");
-                        return;
-                    }
-                    
-                    UpdateAvailableBanknotesDisplay();
-                }
-                catch
+                    result = string.Join(", ", banknotesToWithdraw.Select(kvp => $"{kvp.Value} × {kvp.Key} "));
+                    result += ($"= {amount}");
+                }else
                 {
                     ShowError("Cannot withdraw this amount with available banknotes");
                     return;
                 }
+                
+                if (!new AtmOperations().TryProceedTransaction(_cardUid, amount, _operationType))
+                {
+                    foreach (var kvp in banknotesToWithdraw)
+                    {
+                        CashHandler.AddBanknotes(currencyEnum, kvp.Key, kvp.Value);
+                    }
+                    ShowError("Insufficient funds");
+                    return;
+                }
+                
+                UpdateAvailableBanknotesDisplay();
             }
             else
             {
@@ -133,12 +137,13 @@ namespace ATM_OS
                 }
             }
             
-            OnAmountConfirmed?.Invoke(_cardUid, _operationType, amount, _currency);
+            OnAmountConfirmed?.Invoke(_cardUid, _operationType, result, _currency);
         }
         
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             OnBackToOperations?.Invoke(_cardUid);
         }
+        
     }
 }

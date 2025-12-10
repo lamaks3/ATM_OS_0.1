@@ -2,7 +2,6 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using ATMProject;
 using System.Collections.Generic;
 
 namespace ATM_OS
@@ -15,7 +14,7 @@ namespace ATM_OS
         private int _totalDepositAmount = 0;
         private Dictionary<int, int> _depositedBanknotes = new Dictionary<int, int>();
         
-        public event Action<string, HomeView.OperationType, int, string> OnAmountConfirmed;
+        public event Action<string, HomeView.OperationType, string, string> OnAmountConfirmed;
         public event Action<string> OnBackToOperations;
 
         public DepositView()
@@ -136,12 +135,13 @@ namespace ATM_OS
                     CashHandler.AddBanknotes(currencyEnum, kvp.Key, kvp.Value);
                 }
             }
-
+            
             _atmOperations.TryProceedTransaction(_cardUid, _totalDepositAmount, HomeView.OperationType.Deposit);
+
+            string totalDeposit = _totalDepositAmount.ToString();
             
-            OnAmountConfirmed?.Invoke(_cardUid, HomeView.OperationType.Deposit, _totalDepositAmount, _currency);
+            OnAmountConfirmed?.Invoke(_cardUid, HomeView.OperationType.Deposit, totalDeposit, _currency);
             
-            // Сбрасываем состояние
             ResetDeposit();
         }
 

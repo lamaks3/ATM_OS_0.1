@@ -27,7 +27,7 @@ namespace ATM_OS
             _resultDetails = this.FindControl<TextBlock>("ResultDetails");
         }
         
-        public void Initialize(HomeView.OperationType operationType, int amount,string currency)
+        public void Initialize(HomeView.OperationType operationType, string text,string currency)
         {
             if (_resultMessage != null && _resultDetails != null)
             {
@@ -35,11 +35,11 @@ namespace ATM_OS
                 
                 if (HomeView.OperationType.Deposit == operationType)
                 {
-                    _resultDetails.Text = $"{amount} {currency} deposited successfully";
+                    _resultDetails.Text = $"{text} deposited successfully";
                 }
                 else if (HomeView.OperationType.Withdraw == operationType)
                 {
-                    _resultDetails.Text = $"{amount} {currency} was withdrawn successfully";
+                    _resultDetails.Text = $"{text} {currency} was withdrawn successfully";
                 }
                 else if (HomeView.OperationType.PinChange == operationType)
                 {

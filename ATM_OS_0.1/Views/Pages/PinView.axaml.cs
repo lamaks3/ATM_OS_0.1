@@ -1,4 +1,5 @@
 using System;
+using ATM_OS_Configuration;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
