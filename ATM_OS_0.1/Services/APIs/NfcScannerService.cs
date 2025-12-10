@@ -7,24 +7,26 @@ using System.Diagnostics;
 using System.Text.Json;
 using ATM_OS_Configuration;
 using ATM_OS;
+using ATM_OS.Business.Interfaces.Repositories;
 
 namespace ATM_OS_services;
 
-public class NfcScannerService
+public class NfcScannerService : INfcScannerService
 {
     private static string сardUid;
+    private HttpListener _listener;
     
-    public static string GetCardUid()
+    public string GetCardUid()
     {
         return сardUid;
     }
     
-    private static void SetCardUid(string num)
+    private void SetCardUid(string num)
     {
         сardUid = num;
     }
 
-    public static void ClearCardUid()
+    public void ClearCardUid()
     {
         сardUid = string.Empty;
     }
@@ -38,20 +40,20 @@ public class NfcScannerService
         process.WaitForExit();
     }
 
-    public static async Task StartServer()
+    public async Task StartScanner()
     {
 
         RunAdbReverse();
-        var listener = new HttpListener();
-        listener.Prefixes.Add(AtmConfiguration.NfcServerUrl);
-        listener.Start();
+        _listener = new HttpListener();
+        _listener.Prefixes.Add(AtmConfiguration.NfcServerUrl);
+        _listener.Start();
         Console.WriteLine("[Server status] Server started");
 
         while (true)
         {
             try
             {
-                var context = await listener.GetContextAsync();
+                var context = await _listener.GetContextAsync();
                 var request = context.Request;
 
                 string body;
@@ -80,5 +82,12 @@ public class NfcScannerService
                 Console.WriteLine($"[Error] request failed: {ex.Message}");
             }
         }
+    }
+    
+    public void StopScanner()
+    {
+        _listener?.Stop();
+        _listener?.Close();
+        Console.WriteLine("[NFC Scanner] Stopped");
     }
 }

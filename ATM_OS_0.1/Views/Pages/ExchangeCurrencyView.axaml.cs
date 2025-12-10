@@ -29,13 +29,13 @@ namespace ATM_OS
             var errorText = this.FindControl<TextBlock>("ErrorText");
 
             
-            usdInText.Text = CurrencyUpdateService.Rates["USD_in"];
-            usdOutText.Text = CurrencyUpdateService.Rates["USD_out"];
-            eurInText.Text = CurrencyUpdateService.Rates["EUR_in"];
-            eurOutText.Text = CurrencyUpdateService.Rates["EUR_out"];
-            lastUpdateText.Text = CurrencyUpdateService.LastUpdate;
+            usdInText.Text = AtmService.GetRates()["USD_in"];
+            usdOutText.Text = AtmService.GetRates()["USD_out"];
+            eurInText.Text = AtmService.GetRates()["EUR_in"];
+            eurOutText.Text = AtmService.GetRates()["EUR_out"];
+            lastUpdateText.Text = AtmService.GetUpdateRatesTime();
             
-            errorText.IsVisible = CurrencyUpdateService.Rates["USD_in"] == "?"; 
+            errorText.IsVisible = usdInText.Text == "?"; 
             if (errorText.IsVisible)
             {
                 errorText.Text = "Failed to load exchange rates";

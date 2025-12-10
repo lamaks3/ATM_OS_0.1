@@ -4,8 +4,10 @@ using System.Linq;
 using ATM_OS_Cash_Storage;
 
 namespace ATM_OS;
+
 public static class CashHandler
 {
+    
     public enum Currency
     {
         BYN = 0,

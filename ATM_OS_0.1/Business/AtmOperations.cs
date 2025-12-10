@@ -1,11 +1,12 @@
 using System;
 using ATM_OS_DB;
+using ATM_OS.Business.Interfaces.Repositories;
 
 namespace ATM_OS;
 
 public class AtmOperations
 {
-    private readonly CardHolderRepository _repository;
+    private readonly ICardHolderRepository _repository;
 
     public AtmOperations(string dbPath = DbScheme.DatabaseFile)
     {

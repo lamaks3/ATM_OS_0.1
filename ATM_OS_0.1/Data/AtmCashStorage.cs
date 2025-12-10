@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using ATM_OS.Business.Interfaces.Storage;
 
 namespace ATM_OS_Cash_Storage;
 
-public class ATMStorage
+public class ATMStorage : IATMStorage
 {
     private Dictionary<int, int> banknotes;
     private readonly string filename;

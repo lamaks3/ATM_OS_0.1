@@ -4,13 +4,14 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using ATM_OS_Configuration;
+using ATM_OS.Business.Interfaces.Services;
 
 namespace ATM_OS_services;
 
-public class CurrencyUpdateService
+public class CurrencyUpdateService : ICurrencyService
 {
-    private static readonly HttpClient _httpClient = new HttpClient();
-    private static Dictionary<string, string> _rates = new Dictionary<string, string>
+    private readonly HttpClient _httpClient = new HttpClient();
+    private Dictionary<string, string> _rates = new Dictionary<string, string>
     {
         { "USD_in", "?" },
         { "USD_out", "?" },
@@ -19,11 +20,17 @@ public class CurrencyUpdateService
     };
     private static string _lastUpdate = "Not updated";
     
-    public static Dictionary<string, string> Rates => _rates;
+    public Dictionary<string, string> GetRates()
+    {
+        return _rates;
+    }
 
-    public static string LastUpdate  => _lastUpdate;
+    public string GetLastUpdateTime()
+    {
+        return _lastUpdate;
+    } 
     
-    public static async Task PreloadRatesAsync()
+    public async Task LoadRatesAsync()
     {
         try
         {

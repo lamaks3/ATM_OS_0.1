@@ -1,9 +1,10 @@
 using Microsoft.Data.Sqlite;
 using System;
+using ATM_OS.Business.Interfaces.Repositories;
 
 namespace ATM_OS_DB;
 
-public class CardHolderRepository
+public class CardHolderRepository : ICardHolderRepository
 {
     private readonly string _connectionString;
 
