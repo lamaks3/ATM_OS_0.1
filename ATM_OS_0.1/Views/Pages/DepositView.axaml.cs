@@ -124,8 +124,7 @@ namespace ATM_OS
             {
                 "BYN" => CashHandler.Currency.BYN,
                 "USD" => CashHandler.Currency.USD,
-                "EUR" => CashHandler.Currency.EUR,
-                _ => CashHandler.Currency.BYN
+                "EUR" => CashHandler.Currency.EUR
             };
             
             foreach (var kvp in _depositedBanknotes)
@@ -141,8 +140,6 @@ namespace ATM_OS
             string totalDeposit = _totalDepositAmount.ToString();
             
             OnAmountConfirmed?.Invoke(_cardUid, HomeView.OperationType.Deposit, totalDeposit, _currency);
-            
-            ResetDeposit();
         }
 
         private void ResetButton_Click(object sender, RoutedEventArgs e)
