@@ -25,17 +25,26 @@ public static class CashHandler
             { Currency.EUR, new[] { 5, 10, 20, 50, 100, 200} }
         };
         
-        foreach (Currency currency in System.Enum.GetValues(typeof(Currency)))
+        foreach (Currency currency in Enum.GetValues(typeof(Currency)))
         {
             string filename = $"storage/{currency}_atm.json";
             System.IO.Directory.CreateDirectory("storage"); 
             storages[currency] = new ATMStorage(filename, denominations[currency]);
         }
     }
-    
-    public static void AddBanknotes(Currency currency, int denomination, int count)
+
+    public static void SaveInfo(Currency currency)
     {
-        storages[currency].AddBanknotes(denomination, count);
+        storages[currency].SaveToFile();
+    }
+
+    public static void AddBanknotes(Currency currency, Dictionary<int, int> banknotes)
+    {
+        foreach (KeyValuePair<int, int> banknote in banknotes)
+        {
+            storages[currency].AddBanknotes(banknote.Key, banknote.Value);
+        }
+        SaveInfo(currency);
     }
     
     public static void WithdrawBanknotes(Currency currency, int denomination, int count)
@@ -85,6 +94,7 @@ public static class CashHandler
             {
                 WithdrawBanknotes(currency, kvp.Key, kvp.Value);
             }
+            SaveInfo(currency);
             return result;
         }
         else

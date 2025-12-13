@@ -43,7 +43,7 @@ public class ATMStorage : IATMStorage
         }
     }
 
-    private void SaveToFile()
+    public void SaveToFile()
     {
         string json = JsonSerializer.Serialize(banknotes, new JsonSerializerOptions
         {
@@ -55,13 +55,11 @@ public class ATMStorage : IATMStorage
     public void AddBanknotes(int denomination, int count)
     {
         banknotes[denomination] += count;
-        SaveToFile();
     }
 
     public void WithdrawBanknotes(int denomination, int count)
     {
         banknotes[denomination] -= count;
-        SaveToFile();
     }
     
     public Dictionary<int, int> GetAllBanknotes()

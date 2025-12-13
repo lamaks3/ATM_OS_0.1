@@ -127,13 +127,16 @@ namespace ATM_OS
                 "EUR" => CashHandler.Currency.EUR
             };
             
+            var banknotesToSend = new Dictionary<int, int>();
             foreach (var kvp in _depositedBanknotes)
             {
                 if (kvp.Value > 0)
                 {
-                    CashHandler.AddBanknotes(currencyEnum, kvp.Key, kvp.Value);
+                    banknotesToSend.Add(kvp.Key, kvp.Value);
                 }
             }
+            
+            CashHandler.AddBanknotes(currencyEnum, banknotesToSend);
             
             _atmOperations.TryProceedTransaction(_cardUid, _totalDepositAmount, HomeView.OperationType.Deposit);
 
