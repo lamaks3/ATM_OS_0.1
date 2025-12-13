@@ -53,6 +53,7 @@ namespace ATM_OS
 
         private void OnExitAppRequested()
         {
+            AtmService.StopService();
             Environment.Exit(0);
         }
 

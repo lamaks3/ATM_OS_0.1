@@ -7,7 +7,6 @@ namespace ATM_OS;
 
 public static class CashHandler
 {
-    
     public enum Currency
     {
         BYN = 0,

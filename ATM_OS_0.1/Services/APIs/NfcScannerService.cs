@@ -15,6 +15,7 @@ public class NfcScannerService : INfcScannerService
 {
     private static string сardUid;
     private HttpListener _listener;
+    private bool _isListening = true;
     
     public string GetCardUid()
     {
@@ -49,10 +50,11 @@ public class NfcScannerService : INfcScannerService
         _listener.Start();
         Console.WriteLine("[Server status] Server started");
 
-        while (true)
+        while (_isListening)
         {
             try
             {
+                if (!_isListening) return;
                 var context = await _listener.GetContextAsync();
                 var request = context.Request;
 
@@ -67,7 +69,7 @@ public class NfcScannerService : INfcScannerService
                 var json = JsonDocument.Parse(body);
                 if (json.RootElement.TryGetProperty("uid", out var uidElement))
                 {
-                    SetCardUid((uidElement.GetString() ?? "").ToString());
+                    SetCardUid(uidElement.GetString() ?? "");
                 }
 
                 string responseString = "{\"result\": \"data recieved\"}";
@@ -79,13 +81,14 @@ public class NfcScannerService : INfcScannerService
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[Error] request failed: {ex.Message}");
+                Console.WriteLine($"[NFC Scanner] request failed: {ex.Message}");
             }
         }
     }
     
     public void StopScanner()
     {
+        _isListening = false;
         _listener?.Stop();
         _listener?.Close();
         Console.WriteLine("[NFC Scanner] Stopped");

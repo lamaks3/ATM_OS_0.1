@@ -43,4 +43,9 @@ public class AtmService
     {
         return _currencyUpdateService.GetLastUpdateTime();
     }
+
+    public static void StopService()
+    {
+        _nfcScanner.StopScanner();
+    }
 }
