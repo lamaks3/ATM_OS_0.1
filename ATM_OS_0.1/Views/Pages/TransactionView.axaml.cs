@@ -118,10 +118,7 @@ namespace ATM_OS
                 
                 if (!new AtmOperations().TryProceedTransaction(_cardUid, amount, _operationType))
                 {
-                    foreach (var kvp in banknotesToWithdraw)
-                    {
-                        CashHandler.AddBanknotes(currencyEnum, kvp.Key, kvp.Value);
-                    }
+                    CashHandler.AddBanknotes(currencyEnum, banknotesToWithdraw);
                     ShowError("Insufficient funds");
                     return;
                 }
