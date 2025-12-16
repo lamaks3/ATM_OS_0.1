@@ -36,8 +36,8 @@ namespace ATM_OS.Services
                 //cardUid = "0124c499";
                 if (!string.IsNullOrEmpty(cardUid))
                 {
-                    var repository = new CardHolderRepository();
-                    if (repository.CardExists(cardUid))
+                    var operations = new AtmOperations();
+                    if (operations.IsCardValid(cardUid))
                     {
                         Console.WriteLine("[Work with DB] Card found in database");
                         

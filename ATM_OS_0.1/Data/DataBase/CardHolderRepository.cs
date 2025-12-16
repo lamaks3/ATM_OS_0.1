@@ -43,29 +43,54 @@ public class CardHolderRepository : ICardHolderRepository
     
     public CardHolder GetCardHolder(string cardUid)
     {
-        if (!CardExists(cardUid)) return null;
+        using var connection = new SqliteConnection(_connectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
         
-        string cardUidData = GetUserData<string>(DbScheme.CardUid, cardUid);
-        string holderName = GetUserData<string>(DbScheme.UserName, cardUid);
-        string numberOfAccount = GetUserData<string>(DbScheme.AccountNumber, cardUid);
-        string paymentSystem = GetUserData<string>(DbScheme.PaymentSystem, cardUid);
-        string currency = GetUserData<string>(DbScheme.Currency, cardUid);
-        string expireDate = GetUserData<string>(DbScheme.ExpireDate, cardUid);
-        string balanceStr = GetUserData<string>(DbScheme.BalanceCents, cardUid);
+        command.CommandText = $@"
+            SELECT 
+                [{DbScheme.CardUid}], 
+                [{DbScheme.UserName}], 
+                [{DbScheme.AccountNumber}], 
+                [{DbScheme.PaymentSystem}], 
+                [{DbScheme.Currency}], 
+                [{DbScheme.ExpireDate}], 
+                [{DbScheme.BalanceCents}]
+            FROM {DbScheme.UsersTable} 
+            WHERE [{DbScheme.CardUid}] = @cardUid";
+        command.Parameters.AddWithValue("@cardUid", cardUid);
         
-        double balanceCents = double.Parse(balanceStr);
-        
-        var cardHolder = new CardHolder(
-            cardUid: cardUidData,
-            holderName: holderName,
-            number: numberOfAccount,
-            paymentSystem: paymentSystem,
-            currency: currency,
-            expireDate: expireDate,
-            balance: balanceCents
-        );
-    
-        return cardHolder;
+        using var reader = command.ExecuteReader();
+        if (reader.Read())
+        {
+            string uid = reader[DbScheme.CardUid].ToString();
+            string holderName = reader[DbScheme.UserName].ToString();
+            string number = reader[DbScheme.AccountNumber].ToString();
+            string paymentSystem = reader[DbScheme.PaymentSystem].ToString();
+            string currency = reader[DbScheme.Currency].ToString();
+            string expireDate = reader[DbScheme.ExpireDate].ToString();
+            
+            var balanceRaw = reader[DbScheme.BalanceCents];
+            double balance = 0;
+            
+            if (balanceRaw != DBNull.Value)
+            {
+                double.TryParse(balanceRaw.ToString(), out double cents);
+                balance = cents; 
+            }
+
+            return new CardHolder(
+                cardUid: uid,
+                holderName: holderName,
+                number: number,
+                paymentSystem: paymentSystem,
+                currency: currency,
+                expireDate: expireDate,
+                balance: balance
+            );
+        }
+        return null;
     }
 
     public void UpdateBalance(string cardUid, double newBalance)

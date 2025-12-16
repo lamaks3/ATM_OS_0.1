@@ -33,7 +33,7 @@ public static class CashHandler
         }
     }
 
-    public static void SaveInfo(Currency currency)
+    private static void SaveInfo(Currency currency)
     {
         storages[currency].SaveToFile();
     }
@@ -47,9 +47,10 @@ public static class CashHandler
         SaveInfo(currency);
     }
     
-    public static void WithdrawBanknotes(Currency currency, int denomination, int count)
+    private static void WithdrawBanknotes(Currency currency, int denomination, int count)
     {
         storages[currency].WithdrawBanknotes(denomination, count);
+        SaveInfo(currency);
     }
     
     public static Dictionary<int, int> GetBanknotes(Currency currency)
@@ -66,7 +67,6 @@ public static class CashHandler
         var denominations = availableBanknotes
             .Where(kvp => kvp.Value > 0)
             .OrderByDescending(kvp => kvp.Key) 
-            .ThenByDescending(kvp => kvp.Value)
             .Select(kvp => kvp.Key)
             .ToList();
         

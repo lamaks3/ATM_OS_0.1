@@ -80,5 +80,9 @@ public class AtmOperations
         var user = _repository.GetCardHolder(cardUid);
         return user.HolderName.Split(" ")[0]; 
     }
-    
+
+    public bool IsCardValid(string cardUid)
+    {
+        return _repository.CardExists(cardUid);
+    }
 }
